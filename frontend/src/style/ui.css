@@ -1,0 +1,43 @@
+.btn {
+  padding: 15px 50px;
+  border-radius: 5px;
+  border: 2px solid #0979e9;
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  transition: all 0.3s ease-in-out;
+  background-color: #0979e9;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+  background-color: #ffffff;
+  border: 2px solid #0979e9;
+  color: #0979e9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.btn.accept {
+  background-color: green;
+  border: 2px solid green;
+  color: #ffffff;
+}
+
+.btn.accept:hover {
+  background-color: #ffffff;
+  color: green;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 2px solid green;
+}
+
+.btn.decline {
+  background-color: red;
+  border: 2px solid red;
+  color: #ffffff;
+}
+.btn.decline:hover {
+  background-color: #ffffff;
+  color: red;
+  border: 2px solid red;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

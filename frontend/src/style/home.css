@@ -1,0 +1,293 @@
+.HomeMain {
+  width: 100%;
+  height: 100%;
+  font-family: "Roboto", sans-serif;
+  position: relative;
+}
+.HomeTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 15px 5%;
+  height: 170px;
+  background-color: #f8fafc;
+}
+.HomeLogo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+.HomeLogo img {
+  width: 100px;
+  height: 100px;
+  border-radius: 20px;
+}
+.HomeLogo p {
+  font-family: "Roboto", sans-serif;
+  color: #000000;
+}
+.HomeSearch {
+  width: 40%;
+}
+.HomeSearch input {
+  width: 100%;
+  height: 60px;
+  border-radius: 20px;
+  border: none;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 0 20px;
+  font-family: "Roboto", sans-serif;
+}
+.HomeProfil {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 15%;
+  align-items: center;
+}
+.HomeProfilName {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+}
+.HomeProfilName:hover {
+  cursor: pointer;
+  background-color: #0979e9;
+  border-radius: 10px;
+}
+.HomeProfilName img {
+  width: 60px;
+  height: 60px;
+  border-radius: 20px;
+}
+.HomeProfilDescription {
+  position: absolute;
+  background-color: #f8fafc;
+  top: 100%;
+  right: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 0;
+  border-radius: 10px;
+  z-index: 800;
+}
+.HomeProfilDescriptionTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+.HomeProfilDescriptionTitle img {
+  width: 60px;
+  height: 60px;
+}
+.HomeProfilDescriptionTitle:hover {
+  background-color: #0979e9;
+  border-radius: 10px;
+  width: 100%;
+  cursor: pointer;
+}
+.HomeCategorySelect {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 10px 50px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.HomeCategorySelect.act {
+  background-color: #0979e9;
+}
+.HomeCategorySelect:hover {
+  background-color: #0979e9;
+}
+.HomeCategorySelect img {
+  width: 50px;
+  height: 50px;
+}
+.HomeCategoryCard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  position: relative;
+}
+.HomeCategoryCard::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  left: 0;
+  bottom: -5px;
+  background-color: #0979e9;
+  transition: width 0.3s ease-in-out;
+  border-radius: 5px;
+}
+.HomeCategoryCard:hover::after {
+  width: calc(100% + 10px);
+}
+.HomeCategoryCard img {
+  width: 60px;
+  height: 60px;
+}
+.HomeCategoryCard p {
+  text-transform: capitalize;
+}
+.NumberCard {
+  position: absolute;
+  display: flex;
+  left: 30%;
+  top: 5%;
+}
+.NumberCard span {
+  border-radius: 50%;
+  background-color: #0979e9;
+  padding: 5px 10px;
+}
+.HomeCategory {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 15px 5%;
+  overflow-y: auto;
+}
+.SearchElement {
+  width: 100%;
+  padding: 15px 10%;
+  background-color: honeydew;
+  position: absolute;
+  top: 170px;
+  height: 420px;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+.SearchElementCard {
+  background-color: red;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 10px;
+  justify-content: center;
+  padding: 10px 0;
+  text-align: center;
+}
+.SearchElementCardElementCard {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  gap: 10px;
+  width: 100%;
+}
+.SearchElementCardElementCard img {
+  width: 60px;
+  height: 60px;
+}
+.SearchElementCardElementCard:hover {
+  width: 100%;
+  background-color: #0979e9;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.Footer {
+  width: 100%;
+
+  height: 500px;
+  position: relative;
+}
+.FooterImage {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.FooterImage img {
+  width: 100%;
+  height: 100%;
+}
+.Footer .HomeCategory p {
+  color: white;
+}
+.Footer .HomeCategory {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 40px;
+  width: 100%;
+  justify-content: space-between;
+  padding: 15px 20%;
+  overflow-y: auto;
+}
+
+/* Style du conteneur Swiper*/
+.HomeSwiperContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+  /*background-color: #0f0f0f;
+  background-image: radial-gradient(#222 1px, transparent 1px);
+  */
+  background-size: 40px 40px;
+  margin: 30px 0;
+}
+
+.homeSwiper {
+  width: 90%;
+  max-width: 1200px;
+  height: 550px;
+  position: relative;
+  padding: 20px 0;
+}
+
+.homeSwiper .swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  transition: transform 0.5s ease;
+  background: transparent; /* Pas de fond */
+}
+
+.homeSwiper .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+  display: block;
+}
+.homeSwiper .swiper-pagination-bullet {
+  background: white;
+  opacity: 0.5;
+}
+
+.homeSwiper .swiper-pagination-bullet-active {
+  opacity: 1;
+  background: white;
+}
+.HomeMenu {
+  display: flex;
+  gap: 80px;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+.SelectionCategory {
+  width: 100%;
+  height: calc(100% - 270px);
+}

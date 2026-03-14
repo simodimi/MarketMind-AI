@@ -1,0 +1,115 @@
+.ImmobilierMain {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.ImmobilierMainItem {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  background-color: #f8fafc;
+  overflow-y: auto;
+  padding: 10px 0;
+  height: 100%;
+  scrollbar-width: thin;
+  cursor: pointer;
+}
+.ImmobilierMainItemElement {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  width: 100%;
+  margin: 5px 0;
+  padding: 10px 0;
+  padding-left: 10%;
+  border-radius: 10px;
+}
+.ImmobilierMainItemElement.active {
+  background-color: #0979e9;
+}
+.ImmobilierMainItemElement:hover {
+  background-color: #0979e9;
+}
+.ImmobilierMainItemElement img {
+  width: 60px;
+  height: 60px;
+}
+.ImmobilierMainPhoto {
+  width: calc(100% - 250px);
+  height: auto;
+  overflow-y: auto;
+  padding: 20px 5%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(1fr, 1fr));
+  gap: 20px;
+}
+.MaisonMainItem:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+.MaisonMainItem {
+  display: flex;
+  background-color: #0979e9;
+  width: 100%;
+  margin: 30px 0;
+  border: 1px solid #0979e9;
+  border-radius: 10px;
+  padding: 10px;
+  gap: 20px;
+  transition: all 0.3s ease-in-out;
+}
+.PrincipalPhoto {
+  width: 600px;
+  height: 400px;
+  border-radius: 10px;
+  object-fit: cover;
+  cursor: pointer;
+}
+.MaisonMainItemPhoto {
+  position: relative;
+}
+.MaisonHealth {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 10px;
+}
+.MaisonHealth img {
+  width: 40px;
+  height: 40px;
+  display: none;
+  cursor: pointer;
+}
+.MaisonShow {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  gap: 10px;
+}
+.MaisonShow img {
+  width: 40px;
+  height: 40px;
+  display: none;
+}
+.MaisonMainItemDescribe {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+}
+.MaisonMainItemDescribe span {
+  font-weight: bold;
+}
+.MaisonMainItemDescribe #text {
+  text-align: justify;
+  word-break: normal;
+}
+.MaisonMainItem:hover .MaisonHealth img {
+  display: block;
+}
+.MaisonMainItem:hover .MaisonShow img {
+  display: block;
+}

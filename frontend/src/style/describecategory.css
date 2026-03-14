@@ -1,0 +1,62 @@
+.DescribeItem {
+  display: flex;
+  flex-direction: column;
+  background-color: #0979e9;
+  width: 100%;
+  margin: 30px 0;
+  border: 1px solid #0979e9;
+  border-radius: 10px;
+  padding: 10px 50px;
+  gap: 20px;
+  transition: all 0.3s ease-in-out;
+}
+.PrincipalPhoto {
+  width: 600px;
+  height: 400px;
+  border-radius: 10px;
+  object-fit: cover;
+  cursor: pointer;
+}
+.DescribeItemPhoto {
+  height: 540px;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  align-items: center;
+}
+.Photorepo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.Photorepo img {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.PrincipalDescribePhoto {
+  width: auto;
+  height: 540px;
+}
+.PrincipalDescribePhoto img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: scale-down;
+  cursor: pointer;
+}
+
+.DescribeItemDescribe {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+}
+.DescribeItemDescribe span {
+  font-weight: bold;
+}
+.DescribeItemDescribe #text {
+  text-align: justify;
+  word-break: normal;
+}
