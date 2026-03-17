@@ -7,6 +7,7 @@ import profil from "../assets/icone/profil.png";
 import { Categories } from "../store/Frontbdd";
 import "../style/home.css";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import Button from "../ui/Button";
 const Categorie = () => {
   const [AfficheProfil, setAfficheProfil] = useState<boolean>(false);
   const [search, setSearch] = useState<string>(Categories[0].name);
@@ -63,6 +64,10 @@ const Categorie = () => {
           </div>
           <div className="HomeCategoryCard">
             <img src={noname} alt="" />
+            <p>Like</p>
+          </div>
+          <div className="HomeCategoryCard">
+            <img src={noname} alt="" />
             <p>Panier</p>
             <div className="NumberCard">
               <span>0</span>
@@ -108,6 +113,7 @@ const Categorie = () => {
           </Link>
         ))}
       </div>
+
       <div className="SelectionCategory">{<Outlet />}</div>
     </div>
   );

@@ -113,3 +113,105 @@
 .MaisonMainItem:hover .MaisonShow img {
   display: block;
 }
+.MaisonMain {
+  position: relative;
+}
+.ButtonFilter {
+  width: 300px;
+  height: 500px;
+  position: absolute;
+  right: -5%;
+  top: -10px;
+  z-index: 9999 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.FiltreOption {
+  background-color: gray;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.FiltreOption form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.FiltreOption1 p:first-child {
+  font-weight: bold;
+}
+.FiltreOption1 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.FilterOptionRooms {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.FilterOptionRooms p {
+  background-color: #0979e9;
+  border: 2px solid #0979e9;
+  border-radius: 5px;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.FilterOptionRooms p.active {
+  background-color: #ffffff;
+  color: #0979e9;
+  border: 2px solid #0979e9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.FilterOptionRooms p:hover {
+  background-color: #ffffff;
+  color: #0979e9;
+  border: 2px solid #0979e9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.FilterOptionRoomx {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.FilterOptionRoomItem {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.FilterOptionRoomItem input {
+  display: flex;
+  margin: 0;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+.FilterOptionRoomItem span {
+  color: green;
+}
+.FilterValid {
+  display: flex;
+  justify-content: center;
+}
+.FiltreOption1 {
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+}
+.errorsearch {
+  color: red;
+  font-weight: bold;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+}
+.ShowItemsFilter {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}

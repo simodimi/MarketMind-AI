@@ -5,9 +5,17 @@ import img2 from "../../assets/icone/oncoeur.png";
 import img3 from "../../assets/icone/oeil.png";
 import "../../style/category.css";
 import { Link } from "react-router-dom";
+import Button from "@mui/material/Button";
 const Appartement = () => {
+  const [open, setOpen] = React.useState(false);
   return (
     <div className="MaisonMain">
+      <div className="ButtonFilter">
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Button onClick={() => setOpen((prev) => !prev)}>Filtre</Button>
+        </div>
+        {open && <div className="FiltreOption"></div>}
+      </div>
       {maisonsData.map((p) => (
         <Link to={`/categories/immobilier/describe/${p.nom}`} key={p.id}>
           <div className="MaisonMainItem">

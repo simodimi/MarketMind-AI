@@ -146,6 +146,8 @@ export interface Maison {
   video?: string;
   localisation?: string;
   autrechoses?: string;
+  meuble?: string;
+  date?: string;
 }
 
 export const maisonsData: Maison[] = [
@@ -166,6 +168,8 @@ export const maisonsData: Maison[] = [
     img3: I3,
     img4: I4,
     img5: I5,
+    meuble: "Oui",
+    date: "2026-01-05",
   },
   {
     id: 2,
@@ -186,6 +190,8 @@ export const maisonsData: Maison[] = [
     img3: I3,
     img4: I4,
     img5: I5,
+    meuble: "Oui",
+    date: "2026-05-01",
   },
   {
     id: 3,
@@ -206,6 +212,8 @@ export const maisonsData: Maison[] = [
     img3: I3,
     img4: I4,
     img5: I5,
+    meuble: "Oui",
+    date: "2026-01-01",
   },
   {
     id: 4,
@@ -226,6 +234,8 @@ export const maisonsData: Maison[] = [
     img3: I3,
     img4: I4,
     img5: I5,
+    meuble: "Oui",
+    date: "2026-02-15",
   },
   {
     id: 5,
@@ -246,6 +256,8 @@ export const maisonsData: Maison[] = [
     img3: I3,
     img4: I4,
     img5: I5,
+    meuble: "Non",
+    date: "2026-03-01",
   },
   {
     id: 6,
@@ -266,5 +278,7 @@ export const maisonsData: Maison[] = [
     img3: I3,
     img4: I4,
     img5: I5,
+    meuble: "Non",
+    date: "2026-03-15",
   },
 ];
