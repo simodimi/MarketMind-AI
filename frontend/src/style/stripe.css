@@ -1,0 +1,210 @@
+/* Styles généraux */
+.stripe-form {
+  max-width: 550px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.stripe-amount {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  color: white;
+}
+
+.stripe-amount h3 {
+  margin: 0;
+  font-size: 24px;
+}
+
+/* Sélecteur de méthode de paiement */
+.payment-methods {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.payment-method-btn {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.payment-method-btn.active {
+  border-color: #ff6b6b;
+  background: #fff5f5;
+  color: #ff6b6b;
+}
+
+.payment-method-btn:hover:not(.active) {
+  border-color: #ff6b6b;
+  background: #fafafa;
+}
+
+/* Zone des éléments Stripe */
+.stripe-elements {
+  margin-bottom: 20px;
+  min-height: 300px;
+}
+
+/* Bouton de paiement */
+.stripe-button {
+  width: 100%;
+  padding: 14px;
+  font-size: 18px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.stripe-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.stripe-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Messages d'erreur */
+.stripe-error {
+  color: #df1b41;
+  background: #ffe6e9;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Sécurisé */
+.stripe-secure {
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+  margin-top: 20px;
+}
+
+/* Loading */
+.stripe-loading {
+  text-align: center;
+  padding: 40px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 20px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #ff6b6b;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Modal */
+.stripe-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.stripe-modal-content {
+  background: white;
+  border-radius: 20px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stripe-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #666;
+  z-index: 10;
+  transition: color 0.2s;
+}
+
+.stripe-modal-close:hover {
+  color: #ff6b6b;
+}
+
+/* Succès */
+.stripe-success {
+  text-align: center;
+  padding: 40px;
+}
+
+.stripe-success h3 {
+  color: #2ecc71;
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.stripe-success p {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .stripe-form {
+    padding: 15px;
+  }
+
+  .payment-methods {
+    flex-direction: column;
+  }
+
+  .stripe-amount h3 {
+    font-size: 20px;
+  }
+}

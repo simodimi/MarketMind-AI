@@ -29,20 +29,29 @@
   flex-direction: column;
   gap: 10px;
 }
-.Photorepo img {
+.Photoslide {
   width: 100px;
   height: 100px;
   border-radius: 10px;
+  background-color: white;
+  overflow: hidden;
+}
+.Photoslide img {
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down !important;
   cursor: pointer;
 }
 .PrincipalDescribePhoto {
   width: auto;
   height: 540px;
+  background-color: white;
+  border-radius: 10px;
 }
 .PrincipalDescribePhoto img {
   width: 100%;
   height: 100%;
-  border-radius: 10px;
+
   object-fit: scale-down;
   cursor: pointer;
 }

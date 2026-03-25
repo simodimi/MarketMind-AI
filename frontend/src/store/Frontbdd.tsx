@@ -37,6 +37,12 @@ import I3 from "../assets/picturetest/I3.jpg";
 import I4 from "../assets/picturetest/I4.jpg";
 import I5 from "../assets/picturetest/I5.jpg";
 import I6 from "../assets/picturetest/I6.jpg";
+//ordinateur
+import O1 from "../assets/picturetest/ordi1.jpg";
+import O2 from "../assets/picturetest/ordi2.jpg";
+import O3 from "../assets/picturetest/ordi3.jpg";
+import O4 from "../assets/picturetest/ordi4.jpg";
+import O5 from "../assets/picturetest/ordi5.jpg";
 export interface Categories {
   id: number;
   name: string;
@@ -55,7 +61,12 @@ export const Categories: Categories[] = [
   },
   { id: 2, name: "Auto", photo: A2, link: "/categories/auto" },
   { id: 3, name: "Mode", photo: A3, link: "/categories/mode" },
-  { id: 4, name: "électronique", photo: A4, link: "/categories/electronique" },
+  {
+    id: 4,
+    name: "electronique",
+    photo: A4,
+    link: "/categories/electronique/ordinateur",
+  },
   { id: 7, name: "Emploi", photo: A7, link: "/categories/emploi" },
   { id: 8, name: "Autres", photo: A8, link: "/categories/autre" },
 ];
@@ -95,10 +106,25 @@ export const Elements: Element = {
     { id: 4, name: "Autre", photo: A8, link: "immobilier" },
   ],
   Electronique: [
-    { id: 1, name: "Ordinateur", photo: A16, link: "immobilier" },
-    { id: 2, name: "téléphone", photo: A17, link: "immobilier" },
-    { id: 3, name: "froid et chauffage", photo: A18, link: "immobilier" },
-    { id: 4, name: "Autre", photo: A8, link: "immobilier" },
+    {
+      id: 1,
+      name: "Ordinateur",
+      photo: A16,
+      link: "/categories/electronique/ordinateur",
+    },
+    {
+      id: 2,
+      name: "téléphone",
+      photo: A17,
+      link: "/categories/electronique/telephone",
+    },
+    {
+      id: 3,
+      name: "froid et chauffage",
+      photo: A18,
+      link: "/categories/electronique/froid",
+    },
+    { id: 4, name: "Autre", photo: A8, link: "/categories/electronique/autre" },
   ],
 
   Emploi: [
@@ -148,6 +174,7 @@ export interface Maison {
   autrechoses?: string;
   meuble?: string;
   date?: string;
+  category?: string;
 }
 
 export const maisonsData: Maison[] = [
@@ -170,6 +197,7 @@ export const maisonsData: Maison[] = [
     img5: I5,
     meuble: "Oui",
     date: "2026-01-05",
+    category: "Maison",
   },
   {
     id: 2,
@@ -192,6 +220,7 @@ export const maisonsData: Maison[] = [
     img5: I5,
     meuble: "Oui",
     date: "2026-05-01",
+    category: "Maison",
   },
   {
     id: 3,
@@ -214,6 +243,7 @@ export const maisonsData: Maison[] = [
     img5: I5,
     meuble: "Oui",
     date: "2026-01-01",
+    category: "Maison",
   },
   {
     id: 4,
@@ -236,6 +266,7 @@ export const maisonsData: Maison[] = [
     img5: I5,
     meuble: "Oui",
     date: "2026-02-15",
+    category: "Maison",
   },
   {
     id: 5,
@@ -258,6 +289,7 @@ export const maisonsData: Maison[] = [
     img5: I5,
     meuble: "Non",
     date: "2026-03-01",
+    category: "Maison",
   },
   {
     id: 6,
@@ -280,5 +312,66 @@ export const maisonsData: Maison[] = [
     img5: I5,
     meuble: "Non",
     date: "2026-03-15",
+    category: "Maison",
+  },
+];
+export const ordinateurs: Maison[] = [
+  {
+    id: 1,
+    prix: 1899,
+    nom: "ASUS ROG Strix G16",
+    description:
+      "Ordinateur portable gamer ultra-performant doté d'un écran de 16 pouces au taux de rafraîchissement de 240 Hz. Il est équipé d'un processeur Intel Core i9-13980HX, d'une carte graphique NVIDIA GeForce RTX 4080 avec 12 Go de VRAM, de 32 Go de RAM DDR5 et d'un SSD NVMe de 1 To. Son système de refroidissement à triple ventilateur garantit des performances stables lors des sessions de jeu les plus intenses. La connectivité inclut Wi-Fi 6E, Bluetooth 5.3, plusieurs ports USB-C/HDMI 2.1 et un rétroéclairage RGB personnalisable par touche.",
+    villes: "Paris",
+    adresse: "15 Boulevard des Technopoles, 75010",
+
+    photo: O1,
+    autrechoses: "Souris gaming incluse, sacoche de transport renforcée",
+    img2: O2,
+    img3: O3,
+    img4: O4,
+    img5: O5,
+
+    date: "2026-02-10",
+    category: "Ordinateur",
+  },
+  {
+    id: 2,
+    prix: 2100,
+    nom: "Custom Gaming Rig - RTX 4070 Ti Super",
+    description:
+      "Tour gaming assemblée avec soin par un expert. Configuration : Boîtier Lian Li O11 Dynamic, carte mère ASUS ROG Strix B650-A, processeur AMD Ryzen 7 7800X3D, refroidissement AIO 360mm, carte graphique MSI RTX 4070 Ti Super 16 Go, RAM DDR5 32 Go 6000MHz, SSD NVMe 2 To. Watercooling personnalisable avec contrôle RGB unifié. Performances exceptionnelles en 1440p et entrée de gamme en 4K. Vient avec Windows 11 installé et tous les drivers à jour.",
+    villes: "Lille",
+    adresse: "7 Rue Nationale, 59000",
+
+    photo: O2,
+    autrechoses:
+      "Câbles tressés personnalisés, support GPU antivide, livré avec boîtes d'origine des composants",
+    img2: O2,
+    img3: O3,
+    img4: O4,
+    img5: O5,
+
+    date: "2026-01-15",
+    category: "Ordinateur",
+  },
+  {
+    id: 3,
+    prix: 1129,
+    nom: "LG Gram 16 SuperSlim",
+    description:
+      "Ultraportable premium d'une finesse exceptionnelle (10.9 mm) et d'un poids plume de seulement 990 g. Écran OLED 16 pouces 16:10 avec résolution WQXGA (2880x1800). Processeur Intel Core Ultra 7 avec NPU dédié pour l'IA, 16 Go de RAM LPDDR5x et SSD 1 To. Autonomie jusqu'à 23 heures, châssis en alliage de magnésium répondant aux normes militaires de résistance. Idéal pour les déplacements fréquents et le travail en mobilité.",
+    villes: "Nice",
+    adresse: "55 Promenade des Anglais, 06000",
+
+    photo: O3,
+    autrechoses: "Housse de protection en cuir, chargeur GaN 65W ultra-compact",
+    img2: O2,
+    img3: O3,
+    img4: O4,
+    img5: O5,
+
+    date: "2026-02-20",
+    category: "Ordinateur",
   },
 ];

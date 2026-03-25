@@ -1,29 +1,26 @@
-import { maisonsData } from "../../store/Frontbdd";
+import React, { useEffect, useRef, useState } from "react";
+import Filter from "../../hook/Filter";
+import { ordinateurs } from "../../store/Frontbdd";
+import Button from "../../ui/Button";
+import { useNavigate } from "react-router-dom";
 import img1 from "../../assets/icone/offcoeur.png";
 import img2 from "../../assets/icone/oncoeur.png";
 import img3 from "../../assets/icone/oeil.png";
-import "../../style/category.css";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
-import Filter from "../../hook/Filter";
-import Button from "../../ui/Button";
 import type { LikingEvent } from "../../App";
 
 interface ButtonProps {
   setlikingEvent: React.Dispatch<React.SetStateAction<LikingEvent[] | null>>;
 }
 
-const Maison: React.FC<ButtonProps> = ({ setlikingEvent }) => {
+const Ordinateur: React.FC<ButtonProps> = ({ setlikingEvent }) => {
+  const [filteredData, setFilteredData] = useState(ordinateurs);
+  const elementref = useRef<{ [key: number]: HTMLDivElement | null }>({});
   const navigate = useNavigate();
-  //si prix est indefini alors 0
+  const [like, setlike] = useState<{ [key: number]: boolean }>({});
   const first = useRef<HTMLDivElement | null>(null);
   const [open, setOpen] = useState<boolean>(false);
-  const minPrix = Math.min(...maisonsData.map((p) => p.prix ?? 0));
-  const maxPrix = Math.max(...maisonsData.map((p) => p.prix ?? 0));
-  const [like, setlike] = useState<{ [key: number]: boolean }>({});
-  const [filteredData, setFilteredData] = useState(maisonsData);
-  //elementref est un objet avec une clé number et une valeur HTMLDivElement ou null
-  const elementref = useRef<{ [key: number]: HTMLDivElement | null }>({});
+  const minPrix = Math.min(...ordinateurs.map((p) => p.prix ?? 0));
+  const maxPrix = Math.max(...ordinateurs.map((p) => p.prix ?? 0));
   //permet de scroller vers l'element selectionner
   useEffect(() => {
     const selectelement = localStorage.getItem("elt");
@@ -36,50 +33,35 @@ const Maison: React.FC<ButtonProps> = ({ setlikingEvent }) => {
     }
   }, []);
   const handleFiltreChange = (filtres: any) => {
-    let result = [...maisonsData];
-    //filtrage par prix
+    let result = [...ordinateurs];
     result = result.filter(
       (p) =>
         (p.prix ?? 0) >= filtres.prix[0] && (p.prix ?? 0) <= filtres.prix[1],
     );
-
-    //filtrage par meuble
-    if (filtres.meuble !== "all") {
-      result = result.filter(
-        (p) => p.meuble?.toLowerCase() === filtres.meuble?.toLowerCase(),
-      );
-    }
-    //filtre par nombre de chambre
-
-    if (filtres.rooms !== "all") {
-      if (filtres.rooms === "6") {
-        result = result.filter((p) => p.chambres ?? 0 > 5);
-      } else {
-        result = result.filter((p) => p.chambres === Number(filtres.rooms));
-      }
-    }
-    //filtrage par order
+    //classement par ordre
     if (filtres.order !== "all") {
       result.sort((a, b) => {
-        if (filtres.order === "croissant") return (a.prix ?? 0) - (b.prix ?? 0);
-        if (filtres.order === "decroissant")
+        if (filtres.order === "croissant") {
+          return (a.prix ?? 0) - (b.prix ?? 0);
+        }
+        if (filtres.order === "decroissant") {
           return (b.prix ?? 0) - (a.prix ?? 0);
-        if (filtres.order === "Plusancien")
+        }
+        if (filtres.order === "Plusancien") {
           return (
             new Date(a.date ?? 0).getTime() - new Date(b.date ?? 0).getTime()
           );
-        if (filtres.order === "Plusrecent")
+        }
+        if (filtres.order === "Plusrecent") {
           return (
             new Date(b.date ?? 0).getTime() - new Date(a.date ?? 0).getTime()
           );
-        return 0;
+        } else {
+          return 0;
+        }
       });
     }
     setFilteredData(result);
-  };
-  const meubleCounts = {
-    oui: filteredData.filter((p) => p.meuble?.toLowerCase() === "oui").length,
-    non: filteredData.filter((p) => p.meuble?.toLowerCase() === "non").length,
   };
   useEffect(() => {
     const evenement = (e: MouseEvent) => {
@@ -93,7 +75,6 @@ const Maison: React.FC<ButtonProps> = ({ setlikingEvent }) => {
       document.removeEventListener("click", evenement);
     };
   }, [open]);
-  //gestion des like
   const handlelike = (id: number) => {
     setlike((prev) => {
       const newlike = { ...prev, [id]: !prev[id] };
@@ -101,50 +82,32 @@ const Maison: React.FC<ButtonProps> = ({ setlikingEvent }) => {
       return newlike;
     });
   };
-  //rechargement des liking au demarrage
-  useEffect(() => {
-    const saveliking = localStorage.getItem("liking");
-    if (saveliking) {
-      setlike(JSON.parse(saveliking));
-    }
-  }, []);
   const handletraverse = (p: any) => {
     const event = {
       id: p.id,
       nom: p.nom,
       photo: p.photo,
-      link: `/categories/immobilier/describe/${p.nom}`,
+      link: `/categories/electronique/describe/${p.nom}`,
     };
     setlikingEvent((prev) => {
       let newlist: (typeof event)[];
       if (!prev) {
-        newlist = [event]; //ajouter l'evenement
-      }
-      //eviter les doublons
-      else if (prev.some((item) => item.id === event.id)) {
-        newlist = prev; //ne rien faire
+        newlist = [event];
+      } else if (prev.some((p) => p.id === event.id)) {
+        newlist = prev;
       } else {
-        newlist = [...prev, event]; //ajouter l'evenement à la suite
+        newlist = [...prev, event];
       }
       localStorage.setItem("likingevents", JSON.stringify(newlist));
       return newlist;
     });
   };
-
-  useEffect(() => {
-    const lik = localStorage.getItem("likingevents");
-    if (lik) {
-      setlikingEvent(JSON.parse(lik));
-    }
-  }, []);
-
   return (
     <div className="MaisonMain">
       <Filter
         minPrix={minPrix}
         maxPrix={maxPrix}
         onFiltreChange={handleFiltreChange}
-        meubleCounts={meubleCounts}
         open={open}
         setOpen={setOpen}
         first={first}
@@ -233,7 +196,7 @@ const Maison: React.FC<ButtonProps> = ({ setlikingEvent }) => {
                   className="accept"
                   style={{ zIndex: 150 }}
                   onClick={() =>
-                    navigate(`/categories/immobilier/describe/${p.nom}`)
+                    navigate(`/categories/electronique/describe/${p.nom}`)
                   }
                 >
                   Voir l'article
@@ -243,7 +206,7 @@ const Maison: React.FC<ButtonProps> = ({ setlikingEvent }) => {
           </div>
         ) : (
           <p className="errorsearch">
-            Aucune maison ne correspond à votre recherche
+            Aucun ordinateurs ne correspond à votre recherche
           </p>
         )}
       </div>
@@ -251,4 +214,4 @@ const Maison: React.FC<ButtonProps> = ({ setlikingEvent }) => {
   );
 };
 
-export default Maison;
+export default Ordinateur;
