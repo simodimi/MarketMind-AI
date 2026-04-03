@@ -9,7 +9,7 @@ import open from "../assets/icone/ouvert.png";
 import close from "../assets/icone/fermé.png";
 import tr from "../assets/icone/true.png";
 import fa from "../assets/icone/cancel.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 interface dataform {
   codeUser: string;
   mailUser: string;
@@ -353,6 +353,14 @@ const ForgetPassword = () => {
             </div>
           </Box>
         </div>
+        {activeStep === 0 && (
+          <div className="linkConnexion">
+            <p>
+              Vous avez un compte :{" "}
+              <Link to="/connexion">Connectez vous</Link>{" "}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

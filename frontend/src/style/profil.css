@@ -1,0 +1,678 @@
+.HomeProfilUser {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "roboto", sans-serif;
+}
+.dashboardProfil {
+  display: flex;
+  width: 100%;
+}
+.dashboardProfilSidebar {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  height: calc(100vh - 170px);
+  background-color: #f8fafc;
+  gap: 10px;
+}
+
+.dashboardProfilSidebarText {
+  width: 100%;
+  margin: 5px 0;
+  padding: 20px 0;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.8s ease-in-out;
+}
+.dashboardProfilSidebarText:hover {
+  color: white;
+  background-color: #0979e9;
+}
+.dashboardProfilSidebarText.act {
+  color: white;
+  background-color: #0979e9;
+}
+.dashboardProfilContent {
+  width: calc(100% - 250px);
+  height: calc(100vh - 170px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.HomeTitlesbtn {
+  position: absolute;
+  left: 2.5%;
+}
+.dashboardStepper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+#greeting {
+  font-size: 20px;
+  color: #0979e9;
+}
+.greetingCase {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 40px;
+  width: 100%;
+  justify-content: space-between;
+  padding: 15px 20%;
+  overflow-y: auto;
+}
+.greetingCaseItem {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  background-color: #0979e9;
+  color: #ffffff;
+  text-align: center;
+  padding: 20px 0;
+  border-radius: 10px;
+}
+.dashboardStepper img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  overflow: hidden;
+  border: 2px solid #0979e9;
+}
+.dashboardSteppers {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px 5%;
+  gap: 30px;
+}
+.dashboardStepperx {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px 5%;
+}
+.dashboardSteppers h2,
+.dashboardStepperx h2 {
+  text-align: center;
+}
+.dashboardSteppersHistory table img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+}
+.dashboardSteppersHistory table {
+  width: 100%;
+  border-collapse: collapse;
+  border-left: 3px solid green;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dashboardSteppersHistory table thead th {
+  height: 80px;
+  background-color: #0979e9;
+  color: white;
+}
+.dashboardSteppersHistory table thead th:last-child {
+  border-right: none;
+}
+.dashboardSteppersHistory table tbody tr td {
+  text-align: center;
+  height: 100px;
+}
+.dashboardSteppersHistory {
+  display: flex;
+  flex-direction: column;
+}
+.dashboardSteppersHistory table tbody tr {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.dashboardSteppersHistoryAction {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  margin-top: 40px;
+}
+.HistoryAction {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+}
+.HistoryAction img {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+.HistoryAction img:hover {
+  filter: drop-shadow(-6px 7px 8px #0979e9);
+}
+.HistoryAction p {
+  margin-top: -60px;
+  font-size: 12px;
+  position: absolute;
+  display: none;
+}
+.HistoryAction:hover p {
+  display: block;
+  animation: save 0.3s ease-in-out;
+}
+@keyframes save {
+  0% {
+    margin-top: -30px;
+  }
+  100% {
+    margin-top: -60px;
+  }
+}
+.SettingHeader {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0979e9;
+  color: #ffffff;
+  padding: 0px 50px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.SettingHeader img {
+  cursor: pointer;
+}
+.Setting {
+  transition: all 0.5s ease-in-out;
+}
+.SettingItem {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-top: 40px;
+}
+.Settingbtn {
+  display: flex;
+  gap: 20px;
+  cursor: pointer;
+}
+.SettingInput {
+  width: 100%;
+}
+
+.SettingInput form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 5%;
+}
+.SettingInput form input {
+  width: 100%;
+  height: 60px;
+  border-radius: 5px;
+  border: none;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 0 20px;
+  font-family: "Roboto", sans-serif;
+  outline-color: #0979e9;
+  margin-bottom: 15px;
+}
+.SettingInput form p {
+  margin-bottom: 5px;
+}
+.formbtn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.PictureHeader {
+  display: flex;
+  flex-direction: column;
+  width: 120px;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  transform: translateX(-50%);
+  position: relative;
+}
+.PictureHeader img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #0979e9;
+}
+.PictureAdd {
+  position: absolute;
+  right: -30px;
+  top: -10px;
+}
+.PictureAdd img {
+  border-radius: 0;
+  border: none;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+}
+.avatarsPicture img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #0979e9;
+  transition: all 0.5s ease-in-out;
+}
+.avatarsPicture img:hover {
+  cursor: pointer;
+  transform: scale(1.5);
+}
+.avatarsPictureItem {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 80px);
+  gap: 10px;
+  padding: 0px 20%;
+}
+.SettingPolice form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.SettingPoliceForm {
+  display: flex;
+  gap: 10px;
+}
+.SettingPoliceItem p {
+  border: 1px solid blue;
+  width: fit-content;
+  padding: 20px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.SettingPoliceItem p:hover {
+  color: blue;
+}
+.dashboardSteppers ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.dashboardStepperSms {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.MessageProfil {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  background-color: #f8fafc;
+  border-radius: 10px 0 0 10px;
+  height: calc(100vh - 210px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.MessageItem {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 300px);
+  height: calc(100vh - 210px);
+}
+.MessageProfil img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50px;
+}
+.ProfilUserItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 20%;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.ProfilUserItem:hover {
+  background-color: #0979e9;
+}
+.ProfilUser {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.MessageItemHeader {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background-color: #f8fafc;
+  border-radius: 0 10px 0 0;
+  padding: 10px 20px;
+  height: 80px;
+}
+.MessageItemHeader img {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  border: 2px solid #0979e9;
+  object-fit: cover;
+}
+.MessageSearch {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px 10%;
+}
+.MessageSearch p {
+  font-size: 25px;
+}
+.MessageSearch input {
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  outline: 1px solid #0979e9;
+  border: none;
+  padding: 0 10px;
+}
+.ProfilUserText p,
+.MessageItemHeader p {
+  text-transform: capitalize;
+  font-weight: 700;
+}
+.ProfilUserText span {
+  font-size: 12px;
+}
+.MessageItemContent {
+  width: 100%;
+  height: calc(100% - 200px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.SmsHome {
+  width: 100%;
+  max-width: 65%;
+  border: 2px solid blue;
+  border-radius: 0 20px 20px 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.SmsHome p,
+.AwayHome p {
+  padding: 10px 20px;
+  text-align: justify;
+}
+.SmsHome span,
+.AwayHome span {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 20px;
+  font-size: small;
+  color: blue;
+}
+.AwayHome {
+  width: 100%;
+  max-width: 65%;
+  border: 2px solid hotpink;
+  border-radius: 20px 0px 20px 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin-left: auto;
+}
+.MessageOption {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  width: 100%;
+  height: 118px;
+  background-color: #f8fafc;
+  border-radius: 0 0 20px 0;
+  border: 1px solid #0979e9;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
+}
+.MessageOptionMedia {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  flex: 1;
+}
+.MessageOptionMediaItem img {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+.MessageOptionText {
+  flex: 5;
+  height: 118px;
+  border-left: 2px solid #0979e9;
+  border-right: 2px solid #0979e9;
+}
+.MessageOptionText textarea {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  border: none;
+  padding: 10px 10px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  outline: none;
+}
+.MessageSend {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0 0 20px 0;
+}
+.MessageOptionMediaItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.MessageOptionMediaItem p {
+  position: absolute;
+  font-size: 12px;
+  margin-top: -15px;
+  display: none;
+}
+.MessageOptionMediaItem:hover p {
+  cursor: pointer;
+  display: block;
+  animation: icone 0.2s ease-in-out;
+}
+@keyframes icone {
+  0% {
+    margin-top: 0;
+  }
+  100% {
+    margin-top: -15px;
+  }
+}
+.btnaddProduct {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.ProductText {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.ProductText span {
+  color: red;
+}
+.ProductText input {
+  width: 100%;
+  height: 60px;
+  border-radius: 5px;
+  border: none;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  padding: 0 20px;
+  font-family: "Roboto", sans-serif;
+  outline-color: #0979e9;
+  margin-bottom: 15px;
+}
+.ProductPictureItem {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  align-items: center;
+}
+.ProductPictureItem img {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  cursor: pointer;
+  right: -40px;
+  top: -40px;
+}
+.ProductPicture {
+  position: relative;
+  width: 50%;
+  height: 400px;
+  background-color: aqua;
+  margin: 20px 0px;
+  border-radius: 10px;
+}
+.SecondPicture {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin: 15px 0;
+  gap: 30px;
+}
+.ProductPictureSecond {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  background-color: aqua;
+  border-radius: 10px;
+}
+.ProductPictureLogo {
+  position: absolute;
+  right: -20px;
+  top: -10px;
+  display: flex;
+  gap: 10px;
+}
+.ProductPictureLogo img {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+}
+.ProductText textarea {
+  width: 100%;
+  height: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  font-family: "Roboto";
+  text-align: justify;
+  padding: 10px 20px;
+  resize: none;
+  border-radius: 10px;
+  border: none;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+.addWriteIa {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 0;
+  gap: 20px;
+}
+.addWriteIa progress {
+  width: 50%;
+  height: 50px;
+}
+.addWriteIa progress::-webkit-progress-bar {
+  background-color: #eee;
+  border-radius: 10px;
+}
+.addWriteIa progress::-webkit-progress-value {
+  background-color: #0979e9;
+  border-radius: 10px;
+}
+.ProductCategory {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  gap: 10px;
+}
+.ProductCategory p {
+  width: 300px;
+  text-align: center;
+  padding: 15px 0;
+  text-transform: capitalize;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+.ProductCategory p:hover {
+  background-color: #0979e9;
+  color: white;
+  cursor: pointer;
+}
+.ProductText .InputRadioProductText {
+  display: flex;
+  gap: 20px;
+}
+.InputRadioProductTextItem {
+  display: flex;
+  gap: 15px;
+  height: 50px;
+  align-items: center;
+  margin: 15px 0;
+}
+.InputRadioProductTextItem input {
+  background-color: none;
+  box-shadow: none;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+.InputRadioProductTextItem label {
+  text-align: center;
+  padding-bottom: 10px;
+}
+.ProductItems {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 15px 0;
+}
+.tableProductList table img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  overflow: hidden;
+  border: 2px solid #0979e9;
+}
+.btnaddProductAvis {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 0;
+  gap: 20px;
+}

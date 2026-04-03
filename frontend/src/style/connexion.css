@@ -7,6 +7,7 @@
   align-items: center;
   background-color: #f8fafc;
   transition: all 0.8s ease-in-out;
+  position: relative;
 }
 .ConnexionBar {
   background-color: #0979e9;
@@ -149,4 +150,9 @@
 }
 .horloge p {
   color: white;
+}
+.btnretour {
+  position: absolute;
+  top: 20px;
+  left: 0px;
 }

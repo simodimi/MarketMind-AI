@@ -26,6 +26,7 @@ import DescribeElectronique from "./components/Electronique/DescribeElectronique
 import Connexion from "./pages/Connexion";
 import Inscription from "./pages/Inscription";
 import ForgetPassword from "./pages/ForgetPassword";
+import ProfilUser from "./pages/ProfilUser";
 
 export interface LikingEvent {
   id: number;
@@ -80,6 +81,7 @@ function App() {
           }
         />
         <Route path="/paiement" element={<Paiement />} />
+        <Route path="/profiluser" element={<ProfilUser />} />
       </Routes>
     </BrowserRouter>
   );

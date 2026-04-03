@@ -99,10 +99,13 @@ const Siderbar = () => {
                 <img src={out} alt="" />
                 <p>Déconnexion</p>
               </div>
-              <div className="HomeProfilDescriptionTitle">
-                <img src={profil} alt="" />
-                <p>Profil</p>
-              </div>
+
+              <Link to={"/profiluser"}>
+                <div className="HomeProfilDescriptionTitle">
+                  <img src={profil} alt="" />
+                  <p>Profil</p>
+                </div>
+              </Link>
             </div>
           )}
         </div>

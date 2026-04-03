@@ -13,6 +13,17 @@
   height: 170px;
   background-color: #f8fafc;
 }
+.HomeTitles {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  align-items: center;
+  width: 100%;
+  padding: 15px 5%;
+  height: 170px;
+  background-color: #f8fafc;
+  gap: 50px;
+}
 .HomeLogo {
   display: flex;
   flex-direction: column;

@@ -47,6 +47,10 @@ const Connexion = () => {
   };
   return (
     <div className="ConnexionHeader">
+      <div className="btnretour">
+        <Button onClick={() => navigate(-1)}>Retour</Button>
+      </div>
+
       <div className="ConnexionBar">
         <div className="ConnexionDescribe">
           <img src={img} alt="" />

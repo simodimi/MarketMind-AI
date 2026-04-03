@@ -43,6 +43,27 @@ import O2 from "../assets/picturetest/ordi2.jpg";
 import O3 from "../assets/picturetest/ordi3.jpg";
 import O4 from "../assets/picturetest/ordi4.jpg";
 import O5 from "../assets/picturetest/ordi5.jpg";
+//avatar
+import Avatar1 from "../assets/avatar/A1.jpg";
+import Avatar2 from "../assets/avatar/A2.jpg";
+import Avatar3 from "../assets/avatar/A3.jpg";
+import Avatar4 from "../assets/avatar/A4.jpg";
+import Avatar5 from "../assets/avatar/A5.jpg";
+import Avatar6 from "../assets/avatar/A6.jpg";
+import Avatar7 from "../assets/avatar/A7.jpg";
+import Avatar8 from "../assets/avatar/A8.jpg";
+import Avatar9 from "../assets/avatar/A9.jpg";
+import Avatar10 from "../assets/avatar/A10.jpg";
+import Avatar11 from "../assets/avatar/A11.jpg";
+import Avatar12 from "../assets/avatar/A12.jpg";
+import Avatar13 from "../assets/avatar/A13.jpg";
+import Avatar14 from "../assets/avatar/A14.jpg";
+import Avatar15 from "../assets/avatar/A15.jpg";
+import Avatar16 from "../assets/avatar/A16.jpg";
+import Avatar17 from "../assets/avatar/A17.jpg";
+import Avatar18 from "../assets/avatar/A18.jpg";
+import Avatar19 from "../assets/avatar/A19.jpg";
+import Avatar20 from "../assets/avatar/A20.jpg";
 export interface Categories {
   id: number;
   name: string;
@@ -374,4 +395,69 @@ export const ordinateurs: Maison[] = [
     date: "2026-02-20",
     category: "Ordinateur",
   },
+];
+export interface Avatars {
+  id: number;
+  photo: string;
+}
+export const avatar: Avatars[] = [
+  { id: 1, photo: Avatar1 },
+  { id: 2, photo: Avatar2 },
+  { id: 3, photo: Avatar3 },
+  { id: 4, photo: Avatar4 },
+  { id: 5, photo: Avatar5 },
+  { id: 6, photo: Avatar6 },
+  { id: 7, photo: Avatar7 },
+  { id: 8, photo: Avatar8 },
+  { id: 9, photo: Avatar9 },
+  { id: 10, photo: Avatar10 },
+  { id: 11, photo: Avatar11 },
+  { id: 12, photo: Avatar12 },
+  { id: 13, photo: Avatar13 },
+  { id: 14, photo: Avatar14 },
+  { id: 15, photo: Avatar15 },
+  { id: 16, photo: Avatar16 },
+  { id: 17, photo: Avatar17 },
+  { id: 18, photo: Avatar18 },
+  { id: 19, photo: Avatar19 },
+  { id: 20, photo: Avatar20 },
+];
+export interface style {
+  id: number;
+  police: string;
+}
+export const styles: style[] = [
+  { id: 1, police: "Roboto" },
+  { id: 2, police: "Quicksand" },
+  { id: 3, police: "Passions Conflict" },
+  { id: 4, police: "Roboto Condensed" },
+  { id: 5, police: "Sacramento" },
+];
+export interface profil {
+  id: number;
+  photo: string;
+  name: string;
+  text: string;
+}
+export const Profil: profil[] = [
+  { id: 1, photo: Avatar1, name: "dimitri", text: "tu vas bien mon petit" },
+  { id: 2, photo: Avatar2, name: "dimitri", text: "Aucun message ..." },
+  { id: 3, photo: Avatar3, name: "dimitri", text: "tu vas bien mon petit" },
+  { id: 4, photo: Avatar4, name: "dimitri", text: "tu vas bien mon petit" },
+  { id: 5, photo: Avatar5, name: "dimitri", text: "tu vas bien mon petit" },
+  { id: 6, photo: Avatar6, name: "dimitri", text: "tu vas bien mon petit" },
+  { id: 7, photo: Avatar7, name: "dimitri", text: "tu vas bien mon petit" },
+  { id: 8, photo: Avatar8, name: "dimitri", text: "tu vas bien mon petit" },
+  { id: 9, photo: Avatar9, name: "dimitri", text: "tu vas bien mon petit" },
+  { id: 10, photo: Avatar10, name: "dimitri", text: "tu vas bien mon petit" },
+  { id: 11, photo: Avatar11, name: "dimitri", text: "tu vas bien mon petit" },
+  { id: 12, photo: Avatar12, name: "dimitri", text: "tu vas bien mon petit" },
+  { id: 13, photo: Avatar13, name: "dimitri", text: "tu vas bien mon petit" },
+  { id: 14, photo: Avatar14, name: "dimitri", text: "tu vas bien mon petit" },
+  { id: 15, photo: Avatar15, name: "dimitri", text: "tu vas bien mon petit" },
+  { id: 16, photo: Avatar16, name: "dimitri", text: "tu vas bien mon petit" },
+  { id: 17, photo: Avatar17, name: "dimitri", text: "tu vas bien mon petit" },
+  { id: 18, photo: Avatar18, name: "dimitri", text: "tu vas bien mon petit" },
+  { id: 19, photo: Avatar19, name: "dimitri", text: "tu vas bien mon petit" },
+  { id: 20, photo: Avatar20, name: "dimitri", text: "tu vas bien mon petit" },
 ];
