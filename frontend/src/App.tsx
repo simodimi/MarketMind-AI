@@ -27,6 +27,7 @@ import Connexion from "./pages/Connexion";
 import Inscription from "./pages/Inscription";
 import ForgetPassword from "./pages/ForgetPassword";
 import ProfilUser from "./pages/ProfilUser";
+import Notification from "./ui/Notification";
 
 export interface LikingEvent {
   id: number;
@@ -83,6 +84,7 @@ function App() {
         <Route path="/paiement" element={<Paiement />} />
         <Route path="/profiluser" element={<ProfilUser />} />
       </Routes>
+      <Notification />
     </BrowserRouter>
   );
 }

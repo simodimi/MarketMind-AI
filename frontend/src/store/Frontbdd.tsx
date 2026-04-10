@@ -428,11 +428,12 @@ export interface style {
 }
 export const styles: style[] = [
   { id: 1, police: "Roboto" },
-  { id: 2, police: "Quicksand" },
-  { id: 3, police: "Passions Conflict" },
-  { id: 4, police: "Roboto Condensed" },
-  { id: 5, police: "Sacramento" },
+  { id: 2, police: "Lora" },
+  { id: 3, police: "Montserrat" },
+  { id: 4, police: "Pacifico" },
+  { id: 5, police: "Courier New" },
 ];
+
 export interface profil {
   id: number;
   photo: string;
