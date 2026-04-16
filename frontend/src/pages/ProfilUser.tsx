@@ -39,6 +39,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
+import Autre from "./Autre";
 
 // ==================== TYPES ====================
 interface Order {
@@ -94,18 +95,19 @@ interface stepperParam {
 interface stepperProduit {
   nomProduit: string;
   prixProduit: number;
-  photoProduitPrincipal: File | null;
-  photoProduitSecondary1: File | null;
-  photoProduitSecondary2: File | null;
-  photoProduitSecondary3: File | null;
-  photoProduitSecondary4: File | null;
-  photoProduitSecondary5: File | null;
+  photoProduitPrincipal: File | string | null;
+  photoProduitSecondary1: File | string | null;
+  photoProduitSecondary2: File | string | null;
+  photoProduitSecondary3: File | string | null;
+  photoProduitSecondary4: File | string | null;
+  photoProduitSecondary5: File | string | null;
   texteDescription: string;
-  videoProduit: File | null;
+  videoProduit: File | string | null;
+  CategoriesProduit: string;
   villeProduit: string;
   codepostalProduit: string;
   adresseProduit: string;
-  surfaceProduit: string;
+  surfaceProduit: number;
   typehouseProduit: string;
   numberpieceProduit: number;
   numberchambreProduit: number;
@@ -117,7 +119,6 @@ interface stepperProduit {
   dpeProduit: string;
   chargesmensuellesProduit: number;
   disponibiliteProduit: string;
-  loyerProduit: number;
   descriptiondetailleeProduit: string;
   marqueautoProduit: string;
   modeleautoProduit: string;
@@ -127,7 +128,6 @@ interface stepperProduit {
   numberporteProduit: number;
   couleurautoProduit: string;
   proprioProduit: string;
-  prixautoProduit: number;
   carburantProduit: string;
   specialautoProduit: string;
   boitevitesseProduit: string;
@@ -140,6 +140,12 @@ interface stepperProduit {
   taillehabitProduit: string;
   marquehabitProduit: string;
   complementinformation: string;
+  electroniqueProduit: string;
+  genreProduit: string;
+  categorieProduit: string;
+  quantiteelectroProduit: number;
+  quantitemodeProduit: number;
+  quantiteautreProduit: number;
 }
 interface restriction {
   id: number;
@@ -175,7 +181,6 @@ interface stepperCategory {
   stepCategory3: boolean;
   stepCategory4: boolean;
   stepCategory5: boolean;
-  stepCategory6: boolean;
 }
 interface stepperBien {
   stepBien1: boolean;
@@ -231,6 +236,149 @@ interface steppercategorie {
   stepcategorie4: boolean;
   stepcategorie5: boolean;
   stepcategorie6: boolean;
+}
+interface Produit {
+  id: number;
+  nom: string;
+  photo: string | null;
+  categories: string;
+  quantite: number;
+  prix: number;
+  date: string;
+
+  // Pour l'édition (optionnel)
+  photoProduitPrincipal?: string | null;
+  photoProduitSecondary1?: string | null;
+  photoProduitSecondary2?: string | null;
+  photoProduitSecondary3?: string | null;
+  photoProduitSecondary4?: string | null;
+  photoProduitSecondary5?: string | null;
+  videoProduit?: string | null;
+
+  // Tous les autres champs (optionnels)
+  codepostal?: string;
+  ville?: string;
+  adresse?: string;
+  surface?: number;
+  typehouse?: string;
+  numberpiece?: number;
+  numberchambre?: number;
+  numberdouche?: number;
+  numberetage?: string;
+  ascenseur?: boolean;
+  meuble?: boolean;
+  parking?: string;
+  dpe?: string;
+  chargesmensuelles?: number;
+  disponibilite?: string;
+  descriptiondetaillee?: string;
+  marqueauto?: string;
+  modeleauto?: string;
+  circulation?: string;
+  kilometrage?: number;
+  puissanceauto?: number;
+  numberporte?: number;
+  couleurauto?: string;
+  proprio?: string;
+  carburant?: string;
+  boitevitesse?: string;
+  marqueelectro?: string;
+  modeleelectro?: string;
+  specialelectro?: string;
+  accessoireelectro?: string;
+  electronique?: string;
+  marquehabit?: string;
+  taillehabit?: string;
+  matierehabit?: string;
+  couleurhabit?: string;
+  genre?: string;
+  categorie?: string;
+  quantiteelectro?: number;
+  quantitemode?: number;
+  quantiteautre?: number;
+  specialauto?: string;
+
+  // De stepperProduit (pour la compatibilité)
+  texteDescription?: string;
+  complementinformation?: string;
+  CategoriesProduit?: string;
+}
+// Ajoutez toutes les propriétés nécessaires à ProduitComplet
+interface ProduitComplet {
+  // De Produit (obligatoire)
+  id: number;
+  nom: string;
+  photo: string | null;
+  categories: string;
+  quantite: number;
+  prix: number;
+  date: string;
+
+  // De picture (pour l'affichage)
+  pictureproductPrincipal: string | null;
+  PictureproduitSecondary1: string | null;
+  PictureproduitSecondary2: string | null;
+  PictureproduitSecondary3: string | null;
+  PictureproduitSecondary4: string | null;
+  PictureproduitSecondary5: string | null;
+  Videoproduit: string | null;
+
+  // Pour l'édition (optionnel)
+  photoProduitPrincipal?: File | string | null;
+  photoProduitSecondary1?: File | string | null;
+  photoProduitSecondary2?: File | string | null;
+  photoProduitSecondary3?: File | string | null;
+  photoProduitSecondary4?: File | string | null;
+  photoProduitSecondary5?: File | string | null;
+  videoProduit?: File | string | null;
+
+  // Tous les autres champs (optionnels)
+  codepostal?: string;
+  ville?: string;
+  adresse?: string;
+  surface?: number;
+  typehouse?: string;
+  numberpiece?: number;
+  numberchambre?: number;
+  numberdouche?: number;
+  numberetage?: string;
+  ascenseur?: boolean;
+  meuble?: boolean;
+  parking?: string;
+  dpe?: string;
+  chargesmensuelles?: number;
+  disponibilite?: string;
+  descriptiondetaillee?: string;
+  marqueauto?: string;
+  modeleauto?: string;
+  circulation?: string;
+  kilometrage?: number;
+  puissanceauto?: number;
+  numberporte?: number;
+  couleurauto?: string;
+  proprio?: string;
+  carburant?: string;
+  boitevitesse?: string;
+  marqueelectro?: string;
+  modeleelectro?: string;
+  specialelectro?: string;
+  accessoireelectro?: string;
+  electronique?: string;
+  marquehabit?: string;
+  taillehabit?: string;
+  matierehabit?: string;
+  couleurhabit?: string;
+  genre?: string;
+  categorie?: string;
+  quantiteelectro?: number;
+  quantitemode?: number;
+  quantiteautre?: number;
+  specialauto?: string;
+
+  // De stepperProduit (pour la compatibilité)
+  texteDescription?: string;
+  complementinformation?: string;
+  CategoriesProduit?: string;
 }
 // ==================== DONNÉES DE DÉMONSTRATION ====================
 const generateMockOrders = (): Order[] => {
@@ -303,6 +451,7 @@ const ProfilUser: React.FC = () => {
   const [showrestriction, setshowrestriction] = useState<boolean>(false);
   const refpicture = useRef<HTMLInputElement | null>(null);
   const [open, setOpen] = useState<boolean>(false);
+  const [open2, setOpen2] = useState<boolean>(false);
   const [policeprofil, setpoliceprofil] = useState("Roboto"); //changer la police
   /*add produit */
   const [addproduit, setaddproduit] = useState(false); //visualiser la liste d'affichage addproduit
@@ -340,6 +489,7 @@ const ProfilUser: React.FC = () => {
     photoUser: null,
     policeUser: "",
   });
+
   //changer password
   const handlechangepassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -436,7 +586,7 @@ const ProfilUser: React.FC = () => {
     villeProduit: "",
     codepostalProduit: "",
     adresseProduit: "",
-    surfaceProduit: "",
+    surfaceProduit: 0,
     typehouseProduit: "",
     numberpieceProduit: 0,
     numberchambreProduit: 0,
@@ -445,10 +595,10 @@ const ProfilUser: React.FC = () => {
     ascenseurProduit: false,
     meubleProduit: false,
     parkingProduit: "",
+    CategoriesProduit: "",
     dpeProduit: "",
     chargesmensuellesProduit: 0,
     disponibiliteProduit: "",
-    loyerProduit: 0,
     descriptiondetailleeProduit: "",
     marqueautoProduit: "",
     modeleautoProduit: "",
@@ -458,7 +608,6 @@ const ProfilUser: React.FC = () => {
     numberporteProduit: 0,
     couleurautoProduit: "",
     proprioProduit: "",
-    prixautoProduit: 0,
     carburantProduit: "",
     specialautoProduit: "",
     boitevitesseProduit: "",
@@ -471,9 +620,16 @@ const ProfilUser: React.FC = () => {
     taillehabitProduit: "",
     marquehabitProduit: "",
     complementinformation: "",
+    electroniqueProduit: "",
+    genreProduit: "",
+    categorieProduit: "",
+    quantiteelectroProduit: 0,
+    quantitemodeProduit: 0,
+    quantiteautreProduit: 0,
   });
   const handleAddProduit = () => {
     setaddproduit(true);
+    resetForm();
   };
   const handlechangeproduit = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -489,7 +645,7 @@ const ProfilUser: React.FC = () => {
     if (name === "photoProduitPrincipal" && file) {
       const fichier = file[0];
       if (fichier) {
-        setdataproduit({ ...dataproduit, photoProduitPrincipal: fichier });
+        setdataproduit((prev) => ({ ...prev, photoProduitPrincipal: fichier }));
         setpictureproduct({
           ...pictureproduct,
           pictureproductPrincipal: URL.createObjectURL(fichier),
@@ -568,7 +724,6 @@ const ProfilUser: React.FC = () => {
     stepCategory3: false,
     stepCategory4: false,
     stepCategory5: false,
-    stepCategory6: false,
   });
   const handleSelect = (name: string, value: string) => {
     setdataproduit({ ...dataproduit, [name]: value });
@@ -647,9 +802,617 @@ const ProfilUser: React.FC = () => {
     stepcategorie5: false,
     stepcategorie6: false,
   });
+  //publication de produit
+  const [addproduitTable, setaddproduitTable] = useState<Produit[]>([]);
+  const [deleteproduitpublier, setdeleteproduitpublier] =
+    useState<Produit | null>(null);
+  const handleclickdelete = (p: Produit) => {
+    setdeleteproduitpublier(p);
+    setOpen2(true);
+  };
+  const resetForm = () => {
+    setdataproduit({
+      nomProduit: "",
+      prixProduit: 0,
+      photoProduitPrincipal: null,
+      photoProduitSecondary1: null,
+      photoProduitSecondary2: null,
+      photoProduitSecondary3: null,
+      photoProduitSecondary4: null,
+      photoProduitSecondary5: null,
+      texteDescription: "",
+      videoProduit: null,
+      villeProduit: "",
+      codepostalProduit: "",
+      adresseProduit: "",
+      surfaceProduit: 0,
+      typehouseProduit: "",
+      numberpieceProduit: 0,
+      numberchambreProduit: 0,
+      numberdoucheProduit: 0,
+      numberetageProduit: "",
+      ascenseurProduit: false,
+      meubleProduit: false,
+      parkingProduit: "",
+      CategoriesProduit: "",
+      dpeProduit: "",
+      chargesmensuellesProduit: 0,
+      disponibiliteProduit: "",
+      descriptiondetailleeProduit: "",
+      marqueautoProduit: "",
+      modeleautoProduit: "",
+      circulationProduit: "",
+      kilometrageProduit: 0,
+      puissanceautoProduit: 0,
+      numberporteProduit: 0,
+      couleurautoProduit: "",
+      proprioProduit: "",
+      carburantProduit: "",
+      specialautoProduit: "",
+      boitevitesseProduit: "",
+      marqueelectroProduit: "",
+      modeleelectroProduit: "",
+      specialelectroProduit: "",
+      accessoireelectroProduit: "",
+      couleurhabitProduit: "",
+      matierehabitProduit: "",
+      taillehabitProduit: "",
+      marquehabitProduit: "",
+      complementinformation: "",
+      electroniqueProduit: "",
+      genreProduit: "",
+      categorieProduit: "",
+      quantiteelectroProduit: 0,
+      quantitemodeProduit: 0,
+      quantiteautreProduit: 0,
+    });
+
+    setpictureproduct({
+      pictureproductPrincipal: null,
+      PictureproduitSecondary1: null,
+      PictureproduitSecondary2: null,
+      PictureproduitSecondary3: null,
+      PictureproduitSecondary4: null,
+      PictureproduitSecondary5: null,
+      Videoproduit: null,
+    });
+
+    // Réinitialiser les états de catégorie
+    setselectCtegory("");
+    setstepCategory({
+      stepCategory1: false,
+      stepCategory2: false,
+      stepCategory3: false,
+      stepCategory4: false,
+      stepCategory5: false,
+    });
+
+    // Réinitialiser les autres états de sélection (optionnel)
+    setselectbien("");
+    setselectParking("");
+    setselectdpe("");
+    setselectcarburant("");
+    setselectboitevitesse("");
+    setselectelectronique("");
+    setselectgenre("");
+    setselectcategorie("");
+  };
+  const handlesubmitproduit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (
+      !dataproduit.nomProduit.trim() ||
+      dataproduit.prixProduit <= 0 ||
+      !dataproduit.photoProduitPrincipal ||
+      !dataproduit.texteDescription.trim() ||
+      !dataproduit.CategoriesProduit
+    ) {
+      toast.error("veuillez remplir tous les champs");
+      return;
+    }
+    if (dataproduit.CategoriesProduit === "immobilier") {
+      if (
+        !dataproduit.villeProduit ||
+        !dataproduit.codepostalProduit ||
+        !dataproduit.adresseProduit ||
+        !dataproduit.surfaceProduit ||
+        !dataproduit.typehouseProduit ||
+        !dataproduit.numberpieceProduit ||
+        !dataproduit.numberchambreProduit ||
+        !dataproduit.numberdoucheProduit ||
+        !dataproduit.numberetageProduit ||
+        !dataproduit.ascenseurProduit ||
+        !dataproduit.meubleProduit ||
+        !dataproduit.parkingProduit ||
+        !dataproduit.dpeProduit ||
+        !dataproduit.chargesmensuellesProduit ||
+        !dataproduit.disponibiliteProduit ||
+        !dataproduit.descriptiondetailleeProduit
+      ) {
+        toast.error("veuillez remplir tous les champs liés à l'immobilier");
+        return;
+      }
+    }
+    if (dataproduit.CategoriesProduit === "automobile") {
+      if (
+        !dataproduit.marqueautoProduit ||
+        !dataproduit.modeleautoProduit ||
+        !dataproduit.circulationProduit ||
+        !dataproduit.kilometrageProduit ||
+        !dataproduit.puissanceautoProduit ||
+        !dataproduit.numberporteProduit ||
+        !dataproduit.couleurautoProduit ||
+        !dataproduit.proprioProduit ||
+        !dataproduit.carburantProduit ||
+        !dataproduit.specialautoProduit ||
+        !dataproduit.boitevitesseProduit
+      ) {
+        toast.error("veuillez remplir tous les champs liés à l'automobile");
+        return;
+      }
+    }
+    if (dataproduit.CategoriesProduit === "electronique") {
+      if (
+        !dataproduit.marqueelectroProduit ||
+        !dataproduit.modeleelectroProduit ||
+        !dataproduit.specialelectroProduit ||
+        !dataproduit.accessoireelectroProduit ||
+        !dataproduit.electroniqueProduit ||
+        !dataproduit.quantiteelectroProduit
+      ) {
+        toast.error("veuillez remplir tous les champs liés à l'électronique");
+        return;
+      }
+    }
+    if (dataproduit.CategoriesProduit === "mode") {
+      if (
+        !dataproduit.marquehabitProduit ||
+        !dataproduit.taillehabitProduit ||
+        !dataproduit.matierehabitProduit ||
+        !dataproduit.couleurhabitProduit ||
+        !dataproduit.genreProduit ||
+        !dataproduit.categorieProduit ||
+        !dataproduit.quantitemodeProduit
+      ) {
+        toast.error("veuillez remplir tous les champs liés à la mode");
+        return;
+      }
+    }
+    if (dataproduit.CategoriesProduit === "autre") {
+      if (!dataproduit.quantiteautreProduit) {
+        toast.error("veuillez remplir tous les champs liés à l'autre");
+        return;
+      }
+    }
+
+    //ajout de produit au tableau
+    const jour = String(new Date().getDate()).padStart(2, "0");
+    const mois = String(new Date().getMonth() + 1).padStart(2, "0");
+    const année = new Date().getFullYear();
+    const hours = String(new Date().getHours()).padStart(2, "0");
+    const minutes = String(new Date().getMinutes()).padStart(2, "0");
+
+    const existing = addproduitTable.findIndex(
+      (p) =>
+        p.nom.toLowerCase().trim() ===
+          dataproduit.nomProduit.toLowerCase().trim() &&
+        p.categories.toLowerCase().trim() ===
+          dataproduit.CategoriesProduit.toLowerCase().trim(),
+    );
+    if (existing !== -1) {
+      //si le produit existe
+      toast.error("Produit déjà existant ne peut plus être ajouté");
+      const newTable = [...addproduitTable];
+      setaddproduitTable(newTable);
+    } else {
+      const newstate = {
+        id: Date.now(),
+        photo: pictureproduct.pictureproductPrincipal,
+        nom: dataproduit.nomProduit,
+        categories: dataproduit.CategoriesProduit,
+        quantite:
+          dataproduit.quantiteautreProduit ??
+          dataproduit.quantiteelectroProduit ??
+          dataproduit.quantitemodeProduit ??
+          1,
+        prix: dataproduit.prixProduit,
+        date: `${jour}/${mois}/${année} à ${hours}:${minutes}`,
+        // Tous les champs de stepperProduit (optionnels grâce à Partial)
+        nomProduit: dataproduit.nomProduit,
+        prixProduit: dataproduit.prixProduit,
+        photoProduitPrincipal: pictureproduct.pictureproductPrincipal,
+        photoProduitSecondary1: pictureproduct.PictureproduitSecondary1,
+        photoProduitSecondary2: pictureproduct.PictureproduitSecondary2,
+        photoProduitSecondary3: pictureproduct.PictureproduitSecondary3,
+        photoProduitSecondary4: pictureproduct.PictureproduitSecondary4,
+        photoProduitSecondary5: pictureproduct.PictureproduitSecondary5,
+        texteDescription: dataproduit.texteDescription,
+        videoProduit: pictureproduct.Videoproduit,
+        CategoriesProduit: dataproduit.CategoriesProduit,
+        villeProduit: dataproduit.villeProduit,
+        codepostalProduit: dataproduit.codepostalProduit,
+        adresseProduit: dataproduit.adresseProduit,
+        surfaceProduit: dataproduit.surfaceProduit,
+        typehouseProduit: dataproduit.typehouseProduit,
+        numberpieceProduit: dataproduit.numberpieceProduit,
+        numberchambreProduit: dataproduit.numberchambreProduit,
+        numberdoucheProduit: dataproduit.numberdoucheProduit,
+        numberetageProduit: dataproduit.numberetageProduit,
+        ascenseurProduit: dataproduit.ascenseurProduit,
+        meubleProduit: dataproduit.meubleProduit,
+        parkingProduit: dataproduit.parkingProduit,
+        dpeProduit: dataproduit.dpeProduit,
+        chargesmensuellesProduit: dataproduit.chargesmensuellesProduit,
+        disponibiliteProduit: dataproduit.disponibiliteProduit,
+        descriptiondetailleeProduit: dataproduit.descriptiondetailleeProduit,
+        marqueautoProduit: dataproduit.marqueautoProduit,
+        modeleautoProduit: dataproduit.modeleautoProduit,
+        circulationProduit: dataproduit.circulationProduit,
+        kilometrageProduit: dataproduit.kilometrageProduit,
+        puissanceautoProduit: dataproduit.puissanceautoProduit,
+        numberporteProduit: dataproduit.numberporteProduit,
+        couleurautoProduit: dataproduit.couleurautoProduit,
+        proprioProduit: dataproduit.proprioProduit,
+        carburantProduit: dataproduit.carburantProduit,
+        specialautoProduit: dataproduit.specialautoProduit,
+        boitevitesseProduit: dataproduit.boitevitesseProduit,
+        marqueelectroProduit: dataproduit.marqueelectroProduit,
+        modeleelectroProduit: dataproduit.modeleelectroProduit,
+        specialelectroProduit: dataproduit.specialelectroProduit,
+        accessoireelectroProduit: dataproduit.accessoireelectroProduit,
+        couleurhabitProduit: dataproduit.couleurhabitProduit,
+        matierehabitProduit: dataproduit.matierehabitProduit,
+        taillehabitProduit: dataproduit.taillehabitProduit,
+        marquehabitProduit: dataproduit.marquehabitProduit,
+        complementinformation: dataproduit.complementinformation,
+        electroniqueProduit: dataproduit.electroniqueProduit,
+        genreProduit: dataproduit.genreProduit,
+        categorieProduit: dataproduit.categorieProduit,
+        quantiteelectroProduit: dataproduit.quantiteelectroProduit,
+        quantitemodeProduit: dataproduit.quantitemodeProduit,
+        quantiteautreProduit: dataproduit.quantiteautreProduit,
+      };
+      const newTable = [...addproduitTable, newstate];
+      setaddproduitTable(newTable);
+      console.log(newTable);
+      toast.success("produit ajouté");
+      setaddproduit(false);
+      //initialiser les champs
+      setpictureproduct({
+        pictureproductPrincipal: null,
+        PictureproduitSecondary1: null,
+        PictureproduitSecondary2: null,
+        PictureproduitSecondary3: null,
+        PictureproduitSecondary4: null,
+        PictureproduitSecondary5: null,
+        Videoproduit: null,
+      });
+      setdataproduit({
+        nomProduit: "",
+        prixProduit: 0,
+        photoProduitPrincipal: null,
+        photoProduitSecondary1: null,
+        photoProduitSecondary2: null,
+        photoProduitSecondary3: null,
+        photoProduitSecondary4: null,
+        photoProduitSecondary5: null,
+        texteDescription: "",
+        videoProduit: null,
+        villeProduit: "",
+        codepostalProduit: "",
+        adresseProduit: "",
+        surfaceProduit: 0,
+        typehouseProduit: "",
+        numberpieceProduit: 0,
+        numberchambreProduit: 0,
+        numberdoucheProduit: 0,
+        numberetageProduit: "",
+        ascenseurProduit: false,
+        meubleProduit: false,
+        parkingProduit: "",
+        CategoriesProduit: "",
+        dpeProduit: "",
+        chargesmensuellesProduit: 0,
+        disponibiliteProduit: "",
+        descriptiondetailleeProduit: "",
+        marqueautoProduit: "",
+        modeleautoProduit: "",
+        circulationProduit: "",
+        kilometrageProduit: 0,
+        puissanceautoProduit: 0,
+        numberporteProduit: 0,
+        couleurautoProduit: "",
+        proprioProduit: "",
+        carburantProduit: "",
+        specialautoProduit: "",
+        boitevitesseProduit: "",
+        marqueelectroProduit: "",
+        modeleelectroProduit: "",
+        specialelectroProduit: "",
+        accessoireelectroProduit: "",
+        couleurhabitProduit: "",
+        matierehabitProduit: "",
+        taillehabitProduit: "",
+        marquehabitProduit: "",
+        complementinformation: "",
+        electroniqueProduit: "",
+        genreProduit: "",
+        categorieProduit: "",
+        quantiteelectroProduit: 0,
+        quantitemodeProduit: 0,
+        quantiteautreProduit: 0,
+      });
+    }
+  };
   //fin d'ajout du produit
+  //delete produit
+  const handleremove = (id: number) => {
+    const suppression = addproduitTable.find((p) => p.id === id);
+    setaddproduitTable(addproduitTable.filter((p) => p.id !== id));
+    if (suppression) {
+      toast.success(
+        `produit ${suppression.nom} de la catégorie ${suppression.categories} bien supprimé`,
+      );
+    }
+    setOpen2(false);
+    setdeleteproduitpublier(null);
+  };
+  //modification des produits
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingProductId, setEditingProductId] = useState<number | null>(null);
+
+  const handleEdit = (product: Produit) => {
+    setIsEditing(true);
+    setEditingProductId(product.id);
+
+    // Remplir TOUS les champs du formulaire avec les données du produit
+    setdataproduit({
+      // Champs communs
+      nomProduit: product.nom,
+      prixProduit: product.prix,
+      CategoriesProduit: product.categories,
+      texteDescription: product.texteDescription || "",
+      complementinformation: product.complementinformation || "",
+
+      // ✅ CORRECTION : Garder les photos existantes
+      photoProduitPrincipal: product.photo || null,
+      photoProduitSecondary1: product.photoProduitSecondary1 ?? null,
+      photoProduitSecondary2: product.photoProduitSecondary2 ?? null,
+      photoProduitSecondary3: product.photoProduitSecondary3 ?? null,
+      photoProduitSecondary4: product.photoProduitSecondary4 ?? null,
+      photoProduitSecondary5: product.photoProduitSecondary5 ?? null,
+      videoProduit: product.videoProduit ?? null,
+
+      // Champs Immobilier
+      villeProduit: product.ville || "",
+      codepostalProduit: product.codepostal || "",
+      adresseProduit: product.adresse || "",
+      surfaceProduit: product.surface || 0,
+      typehouseProduit: product.typehouse || "",
+      numberpieceProduit: product.numberpiece || 0,
+      numberchambreProduit: product.numberchambre || 0,
+      numberdoucheProduit: product.numberdouche || 0,
+      numberetageProduit: product.numberetage || "",
+      ascenseurProduit: product.ascenseur || false,
+      meubleProduit: product.meuble || false,
+      parkingProduit: product.parking || "",
+      dpeProduit: product.dpe || "",
+      chargesmensuellesProduit: product.chargesmensuelles || 0,
+      disponibiliteProduit: product.disponibilite || "",
+      descriptiondetailleeProduit: product.descriptiondetaillee || "",
+
+      // Champs Automobile
+      marqueautoProduit: product.marqueauto || "",
+      modeleautoProduit: product.modeleauto || "",
+      circulationProduit: product.circulation || "",
+      kilometrageProduit: product.kilometrage || 0,
+      puissanceautoProduit: product.puissanceauto || 0,
+      numberporteProduit: product.numberporte || 0,
+      couleurautoProduit: product.couleurauto || "",
+      proprioProduit: product.proprio || "",
+      carburantProduit: product.carburant || "",
+      specialautoProduit: product.specialauto || "",
+      boitevitesseProduit: product.boitevitesse || "",
+
+      // Champs Électronique
+      marqueelectroProduit: product.marqueelectro || "",
+      modeleelectroProduit: product.modeleelectro || "",
+      specialelectroProduit: product.specialelectro || "",
+      accessoireelectroProduit: product.accessoireelectro || "",
+      electroniqueProduit: product.electronique || "",
+      //quantiteelectroProduit: product.quantiteelectro || 0,
+
+      // Champs Mode
+      marquehabitProduit: product.marquehabit || "",
+      taillehabitProduit: product.taillehabit || "",
+      matierehabitProduit: product.matierehabit || "",
+      couleurhabitProduit: product.couleurhabit || "",
+      genreProduit: product.genre || "",
+      categorieProduit: product.categorie || "",
+      // quantitemodeProduit: product.quantitemode || 0,
+
+      // Autre
+
+      quantiteelectroProduit:
+        product.CategoriesProduit === "electronique" ? product.quantite : 0,
+      quantitemodeProduit:
+        product.CategoriesProduit === "mode" ? product.quantite : 0,
+      quantiteautreProduit:
+        product.CategoriesProduit === "autre" ? product.quantite : 0,
+    });
+
+    // ✅ CORRECTION : Utiliser les données du produit pour les médias
+    setpictureproduct({
+      pictureproductPrincipal: product.photo || null,
+      PictureproduitSecondary1: product.photoProduitSecondary1 ?? null,
+      PictureproduitSecondary2: product.photoProduitSecondary2 ?? null,
+      PictureproduitSecondary3: product.photoProduitSecondary3 ?? null,
+      PictureproduitSecondary4: product.photoProduitSecondary4 ?? null,
+      PictureproduitSecondary5: product.photoProduitSecondary5 ?? null,
+      Videoproduit: product.videoProduit ?? null,
+    });
+  };
+  const handleUpdateProduct = (e: React.SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (
+      !dataproduit.nomProduit.trim() ||
+      dataproduit.prixProduit <= 0 ||
+      !dataproduit.photoProduitPrincipal ||
+      !dataproduit.texteDescription.trim() ||
+      !dataproduit.CategoriesProduit
+    ) {
+      toast.error("veuillez remplir tous les champs");
+      return;
+    }
+    if (dataproduit.CategoriesProduit === "immobilier") {
+      if (
+        !dataproduit.villeProduit ||
+        !dataproduit.codepostalProduit ||
+        !dataproduit.adresseProduit ||
+        !dataproduit.surfaceProduit ||
+        !dataproduit.typehouseProduit ||
+        !dataproduit.numberpieceProduit ||
+        !dataproduit.numberchambreProduit ||
+        !dataproduit.numberdoucheProduit ||
+        !dataproduit.numberetageProduit ||
+        !dataproduit.ascenseurProduit ||
+        !dataproduit.meubleProduit ||
+        !dataproduit.parkingProduit ||
+        !dataproduit.dpeProduit ||
+        !dataproduit.chargesmensuellesProduit ||
+        !dataproduit.disponibiliteProduit ||
+        !dataproduit.descriptiondetailleeProduit
+      ) {
+        toast.error("veuillez remplir tous les champs liés à l'immobilier");
+        return;
+      }
+    }
+    if (dataproduit.CategoriesProduit === "automobile") {
+      if (
+        !dataproduit.marqueautoProduit ||
+        !dataproduit.modeleautoProduit ||
+        !dataproduit.circulationProduit ||
+        !dataproduit.kilometrageProduit ||
+        !dataproduit.puissanceautoProduit ||
+        !dataproduit.numberporteProduit ||
+        !dataproduit.couleurautoProduit ||
+        !dataproduit.proprioProduit ||
+        !dataproduit.carburantProduit ||
+        !dataproduit.specialautoProduit ||
+        !dataproduit.boitevitesseProduit
+      ) {
+        toast.error("veuillez remplir tous les champs liés à l'automobile");
+        return;
+      }
+    }
+    if (dataproduit.CategoriesProduit === "electronique") {
+      if (
+        !dataproduit.marqueelectroProduit ||
+        !dataproduit.modeleelectroProduit ||
+        !dataproduit.specialelectroProduit ||
+        !dataproduit.accessoireelectroProduit ||
+        !dataproduit.electroniqueProduit ||
+        !dataproduit.quantiteelectroProduit
+      ) {
+        toast.error("veuillez remplir tous les champs liés à l'électronique");
+        return;
+      }
+    }
+    if (dataproduit.CategoriesProduit === "mode") {
+      if (
+        !dataproduit.marquehabitProduit ||
+        !dataproduit.taillehabitProduit ||
+        !dataproduit.matierehabitProduit ||
+        !dataproduit.couleurhabitProduit ||
+        !dataproduit.genreProduit ||
+        !dataproduit.categorieProduit ||
+        !dataproduit.quantitemodeProduit
+      ) {
+        toast.error("veuillez remplir tous les champs liés à la mode");
+        return;
+      }
+    }
+    if (dataproduit.CategoriesProduit === "autre") {
+      if (!dataproduit.quantiteautreProduit) {
+        toast.error("veuillez remplir tous les champs liés à l'autre");
+        return;
+      }
+    }
+    // Mettre à jour le produit
+    const updatedTable = addproduitTable.map((product) =>
+      product.id === editingProductId
+        ? {
+            ...product,
+            nom: dataproduit.nomProduit,
+            prix: dataproduit.prixProduit,
+            categories: dataproduit.CategoriesProduit,
+            quantite:
+              dataproduit.quantiteautreProduit ??
+              dataproduit.quantiteelectroProduit ??
+              dataproduit.quantitemodeProduit ??
+              1,
+            photo: pictureproduct.pictureproductPrincipal,
+            texteDescription: dataproduit.texteDescription,
+            complementinformation: dataproduit.complementinformation,
+            // Ajoutez tous les autres champs que vous voulez sauvegarder
+            ville: dataproduit.villeProduit,
+            codepostal: dataproduit.codepostalProduit,
+            adresse: dataproduit.adresseProduit,
+            surface: dataproduit.surfaceProduit,
+            typehouse: dataproduit.typehouseProduit,
+            numberpiece: dataproduit.numberpieceProduit,
+            numberchambre: dataproduit.numberchambreProduit,
+            numberdouche: dataproduit.numberdoucheProduit,
+            numberetage: dataproduit.numberetageProduit,
+            ascenseur: dataproduit.ascenseurProduit,
+            meuble: dataproduit.meubleProduit,
+            parking: dataproduit.parkingProduit,
+            dpe: dataproduit.dpeProduit,
+            chargesmensuelles: dataproduit.chargesmensuellesProduit,
+            disponibilite: dataproduit.disponibiliteProduit,
+            descriptiondetaillee: dataproduit.descriptiondetailleeProduit,
+            // Automobile - Correction des noms
+            marqueauto: dataproduit.marqueautoProduit,
+            modeleauto: dataproduit.modeleautoProduit,
+            couleurauto: dataproduit.couleurautoProduit,
+            kilometrage: dataproduit.kilometrageProduit,
+            circulation: dataproduit.circulationProduit,
+            puissanceauto: dataproduit.puissanceautoProduit,
+            carburant: dataproduit.carburantProduit,
+            boitevitesse: dataproduit.boitevitesseProduit,
+            numberporte: dataproduit.numberporteProduit,
+            proprio: dataproduit.proprioProduit,
+
+            // Électronique
+            marqueelectro: dataproduit.marqueelectroProduit,
+            modeleelectro: dataproduit.modeleelectroProduit,
+            specialelectro: dataproduit.specialelectroProduit,
+            accessoireelectro: dataproduit.accessoireelectroProduit,
+            electronique: dataproduit.electroniqueProduit,
+            quantiteelectro: dataproduit.quantiteelectroProduit,
+
+            // Mode
+            marquehabit: dataproduit.marquehabitProduit,
+            taillehabit: dataproduit.taillehabitProduit,
+            matierehabit: dataproduit.matierehabitProduit,
+            couleurhabit: dataproduit.couleurhabitProduit,
+            genre: dataproduit.genreProduit,
+            categorie: dataproduit.categorieProduit,
+            quantitemode: dataproduit.quantitemodeProduit,
+
+            // Autre
+            quantiteautre: dataproduit.quantiteautreProduit,
+          }
+        : product,
+    );
+
+    setaddproduitTable(updatedTable);
+    toast.success("Produit modifié avec succès");
+    // Réinitialiser et fermer
+    setIsEditing(false);
+    setEditingProductId(null);
+  };
   useEffect(() => {
-    const time = setTimeout(() => {
+    /* const time = setTimeout(() => {
       const now = new Date().getHours();
       if (now >= 5 && now <= 17) {
         settimeWord("Bonjour");
@@ -659,7 +1422,13 @@ const ProfilUser: React.FC = () => {
     }, 1000);
     return () => {
       clearTimeout(time);
-    };
+    };*/
+    const now = new Date().getHours();
+    if (now >= 5 && now <= 17) {
+      settimeWord("Bonjour");
+    } else {
+      settimeWord("Bonsoir");
+    }
   }, []);
   // Fonction pour obtenir le revenu d'une commande
   const getRevenue = (item: Order): number => {
@@ -1185,7 +1954,7 @@ const ProfilUser: React.FC = () => {
                           outerRadius={200}
                           label={({ name, value }) => `${name}: ${value} €`}
                         >
-                          {revenueSummary.map((entry, i) => (
+                          {revenueSummary.map((_, i) => (
                             <Cell key={i} fill={COLORS[i % COLORS.length]} />
                           ))}
                         </Pie>
@@ -1222,7 +1991,7 @@ const ProfilUser: React.FC = () => {
                           outerRadius={200}
                           label={({ name, value }) => `${name}: ${value}`}
                         >
-                          {ordersSummary.map((entry, i) => (
+                          {ordersSummary.map((_, i) => (
                             <Cell key={i} fill={COLORS[i % COLORS.length]} />
                           ))}
                         </Pie>
@@ -1383,7 +2152,7 @@ const ProfilUser: React.FC = () => {
                           outerRadius={200}
                           label={({ name, value }) => `${name}: ${value} €`}
                         >
-                          {revenueSummary.map((entry, i) => (
+                          {revenueSummary.map((_, i) => (
                             <Cell key={i} fill={COLORS[i % COLORS.length]} />
                           ))}
                         </Pie>
@@ -1420,7 +2189,7 @@ const ProfilUser: React.FC = () => {
                           outerRadius={200}
                           label={({ name, value }) => `${name}: ${value}`}
                         >
-                          {ordersSummary.map((entry, i) => (
+                          {ordersSummary.map((_, i) => (
                             <Cell key={i} fill={COLORS[i % COLORS.length]} />
                           ))}
                         </Pie>
@@ -1442,7 +2211,7 @@ const ProfilUser: React.FC = () => {
                 <div className="dashboardStepperPublication">
                   {addproduit && (
                     <div className="">
-                      <form action="">
+                      <form action="" onSubmit={handlesubmitproduit}>
                         <div className="ProductText">
                           <p>
                             Nom du produit <span>*</span> :
@@ -1464,6 +2233,7 @@ const ProfilUser: React.FC = () => {
                             type="number"
                             value={dataproduit.prixProduit}
                             name="prixProduit"
+                            min={0}
                             id=""
                             placeholder="saisir le prix du produit"
                             onChange={handlechangeproduit}
@@ -1472,10 +2242,11 @@ const ProfilUser: React.FC = () => {
                         <div className="ProductText">
                           <p>
                             Ajouter des photos du produit, 5 maximum et minimun
-                            1 <span>*</span> :
+                            1 :
                           </p>
                           <p>
-                            La photo principale sera la photo de couverture :
+                            La photo principale sera la photo de couverture{" "}
+                            <span>*</span> :
                           </p>
                           <div className="ProductPictureItem">
                             <div className="ProductPicture">
@@ -1844,8 +2615,8 @@ const ProfilUser: React.FC = () => {
                                   stepCategory3: false,
                                   stepCategory4: false,
                                   stepCategory5: false,
-                                  stepCategory6: false,
                                 });
+                                handleSelect("CategoriesProduit", "immobilier");
                               }}
                             >
                               Immobilier
@@ -1861,8 +2632,8 @@ const ProfilUser: React.FC = () => {
                                   stepCategory3: false,
                                   stepCategory4: false,
                                   stepCategory5: false,
-                                  stepCategory6: false,
                                 });
+                                handleSelect("CategoriesProduit", "automobile");
                               }}
                             >
                               Automobile
@@ -1878,8 +2649,11 @@ const ProfilUser: React.FC = () => {
                                   stepCategory3: true,
                                   stepCategory4: false,
                                   stepCategory5: false,
-                                  stepCategory6: false,
                                 });
+                                handleSelect(
+                                  "CategoriesProduit",
+                                  "electronique",
+                                );
                               }}
                             >
                               électronique
@@ -1895,8 +2669,8 @@ const ProfilUser: React.FC = () => {
                                   stepCategory3: false,
                                   stepCategory4: true,
                                   stepCategory5: false,
-                                  stepCategory6: false,
                                 });
+                                handleSelect("CategoriesProduit", "mode");
                               }}
                             >
                               Mode
@@ -1912,9 +2686,9 @@ const ProfilUser: React.FC = () => {
                                   stepCategory2: false,
                                   stepCategory3: false,
                                   stepCategory4: false,
-                                  stepCategory5: false,
-                                  stepCategory6: true,
+                                  stepCategory5: true,
                                 });
+                                handleSelect("CategoriesProduit", "autre");
                               }}
                             >
                               Autre
@@ -2359,19 +3133,7 @@ const ProfilUser: React.FC = () => {
                                     onChange={handlechangeproduit}
                                   />
                                 </div>
-                                <div className="ProductText">
-                                  <p>
-                                    Prix (€) / Loyer <span>*</span> :
-                                  </p>
-                                  <input
-                                    type="number"
-                                    name="loyerProduit"
-                                    value={dataproduit.loyerProduit}
-                                    id=""
-                                    onChange={handlechangeproduit}
-                                    placeholder="950"
-                                  />
-                                </div>
+
                                 <div className="ProductText">
                                   <p>
                                     Description détaillée <span>*</span> :
@@ -2673,19 +3435,6 @@ const ProfilUser: React.FC = () => {
                                     </div>
                                   </div>
                                 </div>
-                                <div className="ProductText">
-                                  <p>
-                                    Prix (€) <span>*</span> :
-                                  </p>
-                                  <input
-                                    type="number"
-                                    name="prixautoProduit"
-                                    value={dataproduit.prixautoProduit}
-                                    id=""
-                                    onChange={handlechangeproduit}
-                                    placeholder="12500"
-                                  />
-                                </div>
                               </div>
                             </>
                           )}
@@ -2808,6 +3557,19 @@ const ProfilUser: React.FC = () => {
                                     id=""
                                     onChange={handlechangeproduit}
                                     placeholder="iPhone 14"
+                                  />
+                                </div>
+                                <div className="ProductText">
+                                  <p>
+                                    Quantité <span>*</span> :
+                                  </p>
+                                  <input
+                                    type="number"
+                                    name="quantiteelectroProduit"
+                                    value={dataproduit.quantiteelectroProduit}
+                                    id=""
+                                    onChange={handlechangeproduit}
+                                    placeholder="2"
                                   />
                                 </div>
                                 <div className="ProductText">
@@ -3013,6 +3775,19 @@ const ProfilUser: React.FC = () => {
                                 </div>
                                 <div className="ProductText">
                                   <p>
+                                    Quantité <span>*</span> :
+                                  </p>
+                                  <input
+                                    type="number"
+                                    name="quantitemodeProduit"
+                                    value={dataproduit.quantitemodeProduit}
+                                    id=""
+                                    onChange={handlechangeproduit}
+                                    placeholder="1"
+                                  />
+                                </div>
+                                <div className="ProductText">
+                                  <p>
                                     Taille (lettre) <span>*</span> :
                                   </p>
                                   <input
@@ -3054,6 +3829,24 @@ const ProfilUser: React.FC = () => {
                               </div>
                             </>
                           )}
+                          {stepCategory.stepCategory5 && (
+                            <>
+                              <div className="ProductText">
+                                <p>
+                                  Quantité <span>*</span> :
+                                </p>
+                                <input
+                                  type="number"
+                                  name="quantiteautreProduit"
+                                  value={dataproduit.quantiteautreProduit}
+                                  min={0}
+                                  id=""
+                                  onChange={handlechangeproduit}
+                                  placeholder="1"
+                                />
+                              </div>
+                            </>
+                          )}
 
                           <div className="ProductText">
                             <p>Ajouter un complément d'information :</p>
@@ -3067,850 +3860,1826 @@ const ProfilUser: React.FC = () => {
                           </div>
                         </div>
                         <div className="btnaddProduct">
-                          <Button className="accept">Publier le produit</Button>
-                        </div>
-                      </form>
-                    </div>
-                  )}
-                  <div className="listeProduct">
-                    <h2>liste de mes produits publiés</h2>
-                    <div className="dashboardSteppersHistory">
-                      <>
-                        <table>
-                          <thead>
-                            <tr>
-                              <th>Photo</th>
-                              <th>Nom Article</th>
-                              <th>Categories</th>
-                              <th>Quantité</th>
-                              <th>Prix Unitaire</th>
-                              <th>Statut</th>
-                              <th>Modifier</th>
-                              <th>Action</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>
-                                <img src={img2} alt="" />
-                              </td>
-                              <td>
-                                <p>dimitri</p>
-                              </td>
-                              <td>
-                                <p>IMMOBILIER</p>
-                              </td>
-                              <td>2</td>
-                              <td>1000</td>
-                              <td>
-                                <Button className="accept">Activer</Button>
-                              </td>
-                              <td>
-                                <Button>Modifier</Button>
-                              </td>
-                              <td>
-                                <Button className="decline">Supprimer</Button>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <img src={img2} alt="" />
-                              </td>
-                              <td>
-                                <p>dimitri</p>
-                              </td>
-                              <td>
-                                <p>IMMOBILIER</p>
-                              </td>
-                              <td>5</td>
-                              <td>1000</td>
-                              <td>
-                                <Button className="accept">Désactiver</Button>
-                              </td>
-                              <td>
-                                <Button>Modifier</Button>
-                              </td>
-                              <td>
-                                <Button className="decline">Supprimer</Button>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </>
-                    </div>
-                    <h2>Modifier un produit</h2>
-                    <div className="">
-                      <form action="">
-                        <div className="ProductText">
-                          <p>
-                            Nom du produit <span>*</span> :
-                          </p>
-                          <input
-                            type="text"
-                            name=""
-                            id=""
-                            placeholder="saisir le nom du produit"
-                          />
-                        </div>
-                        <div className="ProductText">
-                          <p>
-                            Prix du produit <span>*</span> :
-                          </p>
-                          <input
-                            type="number"
-                            name=""
-                            id=""
-                            placeholder="saisir le prix du produit"
-                          />
-                        </div>
-                        <div className="ProductText">
-                          <p>
-                            Ajouter des photos du produit, 5 maximum et minimun
-                            1 <span>*</span> :
-                          </p>
-                          <p>
-                            La photo principale sera la photo de couverture :
-                          </p>
-                          <div className="ProductPictureItem">
-                            <div className="ProductPicture">
-                              <img src={pen} alt="" />
-                            </div>
-                            <input
-                              type="file"
-                              name=""
-                              id=""
-                              style={{ display: "none" }}
-                            />
-                          </div>
-
-                          <p>
-                            Cliquez sur les cadres ci-dessous pour ajouter des
-                            photos ou modifier :
-                          </p>
-                          <div className="SecondPicture">
-                            <div className="ProductPictureSecondItem">
-                              <div className="ProductPictureSecond">
-                                <div className="ProductPictureLogo">
-                                  <img src={pen} alt="" />
-                                  <img src={dup} alt="" />
-                                </div>
-                              </div>
-                              <input
-                                type="file"
-                                name=""
-                                id=""
-                                style={{ display: "none" }}
-                              />
-                            </div>
-                            <div className="ProductPictureSecondItem">
-                              <div className="ProductPictureSecond">
-                                <div className="ProductPictureLogo">
-                                  <img src={pen} alt="" />
-                                  <img src={dup} alt="" />
-                                </div>
-                              </div>
-                              <input
-                                type="file"
-                                name=""
-                                id=""
-                                style={{ display: "none" }}
-                              />
-                            </div>
-                            <div className="ProductPictureSecondItem">
-                              <div className="ProductPictureSecond">
-                                <div className="ProductPictureLogo">
-                                  <img src={pen} alt="" />
-                                  <img src={dup} alt="" />
-                                </div>
-                              </div>
-                              <input
-                                type="file"
-                                name=""
-                                id=""
-                                style={{ display: "none" }}
-                              />
-                            </div>
-                            <div className="ProductPictureSecondItem">
-                              <div className="ProductPictureSecond">
-                                <div className="ProductPictureLogo">
-                                  <img src={pen} alt="" />
-                                  <img src={dup} alt="" />
-                                </div>
-                              </div>
-                              <input
-                                type="file"
-                                name=""
-                                id=""
-                                style={{ display: "none" }}
-                              />
-                            </div>
-                            <div className="ProductPictureSecondItem">
-                              <div className="ProductPictureSecond">
-                                <div className="ProductPictureLogo">
-                                  <img src={pen} alt="" />
-                                  <img src={dup} alt="" />
-                                </div>
-                              </div>
-                              <input
-                                type="file"
-                                name=""
-                                id=""
-                                style={{ display: "none" }}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="ProductText">
-                          <p>
-                            Description du produit <span>*</span> :
-                          </p>
-                          <textarea name="" id="" spellCheck>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit. Iste, accusamus mollitia! Voluptatem impedit
-                            neque aliquam ad, recusandae fugit ratione
-                            voluptatum tempora itaque ut. Quidem deleniti sed
-                            corporis fugiat et repudiandae.Lorem ipsum dolor sit
-                            amet, consectetur adipisicing elit. Iste, accusamus
-                            mollitia! Voluptatem impedit neque aliquam ad,
-                            recusandae fugit ratione voluptatum tempora itaque
-                            ut. Quidem deleniti sed corporis fugiat et
-                            repudiandae.Lorem ipsum dolor sit amet, consectetur
-                            adipisicing elit. Iste, accusamus mollitia!
-                            Voluptatem impedit neque aliquam ad, recusandae
-                            fugit ratione voluptatum tempora itaque ut. Quidem
-                            deleniti sed corporis fugiat et repudiandae.Lorem
-                            ipsum dolor sit amet, consectetur adipisicing elit.
-                            Iste, accusamus mollitia! Voluptatem impedit neque
-                            aliquam ad, recusandae fugit ratione voluptatum
-                            tempora itaque ut. Quidem deleniti sed corporis
-                            fugiat et repudiandae.
-                          </textarea>
-                          <div className="addWriteIa">
-                            <Button>
-                              Aider vous de l'IA pour modifier la description
-                            </Button>
-                            <progress />
-                          </div>
-                        </div>
-                        <div className="ProductText">
-                          <p>Ajouter une vidéo du produit :</p>
-                          <div className="ProductPictureItem">
-                            <div className="ProductPicture">
-                              <img src={pen} alt="" />
-                            </div>
-                            <input
-                              type="file"
-                              accept="video/*"
-                              name=""
-                              id=""
-                              style={{ display: "none" }}
-                            />
-                          </div>
-                        </div>
-                        <div className="ProductText">
-                          <p>
-                            Sélectionner une catégorie de produit <span>*</span>{" "}
-                            :
-                          </p>
-                          <div className="ProductCategory">
-                            <p>Immobilier</p>
-                            <p>Automobile</p>
-                            <p>électronique</p>
-                            <p>Mode</p>
-                            <p>emploi</p>
-                            <p>Autre</p>
-                          </div>
-                        </div>
-                        <div className="ProductItems">
-                          <>
-                            <div className="">
-                              <div className="ProductText">
-                                <p>
-                                  Ville <span>*</span> :
-                                </p>
-                                <input type="text" placeholder="Ex: Lyon" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Code postal <span>*</span> :
-                                </p>
-                                <input type="text" placeholder="69001" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Adresse <span>*</span> :
-                                </p>
-                                <input
-                                  type="text"
-                                  placeholder="12 rue de la République"
-                                />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Surface (m²) <span>*</span> :
-                                </p>
-                                <input type="number" placeholder="65" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Type de bien <span>*</span> :
-                                </p>
-                                <div className="ProductCategory">
-                                  <p>Appartement</p>
-                                  <p>Maison</p>
-                                  <p>Studio</p>
-                                  <p>Terrain</p>
-                                  <p>Autre</p>
-                                </div>
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Nombre de pièces <span>*</span> :
-                                </p>
-                                <input type="number" placeholder="3" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Nombre de chambres <span>*</span> :
-                                </p>
-                                <input type="number" placeholder="2" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Nombre de salles de bain <span>*</span> :
-                                </p>
-                                <input type="number" placeholder="1" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Étage / étages total <span>*</span> :
-                                </p>
-                                <input
-                                  type="text"
-                                  placeholder="3ème / 5 étages"
-                                />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Ascenseur <span>*</span> :
-                                </p>
-                                <div className="InputRadioProductText">
-                                  <div className="InputRadioProductTextItem">
-                                    <input type="radio" name="ascenseur" />
-                                    <label>Oui</label>
-                                  </div>
-                                  <div className="InputRadioProductTextItem">
-                                    <input type="radio" name="ascenseur" />
-                                    <label>Non</label>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Meublé <span>*</span> :
-                                </p>
-                                <div className="InputRadioProductText">
-                                  <div className="InputRadioProductTextItem">
-                                    <input type="radio" name="meuble" />
-                                    <label>Oui</label>
-                                  </div>
-                                  <div className="InputRadioProductTextItem">
-                                    <input type="radio" name="meuble" />
-                                    <label>Non</label>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Parking / Garage <span>*</span> :
-                                </p>
-                                <div className="ProductCategory">
-                                  <p>Aucun</p>
-                                  <p>Parking privé</p>
-                                  <p>Garage</p>
-                                  <p>Box</p>
-                                </div>
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  DPE (Diagnostic Perf. Énergétique){" "}
-                                  <span>*</span> :
-                                </p>
-                                <div className="ProductCategory">
-                                  <p>A</p>
-                                  <p>B</p>
-                                  <p>C</p>
-                                  <p>D</p>
-                                  <p>E</p>
-                                  <p>F</p>
-                                  <p>G</p>
-                                </div>
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Charges mensuelles (€) <span>*</span> :
-                                </p>
-                                <input type="number" placeholder="120" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Disponibilité <span>*</span> :
-                                </p>
-                                <input type="date" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Prix (€) / Loyer <span>*</span> :
-                                </p>
-                                <input type="number" placeholder="950" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Description détaillée <span>*</span> :
-                                </p>
-                                <textarea placeholder="Coup de cœur assuré pour cet appartement lumineux..."></textarea>
-                              </div>
-                            </div>
-                          </>
-                          <>
-                            <div className="ProductText">
-                              <div className="ProductText">
-                                <p>
-                                  Marque <span>*</span> :
-                                </p>
-                                <input type="text" placeholder="Renault" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Modèle <span>*</span> :
-                                </p>
-                                <input type="text" placeholder="Clio" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Année / Mise en circulation <span>*</span> :
-                                </p>
-                                <input type="number" placeholder="2020" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Kilométrages <span>*</span> :
-                                </p>
-                                <input type="number" placeholder="45000" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Carburant <span>*</span> :
-                                </p>
-                                <div className="ProductCategory">
-                                  <p>Essence</p>
-                                  <p>Diesel</p>
-                                  <p>Hybride</p>
-                                  <p>Électrique</p>
-
-                                  <p>Autre</p>
-                                </div>
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Puissance (ch) <span>*</span> :
-                                </p>
-                                <input type="number" placeholder="90" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Boîte de vitesse <span>*</span> :
-                                </p>
-                                <div className="ProductCategory">
-                                  <p>Manuelle</p>
-                                  <p>Automatique</p>
-                                </div>
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Nombre de portes <span>*</span> :
-                                </p>
-                                <input type="number" placeholder="5" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Couleur <span>*</span> :
-                                </p>
-                                <input type="text" placeholder="Rouge" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Nombre de propriétaires précédents{" "}
-                                  <span>*</span> :
-                                </p>
-                                <input type="number" placeholder="2" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Options principales <span>*</span> :
-                                </p>
-                                <div className="InputRadioProductText">
-                                  <div className="InputRadioProductTextItem">
-                                    <input type="checkbox" name="" />
-                                    <label>Climatisation</label>
-                                  </div>
-                                  <div className="InputRadioProductTextItem">
-                                    <input type="checkbox" name="" />
-                                    <label>GPS</label>
-                                  </div>
-                                  <div className="InputRadioProductTextItem">
-                                    <input type="checkbox" name="" />
-                                    <label>Toit ouvrant</label>
-                                  </div>
-                                  <div className="InputRadioProductTextItem">
-                                    <input type="checkbox" name="" />
-                                    <label>Caméra de recul</label>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Prix (€) <span>*</span> :
-                                </p>
-                                <input type="number" placeholder="12500" />
-                              </div>
-                            </div>
-                          </>
-                          <>
-                            <div className="ProductText">
-                              <div className="ProductText">
-                                <p>
-                                  Type de produit <span>*</span> :
-                                </p>
-                                <div className="ProductCategory">
-                                  <p>Ordinateur</p>
-                                  <p>Téléphone</p>
-                                  <p>TV</p>
-                                  <p>Console</p>
-                                  <p>Autre</p>
-                                </div>
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Marque <span>*</span> :
-                                </p>
-                                <input type="text" placeholder="Apple" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Modèle / Référence <span>*</span> :
-                                </p>
-                                <input type="text" placeholder="iPhone 14" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Spécifications techniques <span>*</span> :
-                                </p>
-                                <input
-                                  type="text"
-                                  placeholder="Stockage: 256GB, RAM: 8GB"
-                                />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  État <span>*</span> :
-                                </p>
-                                <div className="ProductCategory">
-                                  <p>Neuf </p>
-                                  <p>Comme neuf</p>
-                                  <p>Très bon état</p>
-                                  <p>Bon état</p>
-                                </div>
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Accessoires inclus <span>*</span> :
-                                </p>
-                                <input
-                                  type="text"
-                                  placeholder="Chargeur, câble, boîte d'origine"
-                                />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Garantie restante <span>*</span> :
-                                </p>
-                                <div className="ProductCategory">
-                                  <p>Oui </p>
-                                  <p>Non</p>
-                                </div>
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Prix (€) <span>*</span> :
-                                </p>
-                                <input type="number" placeholder="650" />
-                              </div>
-                            </div>
-                          </>
-                          <>
-                            <div className="ProductText">
-                              <div className="ProductText">
-                                <p>
-                                  Genre <span>*</span> :
-                                </p>
-                                <div className="ProductCategory">
-                                  <p>Homme</p>
-                                  <p>Femme</p>
-                                  <p>Enfant</p>
-                                </div>
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Catégorie <span>*</span> :
-                                </p>
-                                <div className="ProductCategory">
-                                  <p>T-shirt / Top</p>
-                                  <p>Pantalon / Jean</p>
-                                  <p>Robe / Jupe</p>
-                                  <p>Chaussures</p>
-                                  <p>Accessoire</p>
-                                  <p>Autre</p>
-                                </div>
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Marque <span>*</span> :
-                                </p>
-                                <input
-                                  type="text"
-                                  placeholder="Nike, Zara, etc."
-                                />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Taille (lettre) <span>*</span> :
-                                </p>
-                                <input
-                                  type="text"
-                                  placeholder="M / L / 38 / 42"
-                                />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Matière principale <span>*</span> :
-                                </p>
-                                <input type="text" placeholder="100% coton" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  État <span>*</span> :
-                                </p>
-                                <div className="ProductCategory">
-                                  <p>Neuf avec étiquette</p>
-                                  <p>Comme neuf</p>
-                                  <p>Très bon état</p>
-                                  <p>Bon état</p>
-                                </div>
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Couleur <span>*</span> :
-                                </p>
-                                <input type="text" placeholder="Bleu marine" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Prix (€) <span>*</span> :
-                                </p>
-                                <input type="number" placeholder="25" />
-                              </div>
-                            </div>
-                          </>
-                          <>
-                            <div className="ProductText">
-                              <div className="ProductText">
-                                <p>
-                                  Intitulé du poste <span>*</span> :
-                                </p>
-                                <input
-                                  type="text"
-                                  placeholder="Développeur Full Stack"
-                                />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Entreprise <span>*</span> :
-                                </p>
-                                <input type="text" placeholder="TechCorp" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Type de contrat <span>*</span> :
-                                </p>
-                                <div className="ProductCategory">
-                                  <p>CDI</p>
-                                  <p>CDD</p>
-                                  <p>Freelance</p>
-                                  <p>Intérim</p>
-                                  <p>Stage</p>
-                                  <p>Alternance</p>
-                                </div>
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Niveau d'expérience requis <span>*</span> :
-                                </p>
-                                <div className="ProductCategory">
-                                  <p>Débutant</p>
-                                  <p>Junior (1-2 ans)</p>
-                                  <p>Confirmé (3-5 ans)</p>
-                                  <p>Senior (5+ ans)</p>
-                                  <p>Expert</p>
-                                </div>
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Salaire (brut annuel / TJM) <span>*</span> :
-                                </p>
-                                <input type="number" placeholder="45000" />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Localisation (Ville / Remote) <span>*</span> :
-                                </p>
-                                <input
-                                  type="text"
-                                  placeholder="Paris / Full Remote"
-                                />
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Télétravail <span>*</span> :
-                                </p>
-                                <div className="ProductCategory">
-                                  <p>0% (100% présentiel)</p>
-                                  <p>1-2 jours/semaine</p>
-                                  <p>3-4 jours/semaine</p>
-                                  <p>100% télétravail</p>
-                                  <p>à négocier</p>
-                                </div>
-                              </div>
-                              <div className="ProductText">
-                                <p>
-                                  Description de la mission <span>*</span> :
-                                </p>
-                                <textarea placeholder="Nous recherchons un profil dynamique..."></textarea>
-                              </div>
-                            </div>
-                          </>
-                          <div className="ProductText">
-                            <p>Ajouter un complément d'information :</p>
-                            <textarea name="" id="">
-                              Lorem ipsum dolor sit amet, consectetur
-                              adipisicings
-                            </textarea>
-                          </div>
-                        </div>
-                        <div className="btnaddProduct">
-                          <Button className="accept">
-                            Modifier le produit
+                          <Button className="accept" type="submit">
+                            Publier le produit
                           </Button>
                         </div>
                       </form>
                     </div>
-                  </div>
-                  <div className="">
-                    <h2>Produits achetés</h2>
-                    <div className="dashboardSteppersHistory">
-                      <>
-                        <table>
-                          <thead>
-                            <tr>
-                              <th>Photo</th>
-                              <th>Nom Article</th>
-                              <th>Categories</th>
-                              <th>Quantité</th>
-                              <th>Prix </th>
-                              <th>Statut</th>
-                              <th>Commenter</th>
-                              <th>Action</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>
-                                <img src={img2} alt="" />
-                              </td>
-                              <td>
-                                <p>dimitri</p>
-                              </td>
-                              <td>
-                                <p>IMMOBILIER</p>
-                              </td>
-                              <td>2</td>
-                              <td>1000</td>
-                              <td>
-                                <Button className="accept">Livrer</Button>
-                              </td>
-                              <td>
-                                <Button>Commenter</Button>
-                              </td>
-                              <td>
-                                <Button className="decline">Supprimer</Button>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <img src={img2} alt="" />
-                              </td>
-                              <td>
-                                <p>dimitri</p>
-                              </td>
-                              <td>
-                                <p>IMMOBILIER</p>
-                              </td>
-                              <td>5</td>
-                              <td>1000</td>
-                              <td>
-                                <Button className="accept">
-                                  En cours de livraison
+                  )}
+                  {addproduitTable.length > 0 && (
+                    <div className="listeProduct">
+                      <h2>liste de mes produits publiés</h2>
+                      <div className="dashboardSteppersHistory">
+                        {addproduitTable.length > 0 ? (
+                          <>
+                            <table>
+                              <thead>
+                                <tr>
+                                  <th>Photo</th>
+                                  <th>Nom Article</th>
+                                  <th>Categories</th>
+                                  <th>Quantité</th>
+                                  <th>Prix Unitaire</th>
+                                  <th>Statut</th>
+                                  <th>Modifier</th>
+                                  <th>Action</th>
+                                  <th>date de publication</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {addproduitTable.map((p) => (
+                                  <tr key={p.id}>
+                                    <td>
+                                      {p.photo && <img src={p.photo} alt="" />}
+                                    </td>
+                                    <td>
+                                      <p>{p.nom}</p>
+                                    </td>
+                                    <td>
+                                      <p
+                                        style={{ textTransform: "capitalize" }}
+                                      >
+                                        {p.categories}
+                                      </p>
+                                    </td>
+                                    <td>{p.quantite}</td>
+                                    <td>{p.prix}</td>
+                                    <td>
+                                      <Button className="accept">
+                                        Activer
+                                      </Button>
+                                    </td>
+                                    <td>
+                                      <Button onClick={() => handleEdit(p)}>
+                                        Modifier
+                                      </Button>
+                                    </td>
+                                    <td>
+                                      <Button
+                                        className="decline"
+                                        onClick={() => handleclickdelete(p)}
+                                      >
+                                        Supprimer
+                                      </Button>
+                                    </td>
+                                    <td>
+                                      <p>{p.date}</p>
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </>
+                        ) : (
+                          <p>Aucun produit stocké</p>
+                        )}
+                      </div>
+
+                      {isEditing && (
+                        <>
+                          <h2>Modifier un produit</h2>
+                          <div className="">
+                            <form action="" onSubmit={handleUpdateProduct}>
+                              <div className="ProductText">
+                                <p>
+                                  Nom du produit <span>*</span> :
+                                </p>
+                                <input
+                                  type="text"
+                                  name="nomProduit"
+                                  value={dataproduit.nomProduit}
+                                  id=""
+                                  placeholder="saisir le nom du produit"
+                                  onChange={handlechangeproduit}
+                                />
+                              </div>
+                              <div className="ProductText">
+                                <p>
+                                  Prix du produit <span>*</span> :
+                                </p>
+                                <input
+                                  type="number"
+                                  value={dataproduit.prixProduit}
+                                  name="prixProduit"
+                                  min={0}
+                                  id=""
+                                  placeholder="saisir le prix du produit"
+                                  onChange={handlechangeproduit}
+                                />
+                              </div>
+                              <div className="ProductText">
+                                <p>
+                                  Ajouter des photos du produit, 5 maximum et
+                                  minimun 1 :
+                                </p>
+                                <p>
+                                  La photo principale sera la photo de
+                                  couverture <span>*</span> :
+                                </p>
+                                <div className="ProductPictureItem">
+                                  <div className="ProductPicture">
+                                    <img
+                                      src={
+                                        pictureproduct.pictureproductPrincipal ??
+                                        undefined
+                                      }
+                                      alt=""
+                                      className="ProductPictureItemImg"
+                                    />
+                                    <img
+                                      src={pen}
+                                      alt=""
+                                      onClick={() =>
+                                        refpictureproduct.current?.click()
+                                      }
+                                      className="penimage"
+                                    />
+                                  </div>
+                                  <input
+                                    accept="image/*"
+                                    type="file"
+                                    name="photoProduitPrincipal"
+                                    id=""
+                                    style={{ display: "none" }}
+                                    onChange={handlechangepictureproduit}
+                                    ref={refpictureproduct}
+                                  />
+                                </div>
+
+                                <p>
+                                  Cliquez sur les cadres ci-dessous pour ajouter
+                                  des photos ou modifier :
+                                </p>
+                                <div className="SecondPicture">
+                                  <div className="ProductPictureSecondItem">
+                                    <div className="ProductPictureSecond">
+                                      {pictureproduct.PictureproduitSecondary1 && (
+                                        <img
+                                          src={
+                                            pictureproduct.PictureproduitSecondary1 ??
+                                            undefined
+                                          }
+                                          alt=""
+                                          className="ProductSecondPictureItemImg"
+                                        />
+                                      )}
+                                      <div className="ProductPictureLogo">
+                                        <img
+                                          src={pen}
+                                          alt=""
+                                          onClick={() =>
+                                            refpictureproduct1.current?.click()
+                                          }
+                                        />
+                                        {(pictureproduct
+                                          .PictureproduitSecondary1?.length ??
+                                          0) > 0 && (
+                                          <img
+                                            src={dup}
+                                            alt=""
+                                            onClick={() => {
+                                              setdataproduit({
+                                                ...dataproduit,
+                                                photoProduitSecondary1: null,
+                                              });
+                                              setpictureproduct({
+                                                ...pictureproduct,
+                                                PictureproduitSecondary1: null,
+                                              });
+                                            }}
+                                          />
+                                        )}
+                                      </div>
+                                    </div>
+                                    <input
+                                      accept="image/*"
+                                      type="file"
+                                      name="photoProduitSecondary1"
+                                      id=""
+                                      style={{ display: "none" }}
+                                      onChange={handlechangepictureproduit}
+                                      ref={refpictureproduct1}
+                                    />
+                                  </div>
+                                  <div className="ProductPictureSecondItem">
+                                    <div className="ProductPictureSecond">
+                                      {pictureproduct.PictureproduitSecondary2 && (
+                                        <img
+                                          src={
+                                            pictureproduct.PictureproduitSecondary2 ??
+                                            undefined
+                                          }
+                                          alt=""
+                                          className="ProductSecondPictureItemImg"
+                                        />
+                                      )}
+                                      <div className="ProductPictureLogo">
+                                        <img
+                                          src={pen}
+                                          alt=""
+                                          onClick={() =>
+                                            refpictureproduct2.current?.click()
+                                          }
+                                        />
+                                        {(pictureproduct
+                                          .PictureproduitSecondary2?.length ??
+                                          0) > 0 && (
+                                          <img
+                                            src={dup}
+                                            alt=""
+                                            onClick={() => {
+                                              setdataproduit({
+                                                ...dataproduit,
+                                                photoProduitSecondary2: null,
+                                              });
+                                              setpictureproduct({
+                                                ...pictureproduct,
+                                                PictureproduitSecondary2: null,
+                                              });
+                                            }}
+                                          />
+                                        )}
+                                      </div>
+                                    </div>
+                                    <input
+                                      accept="image/*"
+                                      type="file"
+                                      name="photoProduitSecondary2"
+                                      id=""
+                                      style={{ display: "none" }}
+                                      onChange={handlechangepictureproduit}
+                                      ref={refpictureproduct2}
+                                    />
+                                  </div>
+                                  <div className="ProductPictureSecondItem">
+                                    <div className="ProductPictureSecond">
+                                      {pictureproduct.PictureproduitSecondary3 && (
+                                        <img
+                                          src={
+                                            pictureproduct.PictureproduitSecondary3 ??
+                                            undefined
+                                          }
+                                          alt=""
+                                          className="ProductSecondPictureItemImg"
+                                        />
+                                      )}
+                                      <div className="ProductPictureLogo">
+                                        <img
+                                          src={pen}
+                                          alt=""
+                                          onClick={() =>
+                                            refpictureproduct3.current?.click()
+                                          }
+                                        />
+                                        {(pictureproduct
+                                          .PictureproduitSecondary3?.length ??
+                                          0) > 0 && (
+                                          <img
+                                            src={dup}
+                                            alt=""
+                                            onClick={() => {
+                                              setdataproduit({
+                                                ...dataproduit,
+                                                photoProduitSecondary3: null,
+                                              });
+                                              setpictureproduct({
+                                                ...pictureproduct,
+                                                PictureproduitSecondary3: null,
+                                              });
+                                            }}
+                                          />
+                                        )}
+                                      </div>
+                                    </div>
+                                    <input
+                                      accept="image/*"
+                                      type="file"
+                                      name="photoProduitSecondary3"
+                                      id=""
+                                      style={{ display: "none" }}
+                                      onChange={handlechangepictureproduit}
+                                      ref={refpictureproduct3}
+                                    />
+                                  </div>
+                                  <div className="ProductPictureSecondItem">
+                                    <div className="ProductPictureSecond">
+                                      {pictureproduct.PictureproduitSecondary4 && (
+                                        <img
+                                          src={
+                                            pictureproduct.PictureproduitSecondary4 ??
+                                            undefined
+                                          }
+                                          alt=""
+                                          className="ProductSecondPictureItemImg"
+                                        />
+                                      )}
+                                      <div className="ProductPictureLogo">
+                                        <img
+                                          src={pen}
+                                          alt=""
+                                          onClick={() =>
+                                            refpictureproduct4.current?.click()
+                                          }
+                                        />
+                                        {(pictureproduct
+                                          .PictureproduitSecondary4?.length ??
+                                          0) > 0 && (
+                                          <img
+                                            src={dup}
+                                            alt=""
+                                            onClick={() => {
+                                              setdataproduit({
+                                                ...dataproduit,
+                                                photoProduitSecondary4: null,
+                                              });
+                                              setpictureproduct({
+                                                ...pictureproduct,
+                                                PictureproduitSecondary4: null,
+                                              });
+                                            }}
+                                          />
+                                        )}
+                                      </div>
+                                    </div>
+                                    <input
+                                      accept="image/*"
+                                      type="file"
+                                      name="photoProduitSecondary4"
+                                      id=""
+                                      style={{ display: "none" }}
+                                      onChange={handlechangepictureproduit}
+                                      ref={refpictureproduct4}
+                                    />
+                                  </div>
+                                  <div className="ProductPictureSecondItem">
+                                    <div className="ProductPictureSecond">
+                                      {pictureproduct.PictureproduitSecondary5 && (
+                                        <img
+                                          src={
+                                            pictureproduct.PictureproduitSecondary5 ??
+                                            undefined
+                                          }
+                                          alt=""
+                                          className="ProductSecondPictureItemImg"
+                                        />
+                                      )}
+                                      <div className="ProductPictureLogo">
+                                        <img
+                                          src={pen}
+                                          alt=""
+                                          onClick={() =>
+                                            refpictureproduct5.current?.click()
+                                          }
+                                        />
+                                        {(pictureproduct
+                                          .PictureproduitSecondary5?.length ??
+                                          0) > 0 && (
+                                          <img
+                                            src={dup}
+                                            alt=""
+                                            onClick={() => {
+                                              setdataproduit({
+                                                ...dataproduit,
+                                                photoProduitSecondary5: null,
+                                              });
+                                              setpictureproduct({
+                                                ...pictureproduct,
+                                                PictureproduitSecondary5: null,
+                                              });
+                                            }}
+                                          />
+                                        )}
+                                      </div>
+                                    </div>
+                                    <input
+                                      accept="image/*"
+                                      type="file"
+                                      name="photoProduitSecondary5"
+                                      id=""
+                                      style={{ display: "none" }}
+                                      onChange={handlechangepictureproduit}
+                                      ref={refpictureproduct5}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="ProductText">
+                                <p>
+                                  Description du produit <span>*</span> :
+                                </p>
+                                <textarea
+                                  name="texteDescription"
+                                  value={dataproduit.texteDescription}
+                                  onChange={handlechangeproduit}
+                                  id=""
+                                  spellCheck
+                                />
+                                {dataproduit.texteDescription.length > 100 && (
+                                  <div className="addWriteIa">
+                                    <Button>
+                                      Aider vous de l'IA pour modifier la
+                                      description
+                                    </Button>
+                                    <progress />
+                                  </div>
+                                )}
+                              </div>
+                              <div className="ProductText">
+                                <p>Ajouter une vidéo du produit :</p>
+                                <div className="ProductPictureItem">
+                                  <div className="ProductPicture">
+                                    {pictureproduct.Videoproduit && (
+                                      <video
+                                        src={pictureproduct.Videoproduit}
+                                        controls
+                                        className="ProductPictureItemImg"
+                                        style={{ cursor: "pointer" }}
+                                      />
+                                    )}
+                                    <div className="ProductPictureLogo">
+                                      <img
+                                        src={pen}
+                                        alt=""
+                                        onClick={() =>
+                                          refvideo.current?.click()
+                                        }
+                                      />
+                                      {(pictureproduct.Videoproduit?.length ??
+                                        0) > 0 && (
+                                        <img
+                                          src={dup}
+                                          alt=""
+                                          onClick={() => {
+                                            setdataproduit({
+                                              ...dataproduit,
+                                              videoProduit: null,
+                                            });
+                                            setpictureproduct({
+                                              ...pictureproduct,
+                                              Videoproduit: null,
+                                            });
+                                          }}
+                                        />
+                                      )}
+                                    </div>
+                                  </div>
+                                  <input
+                                    ref={refvideo}
+                                    type="file"
+                                    accept="video/*"
+                                    name="videoProduit"
+                                    id=""
+                                    onChange={handlechangepictureproduit}
+                                    style={{ display: "none" }}
+                                  />
+                                </div>
+                              </div>
+                              <div className="ProductText">
+                                <p>
+                                  Sélectionner une catégorie de produit{" "}
+                                  <span>*</span> :
+                                </p>
+                                <div className="ProductCategory">
+                                  <p
+                                    className={`selectcategory ${selectCtegory === "immobilier" ? "act" : ""}`}
+                                    onClick={() => {
+                                      if (selectCtegory === "immobilier")
+                                        return; //eviter de recharger la page si on clique plusieurs fois sur la catégorie immobilier
+                                      setselectCtegory("immobilier");
+                                      setstepCategory({
+                                        stepCategory1: true,
+                                        stepCategory2: false,
+                                        stepCategory3: false,
+                                        stepCategory4: false,
+                                        stepCategory5: false,
+                                      });
+                                      handleSelect(
+                                        "CategoriesProduit",
+                                        "immobilier",
+                                      );
+                                    }}
+                                  >
+                                    Immobilier
+                                  </p>
+                                  <p
+                                    className={`selectcategory ${selectCtegory === "automobile" ? "act" : ""}`}
+                                    onClick={() => {
+                                      if (selectCtegory === "automobile")
+                                        return; //eviter de recharger la page si on clique plusieurs fois sur la catégorie automobile
+                                      setselectCtegory("automobile");
+                                      setstepCategory({
+                                        stepCategory1: false,
+                                        stepCategory2: true,
+                                        stepCategory3: false,
+                                        stepCategory4: false,
+                                        stepCategory5: false,
+                                      });
+                                      handleSelect(
+                                        "CategoriesProduit",
+                                        "automobile",
+                                      );
+                                    }}
+                                  >
+                                    Automobile
+                                  </p>
+                                  <p
+                                    className={`selectcategory ${selectCtegory === "electronique" ? "act" : ""}`}
+                                    onClick={() => {
+                                      if (selectCtegory === "electronique")
+                                        return; //eviter de recharger la page si on clique plusieurs fois sur la catégorie electronique
+                                      setselectCtegory("electronique");
+                                      setstepCategory({
+                                        stepCategory1: false,
+                                        stepCategory2: false,
+                                        stepCategory3: true,
+                                        stepCategory4: false,
+                                        stepCategory5: false,
+                                      });
+                                      handleSelect(
+                                        "CategoriesProduit",
+                                        "electronique",
+                                      );
+                                    }}
+                                  >
+                                    électronique
+                                  </p>
+                                  <p
+                                    className={`selectcategory ${selectCtegory === "mode" ? "act" : ""}`}
+                                    onClick={() => {
+                                      if (selectCtegory === "mode") return; //eviter de recharger la page si on clique plusieurs fois sur la catégorie mode
+                                      setselectCtegory("mode");
+                                      setstepCategory({
+                                        stepCategory1: false,
+                                        stepCategory2: false,
+                                        stepCategory3: false,
+                                        stepCategory4: true,
+                                        stepCategory5: false,
+                                      });
+                                      handleSelect("CategoriesProduit", "mode");
+                                    }}
+                                  >
+                                    Mode
+                                  </p>
+
+                                  <p
+                                    className={`selectcategory ${selectCtegory === "autre" ? "act" : ""}`}
+                                    onClick={() => {
+                                      if (selectCtegory === "autre") return; //eviter de recharger la page si on clique plusieurs fois sur la catégorie autre
+                                      setselectCtegory("autre");
+                                      setstepCategory({
+                                        stepCategory1: false,
+                                        stepCategory2: false,
+                                        stepCategory3: false,
+                                        stepCategory4: false,
+                                        stepCategory5: true,
+                                      });
+                                      handleSelect(
+                                        "CategoriesProduit",
+                                        "autre",
+                                      );
+                                    }}
+                                  >
+                                    Autre
+                                  </p>
+                                </div>
+                              </div>
+                              <div className="ProductItems">
+                                {stepCategory.stepCategory1 && (
+                                  <>
+                                    <div className="">
+                                      <div className="ProductText">
+                                        <p>
+                                          Ville <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="text"
+                                          name="villeProduit"
+                                          value={dataproduit.villeProduit}
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="Ex: Lyon"
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Code postal <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="text"
+                                          name="codepostalProduit"
+                                          value={dataproduit.codepostalProduit}
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="69001"
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Adresse <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="text"
+                                          name="adresseProduit"
+                                          value={dataproduit.adresseProduit}
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="12 rue de la République"
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Surface (m²) <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="number"
+                                          name="surfaceProduit"
+                                          value={dataproduit.surfaceProduit}
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="65"
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Type de bien <span>*</span> :
+                                        </p>
+                                        <div className="ProductCategory">
+                                          <p
+                                            className={`selectcategory ${selectbien === "appartement" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectbien("appartement");
+                                              setstepBien({
+                                                ...stepBien,
+                                                stepBien1: !stepBien.stepBien1,
+                                              });
+                                              handleSelect(
+                                                "typehouseProduit",
+                                                "Appartement",
+                                              );
+                                            }}
+                                          >
+                                            Appartement
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectbien === "maison" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectbien("maison");
+                                              setstepBien({
+                                                ...stepBien,
+                                                stepBien2: !stepBien.stepBien2,
+                                              });
+                                              handleSelect(
+                                                "typehouseProduit",
+                                                "Maison",
+                                              );
+                                            }}
+                                          >
+                                            Maison
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectbien === "studio" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectbien("studio");
+                                              setstepBien({
+                                                ...stepBien,
+                                                stepBien3: !stepBien.stepBien3,
+                                              });
+                                              handleSelect(
+                                                "typehouseProduit",
+                                                "Studio",
+                                              );
+                                            }}
+                                          >
+                                            Studio
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectbien === "terrain" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectbien("terrain");
+                                              setstepBien({
+                                                ...stepBien,
+                                                stepBien4: !stepBien.stepBien4,
+                                              });
+                                              handleSelect(
+                                                "typehouseProduit",
+                                                "Terrain",
+                                              );
+                                            }}
+                                          >
+                                            Terrain
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectbien === "autre" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectbien("autre");
+                                              setstepBien({
+                                                ...stepBien,
+                                                stepBien5: !stepBien.stepBien5,
+                                              });
+                                              handleSelect(
+                                                "typehouseProduit",
+                                                "Autre",
+                                              );
+                                            }}
+                                          >
+                                            Autre
+                                          </p>
+                                        </div>
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Nombre de pièces <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="number"
+                                          name="numberpieceProduit"
+                                          value={dataproduit.numberpieceProduit}
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="3"
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Nombre de chambres <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="number"
+                                          name="numberchambreProduit"
+                                          value={
+                                            dataproduit.numberchambreProduit
+                                          }
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="2"
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Nombre de salles de bain{" "}
+                                          <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="number"
+                                          name="numberdoucheProduit"
+                                          value={
+                                            dataproduit.numberdoucheProduit
+                                          }
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="1"
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Étage / étages total <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="text"
+                                          name="numberetageProduit"
+                                          value={dataproduit.numberetageProduit}
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="3ème / 5 étages"
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Ascenseur <span>*</span> :
+                                        </p>
+                                        <div className="InputRadioProductText">
+                                          <div className="InputRadioProductTextItem">
+                                            <input
+                                              type="radio"
+                                              name="ascenseurProduit"
+                                              value="oui"
+                                              onChange={handlechangeproduit}
+                                            />
+                                            <label>Oui</label>
+                                          </div>
+                                          <div className="InputRadioProductTextItem">
+                                            <input
+                                              type="radio"
+                                              name="ascenseurProduit"
+                                              value="non"
+                                              onChange={handlechangeproduit}
+                                            />
+                                            <label>Non</label>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Meublé <span>*</span> :
+                                        </p>
+                                        <div className="InputRadioProductText">
+                                          <div className="InputRadioProductTextItem">
+                                            <input
+                                              type="radio"
+                                              name="meubleProduit"
+                                              value="oui"
+                                              onChange={handlechangeproduit}
+                                            />
+                                            <label>Oui</label>
+                                          </div>
+                                          <div className="InputRadioProductTextItem">
+                                            <input
+                                              type="radio"
+                                              name="meubleProduit"
+                                              value="non"
+                                              onChange={handlechangeproduit}
+                                            />
+                                            <label>Non</label>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Parking / Garage <span>*</span> :
+                                        </p>
+                                        <div className="ProductCategory">
+                                          <p
+                                            className={`selectcategory ${selectParking === "aucun" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectParking("aucun");
+                                              setstepParking({
+                                                ...stepParking,
+                                                stepParking1:
+                                                  !stepParking.stepParking1,
+                                              });
+                                              handleSelect(
+                                                "parkingProduit",
+                                                "Aucun",
+                                              );
+                                            }}
+                                          >
+                                            Aucun
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectParking === "Parking prive" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectParking("Parking prive");
+                                              setstepParking({
+                                                ...stepParking,
+                                                stepParking2:
+                                                  !stepParking.stepParking2,
+                                              });
+                                              handleSelect(
+                                                "parkingProduit",
+                                                "Parking privé",
+                                              );
+                                            }}
+                                          >
+                                            Parking privé
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectParking === "Garage" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectParking("Garage");
+                                              setstepParking({
+                                                ...stepParking,
+                                                stepParking3:
+                                                  !stepParking.stepParking3,
+                                              });
+                                              handleSelect(
+                                                "parkingProduit",
+                                                "Garage",
+                                              );
+                                            }}
+                                          >
+                                            Garage
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectParking === "Box" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectParking("Box");
+                                              setstepParking({
+                                                ...stepParking,
+                                                stepParking4:
+                                                  !stepParking.stepParking4,
+                                              });
+                                              handleSelect(
+                                                "parkingProduit",
+                                                "Box",
+                                              );
+                                            }}
+                                          >
+                                            Box
+                                          </p>
+                                        </div>
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          DPE (Diagnostic Perf. Énergétique){" "}
+                                          <span>*</span> :
+                                        </p>
+                                        <div className="ProductCategory">
+                                          <p
+                                            className={`selectcategory ${selectdpe === "A" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectdpe("A");
+                                              setstepdpe({
+                                                ...stepdpe,
+                                                stepdpe1: !stepdpe.stepdpe1,
+                                              });
+                                              handleSelect("dpeProduit", "A");
+                                            }}
+                                          >
+                                            A
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectdpe === "B" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectdpe("B");
+                                              setstepdpe({
+                                                ...stepdpe,
+                                                stepdpe2: !stepdpe.stepdpe2,
+                                              });
+                                              handleSelect("dpeProduit", "B");
+                                            }}
+                                          >
+                                            B
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectdpe === "C" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectdpe("C");
+                                              setstepdpe({
+                                                ...stepdpe,
+                                                stepdpe3: !stepdpe.stepdpe3,
+                                              });
+                                              handleSelect("dpeProduit", "C");
+                                            }}
+                                          >
+                                            C
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectdpe === "D" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectdpe("D");
+                                              setstepdpe({
+                                                ...stepdpe,
+                                                stepdpe4: !stepdpe.stepdpe4,
+                                              });
+                                              handleSelect("dpeProduit", "D");
+                                            }}
+                                          >
+                                            D
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectdpe === "E" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectdpe("E");
+                                              setstepdpe({
+                                                ...stepdpe,
+                                                stepdpe5: !stepdpe.stepdpe5,
+                                              });
+                                              handleSelect("dpeProduit", "E");
+                                            }}
+                                          >
+                                            E
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectdpe === "F" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectdpe("F");
+                                              setstepdpe({
+                                                ...stepdpe,
+                                                stepdpe6: !stepdpe.stepdpe6,
+                                              });
+                                              handleSelect("dpeProduit", "F");
+                                            }}
+                                          >
+                                            F
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectdpe === "G" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectdpe("G");
+                                              setstepdpe({
+                                                ...stepdpe,
+                                                stepdpe7: !stepdpe.stepdpe7,
+                                              });
+                                              handleSelect("dpeProduit", "G");
+                                            }}
+                                          >
+                                            G
+                                          </p>
+                                        </div>
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Charges mensuelles (€) <span>*</span>{" "}
+                                          :
+                                        </p>
+                                        <input
+                                          type="number"
+                                          name="chargesmensuellesProduit"
+                                          value={
+                                            dataproduit.chargesmensuellesProduit
+                                          }
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="120"
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Disponibilité <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="date"
+                                          name="disponibiliteProduit"
+                                          value={
+                                            dataproduit.disponibiliteProduit
+                                          }
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                        />
+                                      </div>
+
+                                      <div className="ProductText">
+                                        <p>
+                                          Description détaillée <span>*</span> :
+                                        </p>
+                                        <textarea
+                                          name="descriptiondetailleeProduit"
+                                          value={
+                                            dataproduit.descriptiondetailleeProduit
+                                          }
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="Coup de cœur assuré pour cet appartement lumineux..."
+                                        ></textarea>
+                                      </div>
+                                    </div>
+                                  </>
+                                )}
+                                {stepCategory.stepCategory2 && (
+                                  <>
+                                    <div className="ProductText">
+                                      <div className="ProductText">
+                                        <p>
+                                          Marque <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="text"
+                                          name="marqueautoProduit"
+                                          value={dataproduit.marqueautoProduit}
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="Renault"
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Modèle <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="text"
+                                          name="modeleautoProduit"
+                                          value={dataproduit.modeleautoProduit}
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="Clio"
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Année / Mise en circulation{" "}
+                                          <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="number"
+                                          name="circulationProduit"
+                                          value={dataproduit.circulationProduit}
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="2020"
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Kilométrages <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="number"
+                                          name="kilometrageProduit"
+                                          value={dataproduit.kilometrageProduit}
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="45000"
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Carburant <span>*</span> :
+                                        </p>
+                                        <div className="ProductCategory">
+                                          <p
+                                            className={`selectcategory ${selectcarburant === "essence" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectcarburant("essence");
+                                              setstepcarburant({
+                                                ...stepcarburant,
+                                                stepcarburant1:
+                                                  !stepcarburant.stepcarburant1,
+                                              });
+                                              handleSelect(
+                                                "carburantProduit",
+                                                "essence",
+                                              );
+                                            }}
+                                          >
+                                            Essence
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectcarburant === "diesel" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectcarburant("diesel");
+                                              setstepcarburant({
+                                                ...stepcarburant,
+                                                stepcarburant2:
+                                                  !stepcarburant.stepcarburant2,
+                                              });
+                                              handleSelect(
+                                                "carburantProduit",
+                                                "diesel",
+                                              );
+                                            }}
+                                          >
+                                            Diesel
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectcarburant === "hybride" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectcarburant("hybride");
+                                              setstepcarburant({
+                                                ...stepcarburant,
+                                                stepcarburant3:
+                                                  !stepcarburant.stepcarburant3,
+                                              });
+                                              handleSelect(
+                                                "carburantProduit",
+                                                "hybride",
+                                              );
+                                            }}
+                                          >
+                                            Hybride
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectcarburant === "electrique" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectcarburant("electrique");
+                                              setstepcarburant({
+                                                ...stepcarburant,
+                                                stepcarburant4:
+                                                  !stepcarburant.stepcarburant4,
+                                              });
+                                              handleSelect(
+                                                "carburantProduit",
+                                                "electrique",
+                                              );
+                                            }}
+                                          >
+                                            Électrique
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectcarburant === "autre" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectcarburant("autre");
+                                              setstepcarburant({
+                                                ...stepcarburant,
+                                                stepcarburant5:
+                                                  !stepcarburant.stepcarburant5,
+                                              });
+                                              handleSelect(
+                                                "carburantProduit",
+                                                "autre",
+                                              );
+                                            }}
+                                          >
+                                            Autre
+                                          </p>
+                                        </div>
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Puissance (ch) <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="number"
+                                          name="puissanceautoProduit"
+                                          value={
+                                            dataproduit.puissanceautoProduit
+                                          }
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="90"
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Boîte de vitesse <span>*</span> :
+                                        </p>
+                                        <div className="ProductCategory">
+                                          <p
+                                            className={`selectcategory ${selectboitevitesse === "manuelle" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectboitevitesse("manuelle");
+                                              setstepboitevitesse({
+                                                ...stepboitevitesse,
+                                                stepboitevitesse1:
+                                                  !stepboitevitesse.stepboitevitesse1,
+                                              });
+                                              handleSelect(
+                                                "boitevitesseProduit",
+                                                "manuelle",
+                                              );
+                                            }}
+                                          >
+                                            Manuelle
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectboitevitesse === "automatique" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectboitevitesse(
+                                                "automatique",
+                                              );
+                                              setstepboitevitesse({
+                                                ...stepboitevitesse,
+                                                stepboitevitesse2:
+                                                  !stepboitevitesse.stepboitevitesse2,
+                                              });
+                                              handleSelect(
+                                                "boitevitesseProduit",
+                                                "automatique",
+                                              );
+                                            }}
+                                          >
+                                            Automatique
+                                          </p>
+                                        </div>
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Nombre de portes <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="number"
+                                          name="numberporteProduit"
+                                          value={dataproduit.numberporteProduit}
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="5"
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Couleur <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="text"
+                                          name="couleurautoProduit"
+                                          value={dataproduit.couleurautoProduit}
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="Rouge"
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Nombre de propriétaires précédents{" "}
+                                          <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="number"
+                                          name="proprioProduit"
+                                          value={dataproduit.proprioProduit}
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="2"
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Options principales <span>*</span> :
+                                        </p>
+                                        <div className="InputRadioProductText">
+                                          <div className="InputRadioProductTextItem">
+                                            <input
+                                              type="checkbox"
+                                              name="specialautoProduit"
+                                              value="Climatisation"
+                                              onChange={handlechangeproduit}
+                                            />
+                                            <label>Climatisation</label>
+                                          </div>
+                                          <div className="InputRadioProductTextItem">
+                                            <input
+                                              type="checkbox"
+                                              name="specialautoProduit"
+                                              value="GPS"
+                                              onChange={handlechangeproduit}
+                                            />
+                                            <label>GPS</label>
+                                          </div>
+                                          <div className="InputRadioProductTextItem">
+                                            <input
+                                              type="checkbox"
+                                              name="specialautoProduit"
+                                              value="Toit ouvrant"
+                                              onChange={handlechangeproduit}
+                                            />
+                                            <label>Toît ouvrant</label>
+                                          </div>
+                                          <div className="InputRadioProductTextItem">
+                                            <input
+                                              type="checkbox"
+                                              name="specialautoProduit"
+                                              value="Camera de recul"
+                                              onChange={handlechangeproduit}
+                                            />
+                                            <label>Caméra de recul</label>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </>
+                                )}
+                                {stepCategory.stepCategory3 && (
+                                  <>
+                                    <div className="ProductText">
+                                      <div className="ProductText">
+                                        <p>
+                                          Type de produit <span>*</span> :
+                                        </p>
+                                        <div className="ProductCategory">
+                                          <p
+                                            className={`selectcategory ${selectelectronique === "ordinateur" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectelectronique(
+                                                "ordinateur",
+                                              );
+                                              setstepelectronique({
+                                                ...stepelectronique,
+                                                stepelectronique1:
+                                                  !stepelectronique.stepelectronique1,
+                                              });
+                                              handleSelect(
+                                                "electroniqueProduit",
+                                                "ordinateur",
+                                              );
+                                            }}
+                                          >
+                                            Ordinateur
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectelectronique === "telephone" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectelectronique(
+                                                "telephone",
+                                              );
+                                              setstepelectronique({
+                                                ...stepelectronique,
+                                                stepelectronique2:
+                                                  !stepelectronique.stepelectronique2,
+                                              });
+                                              handleSelect(
+                                                "electroniqueProduit",
+                                                "telephone",
+                                              );
+                                            }}
+                                          >
+                                            Téléphone
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectelectronique === "TV" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectelectronique("TV");
+                                              setstepelectronique({
+                                                ...stepelectronique,
+                                                stepelectronique3:
+                                                  !stepelectronique.stepelectronique3,
+                                              });
+                                              handleSelect(
+                                                "electroniqueProduit",
+                                                "TV",
+                                              );
+                                            }}
+                                          >
+                                            TV
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectelectronique === "Console" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectelectronique("Console");
+                                              setstepelectronique({
+                                                ...stepelectronique,
+                                                stepelectronique4:
+                                                  !stepelectronique.stepelectronique4,
+                                              });
+                                              handleSelect(
+                                                "electroniqueProduit",
+                                                "Console",
+                                              );
+                                            }}
+                                          >
+                                            Console
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectelectronique === "autre" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectelectronique("autre");
+                                              setstepelectronique({
+                                                ...stepelectronique,
+                                                stepelectronique5:
+                                                  !stepelectronique.stepelectronique5,
+                                              });
+                                              handleSelect(
+                                                "electroniqueProduit",
+                                                "autre",
+                                              );
+                                            }}
+                                          >
+                                            Autre
+                                          </p>
+                                        </div>
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Marque <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="text"
+                                          name="marqueelectroProduit"
+                                          value={
+                                            dataproduit.marqueelectroProduit
+                                          }
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="Apple"
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Modèle / Référence <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="text"
+                                          name="modeleelectroProduit"
+                                          value={
+                                            dataproduit.modeleelectroProduit
+                                          }
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="iPhone 14"
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Quantité <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="number"
+                                          name="quantiteelectroProduit"
+                                          value={
+                                            dataproduit.quantiteelectroProduit
+                                          }
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="2"
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Spécifications techniques{" "}
+                                          <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="text"
+                                          name="specialelectroProduit"
+                                          value={
+                                            dataproduit.specialelectroProduit
+                                          }
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="Stockage: 256GB, RAM: 8GB"
+                                        />
+                                      </div>
+
+                                      <div className="ProductText">
+                                        <p>
+                                          Accessoires inclus <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="text"
+                                          name="accessoireelectroProduit"
+                                          value={
+                                            dataproduit.accessoireelectroProduit
+                                          }
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="Chargeur, câble, boîte d'origine"
+                                        />
+                                      </div>
+                                    </div>
+                                  </>
+                                )}
+                                {stepCategory.stepCategory4 && (
+                                  <>
+                                    <div className="ProductText">
+                                      <div className="ProductText">
+                                        <p>
+                                          Genre <span>*</span> :
+                                        </p>
+                                        <div className="ProductCategory">
+                                          <p
+                                            className={`selectcategory ${selectgenre === "hommme" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectgenre("homme");
+                                              setstepgenre({
+                                                ...stepgenre,
+                                                stepgenre1:
+                                                  !stepgenre.stepgenre1,
+                                              });
+                                              handleSelect(
+                                                "genreProduit",
+                                                "homme",
+                                              );
+                                            }}
+                                          >
+                                            Homme
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectgenre === "femme" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectgenre("femme");
+                                              setstepgenre({
+                                                ...stepgenre,
+                                                stepgenre2:
+                                                  !stepgenre.stepgenre2,
+                                              });
+                                              handleSelect(
+                                                "genreProduit",
+                                                "femme",
+                                              );
+                                            }}
+                                          >
+                                            Femme
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectgenre === "enfant" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectgenre("enfant");
+                                              setstepgenre({
+                                                ...stepgenre,
+                                                stepgenre3:
+                                                  !stepgenre.stepgenre3,
+                                              });
+                                              handleSelect(
+                                                "genreProduit",
+                                                "enfant",
+                                              );
+                                            }}
+                                          >
+                                            Enfant
+                                          </p>
+                                        </div>
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Catégorie <span>*</span> :
+                                        </p>
+                                        <div className="ProductCategory">
+                                          <p
+                                            className={`selectcategory ${selectcategorie === "T-shirt / Top" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectcategorie(
+                                                "T-shirt / Top",
+                                              );
+                                              setstepcategorie({
+                                                ...stepcategorie,
+                                                stepcategorie1:
+                                                  !stepcategorie.stepcategorie1,
+                                              });
+                                              handleSelect(
+                                                "categorieProduit",
+                                                "T-shirt / Top",
+                                              );
+                                            }}
+                                          >
+                                            T-shirt / Top
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectcategorie === "Pantalon / Jean" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectcategorie(
+                                                "Pantalon / Jean",
+                                              );
+                                              setstepcategorie({
+                                                ...stepcategorie,
+                                                stepcategorie2:
+                                                  !stepcategorie.stepcategorie2,
+                                              });
+                                              handleSelect(
+                                                "categorieProduit",
+                                                "Pantalon / Jean",
+                                              );
+                                            }}
+                                          >
+                                            Pantalon / Jean
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectcategorie === "Robe / Jupe" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectcategorie("Robe / Jupe");
+                                              setstepcategorie({
+                                                ...stepcategorie,
+                                                stepcategorie3:
+                                                  !stepcategorie.stepcategorie3,
+                                              });
+                                              handleSelect(
+                                                "categorieProduit",
+                                                "Robe / Jupe",
+                                              );
+                                            }}
+                                          >
+                                            Robe / Jupe
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectcategorie === "Chaussures" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectcategorie("Chaussures");
+                                              setstepcategorie({
+                                                ...stepcategorie,
+                                                stepcategorie4:
+                                                  !stepcategorie.stepcategorie4,
+                                              });
+                                              handleSelect(
+                                                "categorieProduit",
+                                                "Chaussures",
+                                              );
+                                            }}
+                                          >
+                                            Chaussures
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectcategorie === "Accessoire" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectcategorie("Accessoire");
+                                              setstepcategorie({
+                                                ...stepcategorie,
+                                                stepcategorie5:
+                                                  !stepcategorie.stepcategorie5,
+                                              });
+                                              handleSelect(
+                                                "categorieProduit",
+                                                "Accessoire",
+                                              );
+                                            }}
+                                          >
+                                            Accessoire
+                                          </p>
+                                          <p
+                                            className={`selectcategory ${selectcategorie === "Autre" ? "act" : ""}`}
+                                            onClick={() => {
+                                              setselectcategorie("Autre");
+                                              setstepcategorie({
+                                                ...stepcategorie,
+                                                stepcategorie6:
+                                                  !stepcategorie.stepcategorie6,
+                                              });
+                                              handleSelect(
+                                                "categorieProduit",
+                                                "Autre",
+                                              );
+                                            }}
+                                          >
+                                            Autre
+                                          </p>
+                                        </div>
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Marque <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="text"
+                                          name="marquehabitProduit"
+                                          value={dataproduit.marquehabitProduit}
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="Nike, Zara, etc."
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Quantité <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="number"
+                                          name="quantitemodeProduit"
+                                          value={
+                                            dataproduit.quantitemodeProduit
+                                          }
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="1"
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Taille (lettre) <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="text"
+                                          name="taillehabitProduit"
+                                          value={dataproduit.taillehabitProduit}
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="M / L / 38 / 42"
+                                        />
+                                      </div>
+                                      <div className="ProductText">
+                                        <p>
+                                          Matière principale <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="text"
+                                          name="matierehabitProduit"
+                                          value={
+                                            dataproduit.matierehabitProduit
+                                          }
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="100% coton"
+                                        />
+                                      </div>
+
+                                      <div className="ProductText">
+                                        <p>
+                                          Couleur <span>*</span> :
+                                        </p>
+                                        <input
+                                          type="text"
+                                          name="couleurhabitProduit"
+                                          value={
+                                            dataproduit.couleurhabitProduit
+                                          }
+                                          id=""
+                                          onChange={handlechangeproduit}
+                                          placeholder="Bleu marine"
+                                        />
+                                      </div>
+                                    </div>
+                                  </>
+                                )}
+                                {stepCategory.stepCategory5 && (
+                                  <>
+                                    <div className="ProductText">
+                                      <p>
+                                        Quantité <span>*</span> :
+                                      </p>
+                                      <input
+                                        type="number"
+                                        name="quantiteautreProduit"
+                                        value={dataproduit.quantiteautreProduit}
+                                        min={0}
+                                        id=""
+                                        onChange={handlechangeproduit}
+                                        placeholder="1"
+                                      />
+                                    </div>
+                                  </>
+                                )}
+
+                                <div className="ProductText">
+                                  <p>Ajouter un complément d'information :</p>
+                                  <textarea
+                                    name="complementinformation"
+                                    value={dataproduit.complementinformation}
+                                    onChange={handlechangeproduit}
+                                    id=""
+                                    spellCheck
+                                  />
+                                </div>
+                              </div>
+                              <div className="btnaddProduct">
+                                <Button className="accept" type="submit">
+                                  mis à jour du produit
                                 </Button>
-                              </td>
-                              <td>
-                                <Button>Commenter</Button>
-                              </td>
-                              <td>
-                                <Button className="decline">Supprimer</Button>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </>
+                                <Button type="button" className="decline">
+                                  Annuler
+                                </Button>
+                              </div>
+                            </form>
+                          </div>
+                        </>
+                      )}
                     </div>
-                    <div className="ProductText">
-                      <h2>
-                        Commenter votre produit réçu,vous pouvez ajouter aussis
-                        des étoiles
-                      </h2>
-                      <p>
-                        Votre avis concernnant le Iphone 13 <span>*</span> :
-                      </p>
-                      <textarea placeholder="Nous recherchons un profil dynamique..."></textarea>
-                    </div>
-                    <div className="btnaddProductAvis">
-                      <Stack spacing={1}>
-                        <Rating
-                          name="half-rating"
-                          defaultValue={4}
-                          precision={0.5}
-                        />
-                      </Stack>
-                      <Button>envoyer l'avis</Button>
-                    </div>
-                  </div>
-                  <div className="">
-                    <h2>liste des médias</h2>
-                    <div className="">
-                      <p>Image :</p>
-                      <p>Vidéos :</p>
-                    </div>
-                  </div>
+                  )}
                 </div>
               </div>
             )}
@@ -4585,6 +6354,95 @@ const ProfilUser: React.FC = () => {
                         <img src={dup} alt="" />
                       </div>
                     </div>
+                    <div className="">
+                      <h2>Produits achetés</h2>
+                      <div className="dashboardSteppersHistory">
+                        <>
+                          <table>
+                            <thead>
+                              <tr>
+                                <th>Photo</th>
+                                <th>Nom Article</th>
+                                <th>Categories</th>
+                                <th>Quantité</th>
+                                <th>Prix </th>
+                                <th>Statut</th>
+                                <th>Commenter</th>
+                                <th>Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <img src={img2} alt="" />
+                                </td>
+                                <td>
+                                  <p>dimitri</p>
+                                </td>
+                                <td>
+                                  <p>IMMOBILIER</p>
+                                </td>
+                                <td>2</td>
+                                <td>1000</td>
+                                <td>
+                                  <Button className="accept">Livrer</Button>
+                                </td>
+                                <td>
+                                  <Button>Commenter</Button>
+                                </td>
+                                <td>
+                                  <Button className="decline">Supprimer</Button>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <img src={img2} alt="" />
+                                </td>
+                                <td>
+                                  <p>dimitri</p>
+                                </td>
+                                <td>
+                                  <p>IMMOBILIER</p>
+                                </td>
+                                <td>5</td>
+                                <td>1000</td>
+                                <td>
+                                  <Button className="accept">
+                                    En cours de livraison
+                                  </Button>
+                                </td>
+                                <td>
+                                  <Button>Commenter</Button>
+                                </td>
+                                <td>
+                                  <Button className="decline">Supprimer</Button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </>
+                      </div>
+                      <div className="ProductText">
+                        <h2>
+                          Commenter votre produit réçu,vous pouvez ajouter
+                          aussis des étoiles
+                        </h2>
+                        <p>
+                          Votre avis concernnant le Iphone 13 <span>*</span> :
+                        </p>
+                        <textarea placeholder="Nous recherchons un profil dynamique..."></textarea>
+                      </div>
+                      <div className="btnaddProductAvis">
+                        <Stack spacing={1}>
+                          <Rating
+                            name="half-rating"
+                            defaultValue={4}
+                            precision={0.5}
+                          />
+                        </Stack>
+                        <Button>envoyer l'avis</Button>
+                      </div>
+                    </div>
                     <table>
                       <thead>
                         <tr>
@@ -4655,6 +6513,36 @@ const ProfilUser: React.FC = () => {
               Retour
             </Button>
             <Button className="accept">confirmer</Button>
+          </DialogActions>
+        </Dialog>
+      )}
+      {open2 && deleteproduitpublier && (
+        <Dialog
+          open={open2}
+          onClose={() => setOpen2(false)}
+          className="customdialog"
+        >
+          <DialogContent>
+            <DialogContentText
+              style={{ textAlign: "center", marginBottom: "20px" }}
+            >
+              <p>
+                voulez vous supprimer le produit{" "}
+                <span>{deleteproduitpublier.nom}</span> de la catégorie{" "}
+                <span>{deleteproduitpublier.categories}</span>?
+              </p>
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions className="optiondialog">
+            <Button onClick={() => setOpen2(false)} className="retour">
+              Retour
+            </Button>
+            <Button
+              className="accept"
+              onClick={() => handleremove(deleteproduitpublier.id)}
+            >
+              confirmer
+            </Button>
           </DialogActions>
         </Dialog>
       )}

@@ -512,6 +512,7 @@
   display: flex;
   width: 100%;
   justify-content: center;
+  gap: 80px;
 }
 .ProductText {
   display: flex;
@@ -698,4 +699,14 @@
 .choosepolice.act {
   background-color: #0979e9;
   color: white;
+}
+.optiondialog {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center !important;
+  gap: 40px;
+}
+.customdialog p span {
+  font-weight: bold;
 }
