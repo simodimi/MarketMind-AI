@@ -330,6 +330,7 @@
   flex-direction: column;
   width: calc(100% - 300px);
   height: calc(100vh - 210px);
+  position: relative;
 }
 .MessageProfil img {
   width: 40px;
@@ -345,8 +346,13 @@
   padding: 10px 20%;
   border-radius: 10px;
   cursor: pointer;
+  transition: all 0.4s ease;
+  position: relative;
 }
 .ProfilUserItem:hover {
+  background-color: #0979e9;
+}
+.ProfilUserItem.act {
   background-color: #0979e9;
 }
 .ProfilUser {
@@ -408,18 +414,60 @@
   gap: 20px;
 }
 .SmsHome {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.SmsHometext {
+  width: fit-content;
   max-width: 65%;
   border: 2px solid blue;
   border-radius: 0 20px 20px 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
-.SmsHome p,
+.SmsHomeimg {
+  max-width: 300px;
+  height: auto;
+  width: auto;
+  border: 2px solid blue;
+  border-radius: 0 20px 20px 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+}
+.SmsHomemedia {
+  max-width: 300px;
+  height: auto;
+  width: auto;
+  border: 2px solid blue;
+  border-radius: 0 20px 20px 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+}
+.SmsHomemedia video,
+.SmsHomemedia img {
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+  cursor: pointer;
+}
+.SmsHomemedia p {
+  text-align: center;
+}
+.SmsHomeimg img {
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+  cursor: pointer;
+}
+.SmsHometext p,
 .AwayHome p {
   padding: 10px 20px;
   text-align: justify;
 }
 .SmsHome span,
+.SmsHomeimg span,
 .AwayHome span {
   width: 100%;
   display: flex;
@@ -429,12 +477,13 @@
   color: blue;
 }
 .AwayHome {
-  width: 100%;
+  width: fit-content;
   max-width: 65%;
   border: 2px solid hotpink;
   border-radius: 20px 0px 20px 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   margin-left: auto;
+  margin-top: 20px;
 }
 .MessageOption {
   display: flex;
@@ -709,4 +758,142 @@
 }
 .customdialog p span {
   font-weight: bold;
+}
+.Messageemoji {
+  position: relative;
+}
+.emoji {
+  z-index: 50;
+  position: absolute;
+  bottom: 80px;
+  left: -10px;
+}
+.class.emojitext {
+  font-size: 50px;
+}
+.NoselectUser {
+  width: auto;
+  height: calc(100vh - 210px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #0979e9;
+  margin: auto;
+  font-weight: 700;
+}
+.NoselectUser p {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+}
+.previewmedia {
+  position: absolute;
+  bottom: 120px;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 300px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid #0979e9;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  z-index: 500;
+}
+.previewmedia img {
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+}
+.previewmedia video {
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+}
+.deletepreviewmedia {
+  position: absolute;
+  cursor: pointer;
+}
+.optionMedia {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0px;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+.optionMedia img {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #0979e9;
+}
+.SmsHomemedia:hover .optionMedia,
+.SmsHomeimg:hover .optionMedia {
+  display: flex;
+}
+.customdialogs .MuiDialogContent-root {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Container principal */
+.iframepicture {
+  width: 100%;
+  height: 800px !important;
+  max-width: 900px;
+  max-height: 80vh;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: auto !important;
+  gap: 15px;
+}
+.customdialogs .MuiDialog-paper {
+  max-width: none;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  box-shadow: none;
+}
+/* Images, vidéos, iframe */
+.iframepicture iframe,
+.iframepicture video {
+  width: 100%;
+  height: 800px !important;
+  max-height: 80vh;
+  border-radius: 16px;
+  object-fit: scale-down;
+}
+.iframepicture img {
+  width: 100%;
+  height: 800px !important;
+  max-height: 80vh;
+  border-radius: 16px;
+  object-fit: scale-down;
+}
+
+/* Vidéo spécifique */
+.iframepicture video {
+  outline: none;
+}
+.ProfilUserTextCount {
+  position: absolute;
+  right: 15px;
+  top: 5px;
+}
+.ProfilUserTextCount p {
+  padding: 4px 5px;
+  background-color: green;
+  border-radius: 50%;
+  font-size: 10px;
+  color: white;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, type ChangeEvent } from "react";
 import logo from "../assets/icone/market.png";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
@@ -34,12 +34,14 @@ import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import tr from "../assets/icone/true.png";
 import fa from "../assets/icone/cancel.png";
+import see from "../assets/icone/ouvert.png";
 import { toast } from "react-toastify";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import Autre from "./Autre";
+import Emoji from "../ui/Emoji";
+import doc from "../assets/icone/doc.avif";
 
 // ==================== TYPES ====================
 interface Order {
@@ -303,82 +305,28 @@ interface Produit {
   complementinformation?: string;
   CategoriesProduit?: string;
 }
-// Ajoutez toutes les propriétés nécessaires à ProduitComplet
-interface ProduitComplet {
-  // De Produit (obligatoire)
+/*message */
+interface Profiluser {
   id: number;
-  nom: string;
-  photo: string | null;
-  categories: string;
-  quantite: number;
-  prix: number;
+  photo: string;
+  name: string;
+  text: string;
+}
+interface smsprofil {
+  id: number;
+  sms: string;
+  emoji: boolean;
+  timestamp: number;
   date: string;
-
-  // De picture (pour l'affichage)
-  pictureproductPrincipal: string | null;
-  PictureproduitSecondary1: string | null;
-  PictureproduitSecondary2: string | null;
-  PictureproduitSecondary3: string | null;
-  PictureproduitSecondary4: string | null;
-  PictureproduitSecondary5: string | null;
-  Videoproduit: string | null;
-
-  // Pour l'édition (optionnel)
-  photoProduitPrincipal?: File | string | null;
-  photoProduitSecondary1?: File | string | null;
-  photoProduitSecondary2?: File | string | null;
-  photoProduitSecondary3?: File | string | null;
-  photoProduitSecondary4?: File | string | null;
-  photoProduitSecondary5?: File | string | null;
-  videoProduit?: File | string | null;
-
-  // Tous les autres champs (optionnels)
-  codepostal?: string;
-  ville?: string;
-  adresse?: string;
-  surface?: number;
-  typehouse?: string;
-  numberpiece?: number;
-  numberchambre?: number;
-  numberdouche?: number;
-  numberetage?: string;
-  ascenseur?: boolean;
-  meuble?: boolean;
-  parking?: string;
-  dpe?: string;
-  chargesmensuelles?: number;
-  disponibilite?: string;
-  descriptiondetaillee?: string;
-  marqueauto?: string;
-  modeleauto?: string;
-  circulation?: string;
-  kilometrage?: number;
-  puissanceauto?: number;
-  numberporte?: number;
-  couleurauto?: string;
-  proprio?: string;
-  carburant?: string;
-  boitevitesse?: string;
-  marqueelectro?: string;
-  modeleelectro?: string;
-  specialelectro?: string;
-  accessoireelectro?: string;
-  electronique?: string;
-  marquehabit?: string;
-  taillehabit?: string;
-  matierehabit?: string;
-  couleurhabit?: string;
-  genre?: string;
-  categorie?: string;
-  quantiteelectro?: number;
-  quantitemode?: number;
-  quantiteautre?: number;
-  specialauto?: string;
-
-  // De stepperProduit (pour la compatibilité)
-  texteDescription?: string;
-  complementinformation?: string;
-  CategoriesProduit?: string;
+  photo: File | null;
+  media: File | null;
+  photoaffiche: string | null;
+  mediaaffiche: media | null;
+}
+interface media {
+  type: string | null;
+  preview: string | null;
+  name: string | null;
 }
 // ==================== DONNÉES DE DÉMONSTRATION ====================
 const generateMockOrders = (): Order[] => {
@@ -990,7 +938,6 @@ const ProfilUser: React.FC = () => {
     const année = new Date().getFullYear();
     const hours = String(new Date().getHours()).padStart(2, "0");
     const minutes = String(new Date().getMinutes()).padStart(2, "0");
-
     const existing = addproduitTable.findIndex(
       (p) =>
         p.nom.toLowerCase().trim() ===
@@ -1163,8 +1110,7 @@ const ProfilUser: React.FC = () => {
   const handleEdit = (product: Produit) => {
     setIsEditing(true);
     setEditingProductId(product.id);
-
-    // Remplir TOUS les champs du formulaire avec les données du produit
+    // Remplir tous les champs du formulaire avec les données du produit
     setdataproduit({
       // Champs communs
       nomProduit: product.nom,
@@ -1172,8 +1118,7 @@ const ProfilUser: React.FC = () => {
       CategoriesProduit: product.categories,
       texteDescription: product.texteDescription || "",
       complementinformation: product.complementinformation || "",
-
-      // ✅ CORRECTION : Garder les photos existantes
+      // Garder les photos existantes
       photoProduitPrincipal: product.photo || null,
       photoProduitSecondary1: product.photoProduitSecondary1 ?? null,
       photoProduitSecondary2: product.photoProduitSecondary2 ?? null,
@@ -1181,7 +1126,6 @@ const ProfilUser: React.FC = () => {
       photoProduitSecondary4: product.photoProduitSecondary4 ?? null,
       photoProduitSecondary5: product.photoProduitSecondary5 ?? null,
       videoProduit: product.videoProduit ?? null,
-
       // Champs Immobilier
       villeProduit: product.ville || "",
       codepostalProduit: product.codepostal || "",
@@ -1199,7 +1143,6 @@ const ProfilUser: React.FC = () => {
       chargesmensuellesProduit: product.chargesmensuelles || 0,
       disponibiliteProduit: product.disponibilite || "",
       descriptiondetailleeProduit: product.descriptiondetaillee || "",
-
       // Champs Automobile
       marqueautoProduit: product.marqueauto || "",
       modeleautoProduit: product.modeleauto || "",
@@ -1212,7 +1155,6 @@ const ProfilUser: React.FC = () => {
       carburantProduit: product.carburant || "",
       specialautoProduit: product.specialauto || "",
       boitevitesseProduit: product.boitevitesse || "",
-
       // Champs Électronique
       marqueelectroProduit: product.marqueelectro || "",
       modeleelectroProduit: product.modeleelectro || "",
@@ -1220,7 +1162,6 @@ const ProfilUser: React.FC = () => {
       accessoireelectroProduit: product.accessoireelectro || "",
       electroniqueProduit: product.electronique || "",
       //quantiteelectroProduit: product.quantiteelectro || 0,
-
       // Champs Mode
       marquehabitProduit: product.marquehabit || "",
       taillehabitProduit: product.taillehabit || "",
@@ -1229,9 +1170,7 @@ const ProfilUser: React.FC = () => {
       genreProduit: product.genre || "",
       categorieProduit: product.categorie || "",
       // quantitemodeProduit: product.quantitemode || 0,
-
       // Autre
-
       quantiteelectroProduit:
         product.CategoriesProduit === "electronique" ? product.quantite : 0,
       quantitemodeProduit:
@@ -1240,7 +1179,7 @@ const ProfilUser: React.FC = () => {
         product.CategoriesProduit === "autre" ? product.quantite : 0,
     });
 
-    // ✅ CORRECTION : Utiliser les données du produit pour les médias
+    // Utiliser les données du produit pour les médias
     setpictureproduct({
       pictureproductPrincipal: product.photo || null,
       PictureproduitSecondary1: product.photoProduitSecondary1 ?? null,
@@ -1255,7 +1194,7 @@ const ProfilUser: React.FC = () => {
     e.preventDefault();
     if (
       !dataproduit.nomProduit.trim() ||
-      dataproduit.prixProduit <= 0 ||
+      dataproduit.prixProduit < 0 ||
       !dataproduit.photoProduitPrincipal ||
       !dataproduit.texteDescription.trim() ||
       !dataproduit.CategoriesProduit
@@ -1410,6 +1349,188 @@ const ProfilUser: React.FC = () => {
     // Réinitialiser et fermer
     setIsEditing(false);
     setEditingProductId(null);
+  };
+
+  /*gestion des messages */
+  //gestion du click sur le profil de l'user
+  const [selectuser, setselectuser] = useState<number | null>(null);
+  const [userphoto, setuserphoto] = useState<string | null>(null);
+  const [userdataphoto, setuserdataphoto] = useState<File | null>(null);
+  const [openmedia, setopenmedia] = useState<boolean>(false);
+  const [showmedia, setshowmedia] = useState<smsprofil | null>(null);
+  const [usermedia, setusermedia] = useState<media>({
+    type: null,
+    preview: null,
+    name: null,
+  });
+  const [userdatamedia, setuserdatamedia] = useState<File | null>(null);
+  const [afficheselectuser, setafficheselectuser] = useState<Profiluser | null>(
+    null,
+  );
+  const [conversation, setconversation] = useState<Record<number, smsprofil[]>>(
+    {},
+  );
+  const refphotosms = useRef<HTMLInputElement | null>(null);
+  const refvideosms = useRef<HTMLInputElement | null>(null);
+  const refemoji = useRef<HTMLDivElement | null>(null);
+  const refslider = useRef<HTMLDivElement | null>(null);
+  //tableau de filtre
+  const [userfilter, setuserfilter] = useState<Profiluser[]>(Profil);
+  const handlechoiceuser = (p: Profiluser) => {
+    setafficheselectuser(p);
+  };
+  //filtrage
+  const [searchuser, setsearchuser] = useState("");
+  const handlefilteruser = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setsearchuser(value);
+    if (value.trim() !== "") {
+      const filter = Profil.filter((p) =>
+        p.name.trim().toLowerCase().includes(value.trim().toLowerCase()),
+      );
+      setuserfilter(filter);
+    } else {
+      setuserfilter(Profil);
+    }
+  };
+  //envoie des sms
+  const [texteareamessage, settexteareamessage] = useState("");
+  //une seule emoji
+  const isonlyemoji = (p: string) => {
+    const emojiRegex =
+      /^\p{Extended_Pictographic}(?:\uFE0F|\u200D\p{Extended_Pictographic})*$/u;
+    return emojiRegex.test(p.trim());
+  };
+  const handletextearea = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    settexteareamessage(e.target.value);
+  };
+  const onlyemoji = isonlyemoji(texteareamessage.trim());
+  const handlesendmessage = () => {
+    if (!selectuser) {
+      return;
+    }
+    if (texteareamessage.trim() !== "" || userphoto || usermedia) {
+      const newsms = {
+        id: Date.now(),
+        sms: texteareamessage,
+        emoji: onlyemoji,
+        timestamp: Date.now(),
+        photoaffiche: userphoto, //visuel
+        photo: userdataphoto, //dataform
+        mediaaffiche: usermedia, //visuel
+        media: userdatamedia, //dataform
+        date: `${String(new Date().getHours()).padStart(2, "0")}:${String(new Date().getMinutes()).padStart(2, "0")}`,
+      };
+      //setsmsuser([...smsuser, newsms]);
+      setconversation((prev) => ({
+        ...prev,
+        [selectuser]: [...(prev[selectuser] || []), newsms],
+      }));
+      console.log(conversation);
+      settexteareamessage("");
+      setuserphoto(null);
+      setuserdataphoto(null);
+      setusermedia({ type: "", name: "", preview: null });
+
+      setuserdatamedia(null);
+    } else {
+      toast.error("message vide");
+    }
+  };
+  //pour afficher les messages de l'user sélectionné
+  const messagesActuels = selectuser ? conversation[selectuser] || [] : [];
+  //emoji
+  const [openemoji, setopenemoji] = useState(false);
+  const handleEmojiSelect = (e: { emoji: string }) => {
+    settexteareamessage((prev) => prev + e.emoji);
+  };
+  //click en dehors de la page emoji
+  useEffect(() => {
+    const disappear = (e: MouseEvent) => {
+      if (refemoji.current && !refemoji.current.contains(e.target as Node)) {
+        setopenemoji(false);
+      }
+    };
+    document.addEventListener("mousedown", disappear);
+    return () => {
+      document.removeEventListener("mousedown", disappear);
+    };
+  }, [refemoji]);
+  //aller vers dernière sms
+  useEffect(() => {
+    if (refslider.current && messagesActuels.length > 0) {
+      refslider.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messagesActuels]);
+  //affichage des messages par odre récent
+  const sortedUsers = [...userfilter].sort((a, b) => {
+    const A = conversation[a.id]?.[conversation[a.id].length - 1];
+    const B = conversation[b.id]?.[conversation[b.id].length - 1];
+    //on transforme en date puis en millisecondes avec getTime
+    const lastA = A ? A.timestamp : 0;
+    const lastB = B ? B.timestamp : 0;
+    return lastB - lastA;
+  });
+  //ajout des photo et media
+  const handlemediasms = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name } = e.target;
+    const file = e.target.files;
+    if (name === "photosms" && file) {
+      const fichier = file[0];
+      setuserdataphoto(fichier);
+      setuserphoto(URL.createObjectURL(fichier));
+    }
+    if (name === "mediasms" && file) {
+      const fichier = file[0];
+      setuserdatamedia(fichier);
+      setusermedia({
+        name: fichier.name,
+        type: fichier.type,
+        preview: URL.createObjectURL(fichier),
+      });
+    }
+  };
+  //supprimer fichier
+  const handledeletemedia = (id: number) => {
+    if (!selectuser) return;
+    setconversation((prev) => ({
+      ...prev,
+      [selectuser]: (prev[selectuser] || []).map((p) =>
+        p.id === id
+          ? {
+              ...p,
+              mediaaffiche: null,
+              photoaffiche: null,
+              sms: "message supprimé",
+            }
+          : p,
+      ),
+    }));
+  };
+  //download image
+  const handledownload = async (
+    imageurl: any,
+    nameimage = `MarketMind-AI ${showmedia?.date}`,
+  ) => {
+    try {
+      const response = await fetch(imageurl);
+      //on convertit en binaire
+      const blob = await response.blob();
+      //acceder à l'image
+      const url = URL.createObjectURL(blob);
+      //création d'un élémént virtuel
+      const link = document.createElement("a");
+      link.href = url; //url temporaire
+      link.download = nameimage; //force le navigateur à download
+      document.body.appendChild(link);
+      link.click(); //déclenchement auto du click
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      toast.success("image télchargée avec succès");
+      setopenmedia(false);
+    } catch (error) {
+      toast.error("erreur de télechargement de l'image");
+    }
   };
   useEffect(() => {
     /* const time = setTimeout(() => {
@@ -1614,7 +1735,7 @@ const ProfilUser: React.FC = () => {
       <div className="HomeMains">
         <div className="HomeTitles">
           <div className="HomeTitlesbtn">
-            <Button>Retour</Button>
+            <Button onClick={() => navigate(-1)}>Retour</Button>
           </div>
           <Link to={"/"}>
             <div className="HomeLogo">
@@ -5691,117 +5812,251 @@ const ProfilUser: React.FC = () => {
                       <p>Mes messages</p>
                       <input
                         type="search"
-                        name=""
+                        value={searchuser}
+                        onChange={handlefilteruser}
                         id=""
                         placeholder="Entrer un nom "
                       />
                     </div>
                     <div className="ProfilUser">
-                      {Profil.map((p) => (
-                        <div className="ProfilUserItem" key={p.id}>
-                          <img src={p.photo} alt="" />
-                          <div className="ProfilUserText">
-                            <p>{p.name}</p>
-                            <span>{p.text}</span>
+                      {sortedUsers.map((p) => {
+                        const lastsms =
+                          conversation[p.id]?.[conversation[p.id].length - 1];
+                        return (
+                          <div
+                            className={`ProfilUserItem ${selectuser === p.id ? "act" : ""}`}
+                            key={p.id}
+                            onClick={() => {
+                              setselectuser(p.id);
+                              handlechoiceuser(p);
+                            }}
+                          >
+                            <img src={p.photo} alt="" />
+                            <div className="ProfilUserText">
+                              <p>{p.name}</p>
+
+                              <span>
+                                {!lastsms
+                                  ? "aucun message ..."
+                                  : lastsms.media || lastsms.photo
+                                    ? `${lastsms.mediaaffiche?.name?.slice(0, 15) + "..." || "média"}`
+                                    : lastsms.sms.length > 20
+                                      ? lastsms.sms.slice(0, 20) + "..."
+                                      : lastsms.sms}
+                              </span>
+                            </div>
+                            <div className="ProfilUserTextCount">
+                              <p>2</p>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  {selectuser ? (
+                    <div className="MessageItem">
+                      {afficheselectuser && (
+                        <div className="MessageItemHeader">
+                          <img src={afficheselectuser.photo} alt="" />
+                          <p>{afficheselectuser.name}</p>
+                        </div>
+                      )}
+                      <div className="MessageItemContent">
+                        {messagesActuels.map((p) => (
+                          <div className="" key={p.id}>
+                            <div className="SmsHome">
+                              {p.sms && (
+                                <div className="SmsHometext">
+                                  <p
+                                    className={`class ${p.emoji ? "emojitext" : ""}`}
+                                  >
+                                    {p.sms}
+                                  </p>
+                                  <span>{p.date}</span>
+                                </div>
+                              )}
+                              {p.photoaffiche && (
+                                <div className="SmsHomeimg">
+                                  <img src={p.photoaffiche} alt="" />
+                                  <span>{p.date}</span>
+                                  <div className="optionMedia">
+                                    <img
+                                      src={fa}
+                                      alt=""
+                                      onClick={() => handledeletemedia(p.id)}
+                                    />
+                                    <img
+                                      src={see}
+                                      alt=""
+                                      onClick={() => {
+                                        setopenmedia(true);
+                                        setshowmedia(p);
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                              )}
+                              {p.mediaaffiche?.preview && (
+                                <div className="SmsHomemedia">
+                                  {p.mediaaffiche.type?.startsWith("video/") ? (
+                                    <video
+                                      src={p.mediaaffiche.preview ?? undefined}
+                                    />
+                                  ) : (
+                                    <img src={doc} alt="" />
+                                  )}
+                                  {p.mediaaffiche.name && (
+                                    <p>
+                                      {p.mediaaffiche.name.length > 50
+                                        ? p.mediaaffiche.name + "..."
+                                        : p.mediaaffiche.name}
+                                    </p>
+                                  )}
+                                  <span>{p.date}</span>
+                                  <div className="optionMedia">
+                                    <img
+                                      src={fa}
+                                      alt=""
+                                      onClick={() => handledeletemedia(p.id)}
+                                    />
+                                    <img
+                                      src={see}
+                                      alt=""
+                                      onClick={() => {
+                                        setopenmedia(true);
+                                        setshowmedia(p);
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                            {/*  <div className="AwayHome">
+                            <p>
+                              Lorem ipsum dolor sit amet consectetur adipisicing
+                              elit. Magnam quod sint dolorum, quibusdam error
+                              dolorem? Accusantium nostrum commodi ut deserunt
+                              sint quia necessitatibus dolore distinctio quaerat
+                              sapiente. Facere, odio assumenda!
+                            </p>
+                            <span>12:50</span>
+                          </div>*/}
+                          </div>
+                        ))}
+                        <div className="" ref={refslider}></div>
+                      </div>
+                      {userphoto && userphoto.length > 0 && (
+                        <div className="previewmedia">
+                          {userphoto && (
+                            <img src={userphoto ? userphoto : ""} alt="" />
+                          )}
+                          <img
+                            src={fa}
+                            alt=""
+                            className="deletepreviewmedia"
+                            onClick={() => setuserphoto(null)}
+                          />
+                        </div>
+                      )}
+                      {usermedia.preview && usermedia.preview.length > 0 && (
+                        <div className="previewmedia">
+                          {usermedia.preview &&
+                            (usermedia.type?.startsWith("video/") ? (
+                              <video src={usermedia.preview} />
+                            ) : (
+                              <img src={doc} alt="" />
+                            ))}
+                          <img
+                            src={fa}
+                            alt=""
+                            className="deletepreviewmedia"
+                            onClick={() =>
+                              setusermedia({
+                                type: "",
+                                preview: null,
+                                name: "",
+                              })
+                            }
+                          />
+                        </div>
+                      )}
+                      <div className="MessageOption">
+                        <div className="MessageOptionMedia">
+                          <div className="Messageemoji">
+                            {openemoji && (
+                              <div className="emoji" ref={refemoji}>
+                                <Emoji handleEmojiSelect={handleEmojiSelect} />
+                              </div>
+                            )}
+                            <div className="MessageOptionMediaItem">
+                              <p>Icônes</p>
+                              <img
+                                src={star}
+                                alt=""
+                                onClick={() => setopenemoji((prev) => !prev)}
+                              />
+                            </div>
+                          </div>
+
+                          <div className="MessageOptionMediaItem">
+                            <p>Photo</p>
+                            <img
+                              src={image}
+                              alt=""
+                              onClick={() => refphotosms.current?.click()}
+                            />
+                            <input
+                              accept="image/*"
+                              type="file"
+                              name="photosms"
+                              id=""
+                              onChange={handlemediasms}
+                              style={{ display: "none" }}
+                              ref={refphotosms}
+                            />
+                          </div>
+                          <div className="MessageOptionMediaItem">
+                            <p>Média</p>
+                            <img
+                              src={media}
+                              alt=""
+                              onClick={() => refvideosms.current?.click()}
+                            />
+                            <input
+                              accept=".pdf,.doc,.docx,video/*"
+                              type="file"
+                              name="mediasms"
+                              id=""
+                              onChange={handlemediasms}
+                              style={{ display: "none" }}
+                              ref={refvideosms}
+                            />
                           </div>
                         </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="MessageItem">
-                    <div className="MessageItemHeader">
-                      <img src={img2} alt="" />
-                      <p>Dimitri</p>
-                    </div>
-                    <div className="MessageItemContent">
-                      <div className="SmsHome">
-                        <p>
-                          Lorem, ipsum dolor sit amet consectetur adipisicing
-                          elit. Recusandae earum omnis praesentium dolorum
-                          corporis repellat id eligendi corrupti voluptatum!
-                          Voluptates minima quae itaque omnis exercitationem
-                          maiores fugit necessitatibus et iusto.
-                        </p>
-                        <span>12:50</span>
-                      </div>
-                      <div className="AwayHome">
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Magnam quod sint dolorum, quibusdam error
-                          dolorem? Accusantium nostrum commodi ut deserunt sint
-                          quia necessitatibus dolore distinctio quaerat
-                          sapiente. Facere, odio assumenda!
-                        </p>
-                        <span>12:50</span>
-                      </div>
-                      <div className="AwayHome">
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Magnam quod sint dolorum, quibusdam error
-                          dolorem? Accusantium nostrum commodi ut deserunt sint
-                          quia necessitatibus dolore distinctio quaerat
-                          sapiente. Facere, odio assumenda! Lorem ipsum dolor
-                          sit amet consectetur adipisicing elit. Magnam quod
-                          sint dolorum, quibusdam error dolorem? Accusantium
-                          nostrum commodi ut deserunt sint quia necessitatibus
-                          dolore distinctio quaerat sapiente. Facere, odio
-                          assumenda!
-                        </p>
-                        <span>12:50</span>
-                      </div>
-                      <div className="SmsHome">
-                        <p>
-                          Lorem, ipsum dolor sit amet consectetur adipisicing
-                          elit. Recusandae earum omnis praesentium dolorum
-                          corporis repellat id eligendi corrupti voluptatum!
-                          Voluptates minima quae itaque omnis exercitationem
-                          maiores fugit necessitatibus et iusto.
-                        </p>
-                        <span>12:50</span>
-                      </div>
-                      <div className="SmsHome">
-                        <p>
-                          Lorem, ipsum dolor sit amet consectetur adipisicing
-                          elit. Recusandae earum omnis praesentium dolorum
-                          corporis repellat id eligendi corrupti voluptatum!
-                          Voluptates minima quae itaque omnis exercitationem
-                          maiores fugit necessitatibus et iusto.
-                        </p>
-                        <span>12:50</span>
-                      </div>
-                    </div>
-                    <div className="MessageOption">
-                      <div className="MessageOptionMedia">
-                        <div className="MessageOptionMediaItem">
-                          <p>Icônes</p>
-                          <img src={star} alt="" />
+                        <div className="MessageOptionText">
+                          <textarea
+                            name=""
+                            id=""
+                            value={texteareamessage}
+                            placeholder="saisir votre message"
+                            onChange={handletextearea}
+                          ></textarea>
                         </div>
-                        <div className="MessageOptionMediaItem">
-                          <p>Photo</p>
-                          <img src={image} alt="" />
-                        </div>
-                        <div className="MessageOptionMediaItem">
-                          <p>Média</p>
-                          <img src={media} alt="" />
-                        </div>
-                      </div>
-                      <div className="MessageOptionText">
-                        <textarea
-                          name=""
-                          id=""
-                          placeholder="saisir votre message"
-                        ></textarea>
-                      </div>
-                      <div className="MessageSend">
-                        <div className="MessageOptionMediaItem">
-                          <p>Envoyer</p>
-                          <Button>
-                            <img src={send} alt="" />
-                          </Button>
+                        <div className="MessageSend">
+                          <div className="MessageOptionMediaItem">
+                            <p>Envoyer</p>
+                            <Button onClick={handlesendmessage}>
+                              <img src={send} alt="" />
+                            </Button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="NoselectUser">
+                      <p>{`${timeWord} Dimitri,Veuillez choisir un(e) ami(e) pour debuter la conversation.`}</p>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
@@ -6544,6 +6799,49 @@ const ProfilUser: React.FC = () => {
               confirmer
             </Button>
           </DialogActions>
+        </Dialog>
+      )}
+      {openmedia && showmedia && (
+        <Dialog
+          open={openmedia}
+          onClose={() => setopenmedia(false)}
+          className="customdialogs"
+        >
+          <DialogContent>
+            <div className="iframepicture">
+              {showmedia.photoaffiche && (
+                <img src={showmedia.photoaffiche ?? undefined} />
+              )}
+              {showmedia.mediaaffiche?.preview && (
+                <>
+                  {showmedia?.mediaaffiche?.type?.startsWith("video/") ? (
+                    <video
+                      src={showmedia.mediaaffiche?.preview ?? undefined}
+                      controls
+                      loop
+                    />
+                  ) : (
+                    <iframe
+                      src={showmedia.mediaaffiche?.preview ?? undefined}
+                    />
+                  )}
+                </>
+              )}
+              <div className="" style={{ display: "flex", gap: "15px" }}>
+                <Button onClick={() => setopenmedia(false)} className="decline">
+                  fermer
+                </Button>
+                {showmedia.photoaffiche && (
+                  <Button
+                    className="accept"
+                    onClick={() => handledownload(showmedia.photoaffiche)}
+                  >
+                    télecharger
+                  </Button>
+                )}
+              </div>
+            </div>
+          </DialogContent>
         </Dialog>
       )}
     </div>

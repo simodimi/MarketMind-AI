@@ -129,6 +129,7 @@
 .HomeCategoryCard {
   display: flex;
   align-items: center;
+  justify-content: space-around;
   gap: 10px;
   cursor: pointer;
   position: relative;
@@ -222,14 +223,17 @@
 }
 .Footer {
   width: 100%;
-
   height: 500px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 .FooterImage {
   position: absolute;
   width: 100%;
   height: 100%;
+  z-index: -1;
 }
 .FooterImage img {
   width: 100%;
@@ -308,4 +312,12 @@ a {
 .SelectionCategory {
   width: 100%;
   height: calc(100% - 270px);
+}
+.Footer .copyright {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+  color: white;
+  gap: 20px;
 }

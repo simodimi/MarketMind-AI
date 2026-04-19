@@ -17,6 +17,7 @@ import {
   Pagination,
   Navigation,
 } from "swiper/modules";
+import { Link } from "react-router-dom";
 const Home = () => {
   const [AfficheProfil, setAfficheProfil] = useState<boolean>(false);
   const [Listreseach, setListreseach] = useState<boolean>(false);
@@ -66,20 +67,24 @@ const Home = () => {
                 <img src={out} alt="" />
                 <p>Déconnexion</p>
               </div>
-              <div className="HomeProfilDescriptionTitle">
-                <img src={profil} alt="" />
-                <p>Profil</p>
-              </div>
+              <Link to={"/profiluser"}>
+                <div className="HomeProfilDescriptionTitle">
+                  <img src={profil} alt="" />
+                  <p>Profil</p>
+                </div>
+              </Link>
             </div>
           )}
         </div>
       </div>
       <div className="HomeCategory">
         {Categories.map((p) => (
-          <div className="HomeCategoryCard" key={p.id}>
-            <img src={p.photo} alt={p.name} />
-            <p>{p.name}</p>
-          </div>
+          <Link to={p.link}>
+            <div className="HomeCategoryCard" key={p.id}>
+              <img src={p.photo} alt={p.name} />
+              <p>{p.name}</p>
+            </div>
+          </Link>
         ))}
       </div>
       {Listreseach && (
@@ -129,7 +134,9 @@ const Home = () => {
         >
           {defilement.map((p) => (
             <SwiperSlide key={p.id}>
-              <img src={p.photo} alt={`slide-${p.id}`} />
+              <Link to={p.link}>
+                <img src={p.photo} alt={`slide-${p.id}`} />
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -140,11 +147,22 @@ const Home = () => {
         </div>
         <div className="HomeCategory">
           {Categories.map((p) => (
-            <div className="HomeCategoryCard" key={p.id}>
-              <img src={p.photo} alt={p.name} />
-              <p>{p.name}</p>
-            </div>
+            <Link to={p.link}>
+              <div className="HomeCategoryCard" key={p.id}>
+                <img src={p.photo} alt={p.name} />
+                <p>{p.name}</p>
+              </div>
+            </Link>
           ))}
+        </div>
+        <div className="copyright">
+          <p>
+            <Link to={"/service"} style={{ color: "white" }}>
+              Nos services
+            </Link>
+          </p>
+          <p>&copy; MarketMind-AI 2026 </p>
+          <p>Dimitri Simo</p>
         </div>
       </div>
     </div>
