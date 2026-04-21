@@ -94,7 +94,7 @@ interface stepperParam {
   parastep6: boolean;
 }
 /*produit*/
-interface stepperProduit {
+export interface stepperProduit {
   nomProduit: string;
   prixProduit: number;
   photoProduitPrincipal: File | string | null;
@@ -239,7 +239,7 @@ interface steppercategorie {
   stepcategorie5: boolean;
   stepcategorie6: boolean;
 }
-interface Produit {
+export interface Produit {
   id: number;
   nom: string;
   photo: string | null;
@@ -258,7 +258,7 @@ interface Produit {
   videoProduit?: string | null;
 
   // Tous les autres champs (optionnels)
-  codepostal?: string;
+  /*codepostal?: string;
   ville?: string;
   adresse?: string;
   surface?: number;
@@ -303,7 +303,53 @@ interface Produit {
   // De stepperProduit (pour la compatibilité)
   texteDescription?: string;
   complementinformation?: string;
-  CategoriesProduit?: string;
+  CategoriesProduit?: string;*/
+  nomProduit: string;
+  prixProduit: number;
+  texteDescription: string;
+  CategoriesProduit: string;
+  villeProduit: string;
+  codepostalProduit: string;
+  adresseProduit: string;
+  surfaceProduit: number;
+  typehouseProduit: string;
+  numberpieceProduit: number;
+  numberchambreProduit: number;
+  numberdoucheProduit: number;
+  numberetageProduit: string;
+  ascenseurProduit: boolean;
+  meubleProduit: boolean;
+  parkingProduit: string;
+  dpeProduit: string;
+  chargesmensuellesProduit: number;
+  disponibiliteProduit: string;
+  descriptiondetailleeProduit: string;
+  marqueautoProduit: string;
+  modeleautoProduit: string;
+  circulationProduit: string;
+  kilometrageProduit: number;
+  puissanceautoProduit: number;
+  numberporteProduit: number;
+  couleurautoProduit: string;
+  proprioProduit: string;
+  carburantProduit: string;
+  specialautoProduit: string;
+  boitevitesseProduit: string;
+  marqueelectroProduit: string;
+  modeleelectroProduit: string;
+  specialelectroProduit: string;
+  accessoireelectroProduit: string;
+  couleurhabitProduit: string;
+  matierehabitProduit: string;
+  taillehabitProduit: string;
+  marquehabitProduit: string;
+  complementinformation: string;
+  electroniqueProduit: string;
+  genreProduit: string;
+  categorieProduit: string;
+  quantiteelectroProduit: number;
+  quantitemodeProduit: number;
+  quantiteautreProduit: number;
 }
 /*message */
 interface Profiluser {
@@ -751,7 +797,14 @@ const ProfilUser: React.FC = () => {
     stepcategorie6: false,
   });
   //publication de produit
-  const [addproduitTable, setaddproduitTable] = useState<Produit[]>([]);
+  //const [addproduitTable, setaddproduitTable] = useState<Produit[]>([]);
+  const [addproduitTable, setaddproduitTable] = useState<Produit[]>(() => {
+    try {
+      return JSON.parse(localStorage.getItem("addproduit") ?? "[]");
+    } catch {
+      return [];
+    }
+  });
   const [deleteproduitpublier, setdeleteproduitpublier] =
     useState<Produit | null>(null);
   const handleclickdelete = (p: Produit) => {
@@ -952,7 +1005,7 @@ const ProfilUser: React.FC = () => {
       setaddproduitTable(newTable);
     } else {
       const newstate = {
-        id: Date.now(),
+        id: Date.now() * 1000 + Math.floor(Math.random() * 1000),
         photo: pictureproduct.pictureproductPrincipal,
         nom: dataproduit.nomProduit,
         categories: dataproduit.CategoriesProduit,
@@ -1021,6 +1074,7 @@ const ProfilUser: React.FC = () => {
       const newTable = [...addproduitTable, newstate];
       setaddproduitTable(newTable);
       console.log(newTable);
+      localStorage.setItem("addproduit", JSON.stringify(newTable)); //stockage
       toast.success("produit ajouté");
       setaddproduit(false);
       //initialiser les champs
@@ -1127,48 +1181,48 @@ const ProfilUser: React.FC = () => {
       photoProduitSecondary5: product.photoProduitSecondary5 ?? null,
       videoProduit: product.videoProduit ?? null,
       // Champs Immobilier
-      villeProduit: product.ville || "",
-      codepostalProduit: product.codepostal || "",
-      adresseProduit: product.adresse || "",
-      surfaceProduit: product.surface || 0,
-      typehouseProduit: product.typehouse || "",
-      numberpieceProduit: product.numberpiece || 0,
-      numberchambreProduit: product.numberchambre || 0,
-      numberdoucheProduit: product.numberdouche || 0,
-      numberetageProduit: product.numberetage || "",
-      ascenseurProduit: product.ascenseur || false,
-      meubleProduit: product.meuble || false,
-      parkingProduit: product.parking || "",
-      dpeProduit: product.dpe || "",
-      chargesmensuellesProduit: product.chargesmensuelles || 0,
-      disponibiliteProduit: product.disponibilite || "",
-      descriptiondetailleeProduit: product.descriptiondetaillee || "",
+      villeProduit: product.villeProduit || "",
+      codepostalProduit: product.codepostalProduit || "",
+      adresseProduit: product.adresseProduit || "",
+      surfaceProduit: product.surfaceProduit || 0,
+      typehouseProduit: product.typehouseProduit || "",
+      numberpieceProduit: product.numberpieceProduit || 0,
+      numberchambreProduit: product.numberchambreProduit || 0,
+      numberdoucheProduit: product.numberdoucheProduit || 0,
+      numberetageProduit: product.numberetageProduit || "",
+      ascenseurProduit: product.ascenseurProduit || false,
+      meubleProduit: product.meubleProduit || false,
+      parkingProduit: product.parkingProduit || "",
+      dpeProduit: product.dpeProduit || "",
+      chargesmensuellesProduit: product.chargesmensuellesProduit || 0,
+      disponibiliteProduit: product.disponibiliteProduit || "",
+      descriptiondetailleeProduit: product.descriptiondetailleeProduit || "",
       // Champs Automobile
-      marqueautoProduit: product.marqueauto || "",
-      modeleautoProduit: product.modeleauto || "",
-      circulationProduit: product.circulation || "",
-      kilometrageProduit: product.kilometrage || 0,
-      puissanceautoProduit: product.puissanceauto || 0,
-      numberporteProduit: product.numberporte || 0,
-      couleurautoProduit: product.couleurauto || "",
-      proprioProduit: product.proprio || "",
-      carburantProduit: product.carburant || "",
-      specialautoProduit: product.specialauto || "",
-      boitevitesseProduit: product.boitevitesse || "",
+      marqueautoProduit: product.marqueautoProduit || "",
+      modeleautoProduit: product.modeleautoProduit || "",
+      circulationProduit: product.circulationProduit || "",
+      kilometrageProduit: product.kilometrageProduit || 0,
+      puissanceautoProduit: product.puissanceautoProduit || 0,
+      numberporteProduit: product.numberporteProduit || 0,
+      couleurautoProduit: product.couleurautoProduit || "",
+      proprioProduit: product.proprioProduit || "",
+      carburantProduit: product.carburantProduit || "",
+      specialautoProduit: product.specialautoProduit || "",
+      boitevitesseProduit: product.boitevitesseProduit || "",
       // Champs Électronique
-      marqueelectroProduit: product.marqueelectro || "",
-      modeleelectroProduit: product.modeleelectro || "",
-      specialelectroProduit: product.specialelectro || "",
-      accessoireelectroProduit: product.accessoireelectro || "",
-      electroniqueProduit: product.electronique || "",
+      marqueelectroProduit: product.marqueelectroProduit || "",
+      modeleelectroProduit: product.modeleelectroProduit || "",
+      specialelectroProduit: product.specialelectroProduit || "",
+      accessoireelectroProduit: product.accessoireelectroProduit || "",
+      electroniqueProduit: product.electroniqueProduit || "",
       //quantiteelectroProduit: product.quantiteelectro || 0,
       // Champs Mode
-      marquehabitProduit: product.marquehabit || "",
-      taillehabitProduit: product.taillehabit || "",
-      matierehabitProduit: product.matierehabit || "",
-      couleurhabitProduit: product.couleurhabit || "",
-      genreProduit: product.genre || "",
-      categorieProduit: product.categorie || "",
+      marquehabitProduit: product.marquehabitProduit || "",
+      taillehabitProduit: product.taillehabitProduit || "",
+      matierehabitProduit: product.matierehabitProduit || "",
+      couleurhabitProduit: product.couleurhabitProduit || "",
+      genreProduit: product.genreProduit || "",
+      categorieProduit: product.categorieProduit || "",
       // quantitemodeProduit: product.quantitemode || 0,
       // Autre
       quantiteelectroProduit:

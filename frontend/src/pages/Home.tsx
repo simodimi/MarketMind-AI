@@ -111,12 +111,12 @@ const Home = () => {
           grabCursor={true}
           centeredSlides={true}
           loop={true}
-          slidesPerView={3} // Exactement comme l'exemple
-          spaceBetween={30} // IMPORTANT: ajoutez ceci
+          slidesPerView={3} // Nombre de slides affichées en simultané
+          spaceBetween={30} // Espacement entre les slides
           coverflowEffect={{
             rotate: 50,
             stretch: 0,
-            depth: 200, // Augmenté pour meilleur effet
+            depth: 200, // Profondeur de l'effet
             modifier: 1,
             slideShadows: true,
           }}

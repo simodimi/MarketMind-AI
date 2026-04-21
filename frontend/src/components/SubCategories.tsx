@@ -1,26 +1,33 @@
-import React, { useEffect, useRef, useState } from "react";
-import Filter from "../../hook/Filter";
-import { ordinateurs } from "../../store/Frontbdd";
-import Button from "../../ui/Button";
-import { useNavigate } from "react-router-dom";
-import img1 from "../../assets/icone/offcoeur.png";
-import img2 from "../../assets/icone/oncoeur.png";
-import img3 from "../../assets/icone/oeil.png";
-import type { LikingEvent } from "../../App";
+import { maisonsData } from "../store/Frontbdd";
+import img1 from "../assets/icone/offcoeur.png";
+import img2 from "../assets/icone/oncoeur.png";
+import img3 from "../assets/icone/oeil.png";
+import "../style/category.css";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import Filter from "../hook/Filter";
+import Button from "../ui/Button";
+import type { LikingEvent } from "../App";
+import type { Produit } from "../pages/ProfilUser";
 
 interface ButtonProps {
   setlikingEvent: React.Dispatch<React.SetStateAction<LikingEvent[] | null>>;
 }
 
-const Ordinateur: React.FC<ButtonProps> = ({ setlikingEvent }) => {
-  const [filteredData, setFilteredData] = useState(ordinateurs);
-  const elementref = useRef<{ [key: number]: HTMLDivElement | null }>({});
+const SubCategories: React.FC<ButtonProps> = ({ setlikingEvent }) => {
   const navigate = useNavigate();
-  const [like, setlike] = useState<{ [key: number]: boolean }>({});
+  //si prix est indefini alors 0
   const first = useRef<HTMLDivElement | null>(null);
   const [open, setOpen] = useState<boolean>(false);
-  const minPrix = Math.min(...ordinateurs.map((p) => p.prix ?? 0));
-  const maxPrix = Math.max(...ordinateurs.map((p) => p.prix ?? 0));
+  const minPrix = Math.min(...maisonsData.map((p) => p.prix ?? 0));
+  const maxPrix = Math.max(...maisonsData.map((p) => p.prix ?? 0));
+  const [like, setlike] = useState<{ [key: number]: boolean }>({});
+  //gestion de la transmission des données
+  const [annonces, setannonces] = useState<Produit[]>([]);
+  const { type, subtype } = useParams();
+  const [filteredData, setFilteredData] = useState([...annonces]);
+  //elementref est un objet avec une clé number et une valeur HTMLDivElement ou null
+  const elementref = useRef<{ [key: number]: HTMLDivElement | null }>({});
   //permet de scroller vers l'element selectionner
   useEffect(() => {
     const selectelement = localStorage.getItem("elt");
@@ -32,37 +39,52 @@ const Ordinateur: React.FC<ButtonProps> = ({ setlikingEvent }) => {
       localStorage.removeItem("elt");
     }
   }, []);
-  const handleFiltreChange = (filtres: any) => {
-    let result = [...ordinateurs];
+  /* const handleFiltreChange = (filtres:Produit) => {
+    let result = [...annonces];
+    //filtrage par prix
     result = result.filter(
-      (p) =>
+      (p:Produit) =>
         (p.prix ?? 0) >= filtres.prix[0] && (p.prix ?? 0) <= filtres.prix[1],
     );
-    //classement par ordre
+
+    //filtrage par meuble
+    if (filtres.meubleProduit !== "all") {
+      result = result.filter(
+        (p) => p.meubleProduit?.toLowerCase() === filtres.meuble?.toLowerCase(),
+      );
+    }
+    //filtre par nombre de chambre
+
+    if (filtres.numberchambreProduit !== "all") {
+      if (filtres.rooms === "6") {
+        result = result.filter((p) => p.chambres ?? 0 > 5);
+      } else {
+        result = result.filter((p) => p.chambres === Number(filtres.rooms));
+      }
+    }
+    //filtrage par order
     if (filtres.order !== "all") {
       result.sort((a, b) => {
-        if (filtres.order === "croissant") {
-          return (a.prix ?? 0) - (b.prix ?? 0);
-        }
-        if (filtres.order === "decroissant") {
+        if (filtres.order === "croissant") return (a.prix ?? 0) - (b.prix ?? 0);
+        if (filtres.order === "decroissant")
           return (b.prix ?? 0) - (a.prix ?? 0);
-        }
-        if (filtres.order === "Plusancien") {
+        if (filtres.order === "Plusancien")
           return (
             new Date(a.date ?? 0).getTime() - new Date(b.date ?? 0).getTime()
           );
-        }
-        if (filtres.order === "Plusrecent") {
+        if (filtres.order === "Plusrecent")
           return (
             new Date(b.date ?? 0).getTime() - new Date(a.date ?? 0).getTime()
           );
-        } else {
-          return 0;
-        }
+        return 0;
       });
     }
     setFilteredData(result);
-  };
+  };*/
+  /* const meubleCounts = {
+    oui: filteredData.filter((p) => p.meuble?.toLowerCase() === "oui").length,
+    non: filteredData.filter((p) => p.meuble?.toLowerCase() === "non").length,
+  };*/
   useEffect(() => {
     const evenement = (e: MouseEvent) => {
       if (open && first.current && !first.current.contains(e.target as Node)) {
@@ -75,6 +97,7 @@ const Ordinateur: React.FC<ButtonProps> = ({ setlikingEvent }) => {
       document.removeEventListener("click", evenement);
     };
   }, [open]);
+  //gestion des like
   const handlelike = (id: number) => {
     setlike((prev) => {
       const newlike = { ...prev, [id]: !prev[id] };
@@ -82,39 +105,76 @@ const Ordinateur: React.FC<ButtonProps> = ({ setlikingEvent }) => {
       return newlike;
     });
   };
+  //rechargement des liking au demarrage
+  useEffect(() => {
+    const saveliking = localStorage.getItem("liking");
+    if (saveliking) {
+      setlike(JSON.parse(saveliking));
+    }
+  }, []);
   const handletraverse = (p: any) => {
     const event = {
       id: p.id,
       nom: p.nom,
       photo: p.photo,
-      link: `/categories/electronique/describe/${p.nom}`,
+      link: `/categories/immobilier/describe/${p.nom}`,
     };
     setlikingEvent((prev) => {
       let newlist: (typeof event)[];
       if (!prev) {
-        newlist = [event];
-      } else if (prev.some((p) => p.id === event.id)) {
-        newlist = prev;
+        newlist = [event]; //ajouter l'evenement
+      }
+      //eviter les doublons
+      else if (prev.some((item) => item.id === event.id)) {
+        newlist = prev; //ne rien faire
       } else {
-        newlist = [...prev, event];
+        newlist = [...prev, event]; //ajouter l'evenement à la suite
       }
       localStorage.setItem("likingevents", JSON.stringify(newlist));
       return newlist;
     });
   };
+
+  useEffect(() => {
+    const lik = localStorage.getItem("likingevents");
+    if (lik) {
+      setlikingEvent(JSON.parse(lik));
+    }
+  }, []);
+
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem("addproduit") ?? "[]"); //recuperer
+    const dispatch = storedData.filter(
+      (p: Produit) => p.CategoriesProduit === type,
+    );
+    let result = dispatch;
+    if (subtype) {
+      result = dispatch.filter(
+        (p: Produit) =>
+          p.typehouseProduit?.toLowerCase() === subtype.toLowerCase() ||
+          p.carburantProduit?.toLowerCase() === subtype.toLowerCase() ||
+          p.electroniqueProduit?.toLowerCase() === subtype.toLowerCase() ||
+          p.genreProduit?.toLowerCase() === subtype.toLowerCase(),
+      );
+      const order = result.sort((a: Produit, b: Produit) => b.id - a.id);
+      setannonces(order);
+    }
+  }, [type, subtype]);
+
   return (
     <div className="MaisonMain">
-      <Filter
+      {/*  <Filter
         minPrix={minPrix}
         maxPrix={maxPrix}
         onFiltreChange={handleFiltreChange}
+        meubleCounts={meubleCounts}
         open={open}
         setOpen={setOpen}
         first={first}
         category="all"
-      />
+      />*/}
       <div className="ShowItemsFilter">
-        {filteredData.length > 0 ? (
+        {annonces.length > 0 ? (
           <div
             style={{
               display: "flex",
@@ -123,7 +183,7 @@ const Ordinateur: React.FC<ButtonProps> = ({ setlikingEvent }) => {
               marginTop: "30px",
             }}
           >
-            {filteredData.map((p) => (
+            {annonces.map((p) => (
               <div
                 className="MaisonMainItem"
                 key={p.id}
@@ -133,7 +193,9 @@ const Ordinateur: React.FC<ButtonProps> = ({ setlikingEvent }) => {
               >
                 <div className="MaisonMainItemPhoto">
                   <div className="PrincipalPhoto">
-                    <img src={p.photo} alt="" />
+                    {p.photoProduitPrincipal && (
+                      <img src={p.photoProduitPrincipal} alt="" />
+                    )}
                   </div>
                   <div className="MaisonMainItemPhotoLike">
                     <div className="MaisonHealth">
@@ -158,31 +220,31 @@ const Ordinateur: React.FC<ButtonProps> = ({ setlikingEvent }) => {
                       {p.nom}.
                     </p>
                   )}
-                  {p.description && (
+                  {p.texteDescription && (
                     <p id="text">
                       <span>Description : </span>
-                      {p.description.length > 200
-                        ? p.description.substring(0, 200).concat("..")
-                        : p.description}
+                      {p.texteDescription.length > 800
+                        ? p.texteDescription.slice(0, 800) + "..."
+                        : p.texteDescription}
                       .
                     </p>
                   )}
-                  {p.villes && (
+                  {p.villeProduit && (
                     <p>
                       <span>Villes : </span>
-                      {p.villes}.
+                      {p.villeProduit}.
                     </p>
                   )}
-                  {p.adresse && (
+                  {p.adresseProduit && (
                     <p>
                       <span>Adresse : </span>
-                      {p.adresse}.
+                      {p.adresseProduit}.
                     </p>
                   )}
-                  {p.surface && (
+                  {p.surfaceProduit && (
                     <p>
                       <span>Surface : </span>
-                      {p.surface} m2.
+                      {p.surfaceProduit} m2.
                     </p>
                   )}
                   {p.prix && (
@@ -196,7 +258,7 @@ const Ordinateur: React.FC<ButtonProps> = ({ setlikingEvent }) => {
                   className="accept"
                   style={{ zIndex: 150 }}
                   onClick={() =>
-                    navigate(`/categories/electronique/describe/${p.nom}`)
+                    navigate(`/categories/${type}/${subtype}/${p.id}`)
                   }
                 >
                   Voir l'article
@@ -206,7 +268,7 @@ const Ordinateur: React.FC<ButtonProps> = ({ setlikingEvent }) => {
           </div>
         ) : (
           <p className="errorsearch">
-            Aucun ordinateurs ne correspond à votre recherche
+            {`Aucun article de la sous catégorie ${subtype} appartenant à la catégorie ${type} n'est disponible pour le moment.`}
           </p>
         )}
       </div>
@@ -214,4 +276,4 @@ const Ordinateur: React.FC<ButtonProps> = ({ setlikingEvent }) => {
   );
 };
 
-export default Ordinateur;
+export default SubCategories;

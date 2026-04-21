@@ -60,9 +60,9 @@
 }
 .MaisonMainItem {
   display: flex;
+  justify-content: space-between;
   background-color: #0979e9;
   width: 100%;
-
   border: 1px solid #0979e9;
   border-radius: 10px;
   padding: 10px;
@@ -75,6 +75,7 @@
   border-radius: 10px;
   background-color: #ffffff;
   cursor: pointer;
+  overflow: hidden;
 }
 .PrincipalPhoto img {
   width: 100%;
@@ -113,8 +114,10 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  flex: 1;
   cursor: pointer;
 }
+
 .MaisonMainItemDescribe span {
   font-weight: bold;
 }
@@ -218,7 +221,7 @@
   padding-bottom: 10px;
 }
 .errorsearch {
-  color: red;
+  color: #0979e9;
   font-weight: bold;
   font-size: 20px;
   display: flex;

@@ -129,6 +129,7 @@
 .HomeCategoryCard {
   display: flex;
   align-items: center;
+  width: auto;
   justify-content: space-around;
   gap: 10px;
   cursor: pointer;

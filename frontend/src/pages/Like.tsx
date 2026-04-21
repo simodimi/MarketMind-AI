@@ -29,9 +29,9 @@ const Like: React.FC<ButtonProps> = ({ likingEvent, setlikingEvent }) => {
   return (
     <div className="MainMenu">
       <Siderbar />
-      <div className="btnretour">
+      {/*  <div className="btnretours">
         <Button onClick={() => navigate(-1)}>Retour</Button>
-      </div>
+      </div>*/}
 
       <div className="ServiceMain">
         {(likingEvent?.length ?? 0) > 0 ? (

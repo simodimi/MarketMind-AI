@@ -76,7 +76,7 @@ export interface Element {
 export const Categories: Categories[] = [
   {
     id: 1,
-    name: "Immobilier",
+    name: "immobilier",
     photo: A1,
     link: "/categories/immobilier/maison",
   },
@@ -86,91 +86,108 @@ export const Categories: Categories[] = [
     id: 4,
     name: "electronique",
     photo: A4,
-    link: "/categories/electronique/ordinateur",
+    link: "/categories/electronique",
   },
   { id: 7, name: "Emploi", photo: A7, link: "/categories/emploi" },
-  { id: 8, name: "Autres", photo: A8, link: "/categories/autre" },
+  { id: 8, name: "Autre", photo: A8, link: "/categories/autre" },
 ];
 export const Elements: Element = {
-  Immobilier: [
-    { id: 1, name: "Maison", photo: A1, link: "/categories/immobilier/maison" },
+  immobilier: [
+    { id: 1, name: "Maison", photo: A1, link: "maison" },
     {
       id: 2,
       name: "Appartement",
       photo: A9,
-      link: "/categories/immobilier/appartement",
+      link: "appartement",
     },
     {
       id: 3,
       name: "Terrain",
       photo: A10,
-      link: "/categories/immobilier/terrain",
+      link: "terrain",
     },
     {
       id: 4,
       name: "Bureau",
       photo: A11,
-      link: "/categories/immobilier/bureau",
+      link: "bureau",
     },
-    { id: 5, name: "Autre", photo: A8, link: "/categories/immobilier/autre" },
+    { id: 5, name: "Autre", photo: A8, link: "autre" },
   ],
-  Auto: [
-    { id: 1, name: "Voiture", photo: A2, link: "immobilier" },
-    { id: 2, name: "Moto", photo: A12, link: "immobilier" },
-    { id: 3, name: "Camion", photo: A13, link: "immobilier" },
-    { id: 4, name: "Autre", photo: A8, link: "immobilier" },
+  auto: [
+    { id: 1, name: "Voiture", photo: A2, link: "voiture" },
+    { id: 2, name: "Moto", photo: A12, link: "moto" },
+    { id: 3, name: "Camion", photo: A13, link: "camion" },
+    { id: 4, name: "Autre", photo: A8, link: "autre" },
   ],
-  Mode: [
-    { id: 1, name: "Vetements", photo: A3, link: "immobilier" },
-    { id: 2, name: "Chaussures", photo: A14, link: "immobilier" },
-    { id: 3, name: "Accessoires", photo: A15, link: "immobilier" },
-    { id: 4, name: "Autre", photo: A8, link: "immobilier" },
+  mode: [
+    { id: 1, name: "Vetements", photo: A3, link: "Vetements" },
+    { id: 2, name: "Chaussures", photo: A14, link: "Chaussures" },
+    { id: 3, name: "Accessoires", photo: A15, link: "Accessoires" },
+    { id: 4, name: "Autre", photo: A8, link: "autre" },
   ],
-  Electronique: [
+  electronique: [
     {
       id: 1,
       name: "Ordinateur",
       photo: A16,
-      link: "/categories/electronique/ordinateur",
+      link: "ordinateur",
     },
     {
       id: 2,
-      name: "téléphone",
+      name: "telephone",
       photo: A17,
-      link: "/categories/electronique/telephone",
+      link: "telephone",
     },
     {
       id: 3,
       name: "froid et chauffage",
       photo: A18,
-      link: "/categories/electronique/froid",
+      link: "froidetchauffage",
     },
-    { id: 4, name: "Autre", photo: A8, link: "/categories/electronique/autre" },
+    { id: 4, name: "Autre", photo: A8, link: "autre" },
   ],
 
-  Emploi: [
+  emploi: [
     { id: 1, name: "Secteur transport", photo: A2, link: "immobilier" },
     { id: 2, name: "Secteur industriel", photo: A19, link: "immobilier" },
     { id: 3, name: "Secteur commercial", photo: A3, link: "immobilier" },
     { id: 4, name: "Secteur Informatique", photo: A4, link: "immobilier" },
     { id: 5, name: "Autre", photo: A8, link: "immobilier" },
   ],
-  Autre: [
-    { id: 1, name: "Dons", photo: A20, link: "immobilier" },
-    { id: 2, name: "Autre", photo: A8, link: "immobilier" },
-  ],
+  autre: [{ id: 1, name: "Autre", photo: A8, link: "autres" }],
 };
 export const defilement: Categories[] = [
-  { id: 1, name: "électronique", photo: C1, link: "/categories/electronique" },
-  { id: 2, name: "électronique", photo: C2, link: "/categories/electronique" },
+  {
+    id: 1,
+    name: "electronique",
+    photo: C1,
+    link: "/categories/electronique/froidetchauffage",
+  },
+  {
+    id: 2,
+    name: "electronique",
+    photo: C2,
+    link: "/categories/electronique/froidetchauffage",
+  },
   { id: 3, name: "Immobilier", photo: C3, link: "/categories/immobilier" },
-  { id: 4, name: "Immobilier", photo: C4, link: "/categories/immobilier" },
-  { id: 5, name: "Immobilier", photo: C5, link: "/categories/immobilier" },
+  {
+    id: 4,
+    name: "Immobilier",
+    photo: C4,
+    link: "/categories/immobilier/autre",
+  },
+  {
+    id: 5,
+    name: "Immobilier",
+    photo: C5,
+    link: "/categories/immobilier/terrain",
+  },
   { id: 6, name: "Auto", photo: C6, link: "/categories/auto" },
-  { id: 7, name: "Auto", photo: C7, link: "/categories/auto" },
-  { id: 8, name: "Mode", photo: C8, link: "/categories/mode" },
-  { id: 9, name: "Mode", photo: C9, link: "/categories/mode" },
-  { id: 10, name: "Mode", photo: C10, link: "/categories/mode" },
+  { id: 7, name: "Auto", photo: C7, link: "/categories/auto/moto" },
+  { id: 8, name: "Mode", photo: C8, link: "/categories/mode/vetements" },
+  { id: 9, name: "Mode", photo: C9, link: "/categories/mode/Vetements" },
+  { id: 10, name: "Mode", photo: C10, link: "/categories/mode/Vetements" },
 ];
 
 // src/data/maisonsData.ts

@@ -1,60 +1,69 @@
 import { useEffect, useState } from "react";
 import { Categories } from "../store/Frontbdd";
 import "../style/home.css";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import Siderbar from "../ui/Siderbar";
 const Categorie = () => {
-  const [search, setSearch] = useState<string>(Categories[0].name);
+  const [CategorieActive, setCategorieActive] = useState<string>();
+  const { type } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  //disparition du profil de l'user lorsque l'on clique en dehors
-  //gestion du lien de l'url
-  useEffect(() => {
-    if (
-      location.pathname === "/categories/immobilier" ||
-      location.pathname.startsWith("/categories/immobilier/")
-    )
-      setSearch(Categories[0].name);
-    if (location.pathname === "/categories/auto") setSearch(Categories[1].name);
-    if (location.pathname === "/categories/mode") setSearch(Categories[2].name);
-    if (
-      location.pathname === "/categories/electronique" ||
-      location.pathname.startsWith("/categories/electronique/")
-    )
-      setSearch(Categories[3].name);
-    if (location.pathname === "/categories/emploi")
-      setSearch(Categories[4].name);
-    if (location.pathname === "/categories/autre")
-      setSearch(Categories[5].name);
-  }, [location.pathname]);
   useEffect(() => {
     if (
       location.pathname === "/categories" ||
-      location.pathname === "/categories/"
+      location.pathname.startsWith("/categories/immobilier")
     ) {
-      navigate("/categories/immobilier/", { replace: true });
+      setCategorieActive(Categories[0].name);
+    }
+    if (location.pathname === "/categories/auto") {
+      setCategorieActive(Categories[1].name);
+    }
+    if (location.pathname === "/categories/mode") {
+      setCategorieActive(Categories[2].name);
     }
     if (location.pathname === "/categories/electronique") {
-      navigate("/categories/electronique/ordinateur", { replace: true });
+      setCategorieActive(Categories[3].name);
     }
-  }, [location.pathname, navigate]);
+    if (location.pathname === "/categories/emploi") {
+      setCategorieActive(Categories[4].name);
+    }
+    if (location.pathname === "/categories/autre") {
+      setCategorieActive(Categories[5].name);
+    }
+  });
+  useEffect(() => {
+    if (!type) {
+      // On redirige vers la première catégorie de la liste
+      navigate(Categories[0].link, { replace: true });
+    }
+  }, [type]);
   return (
     <div className="">
       <Siderbar />
       <div className="HomeCategory">
-        {Categories.map((p) => (
-          <Link to={p.link} key={p.id}>
-            <div
-              className={`HomeCategorySelect ${search === p.name ? "act" : ""}`}
-              onClick={() => setSearch(p.name)}
-            >
-              <img src={p.photo} alt={p.name} />
-              <p>{p.name}</p>
-            </div>
-          </Link>
-        ))}
+        {Categories.map((p) => {
+          const catSlug = p.name.toLowerCase();
+          return (
+            <Link to={`/categories/${catSlug}`} key={p.id}>
+              <div
+                className={`HomeCategorySelect ${
+                  CategorieActive === p.name ? "act" : ""
+                }`}
+                onClick={() => setCategorieActive(p.name)}
+              >
+                <img src={p.photo} alt={p.name} />
+                <p>{p.name}</p>
+              </div>
+            </Link>
+          );
+        })}
       </div>
-
       <div className="SelectionCategory">{<Outlet />}</div>
     </div>
   );

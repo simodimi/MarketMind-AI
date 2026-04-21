@@ -3,7 +3,7 @@ import down from "../assets/icone/aD.png";
 import up from "../assets/icone/aU.png";
 import "../style/ui.css";
 import Button from "../ui/Button";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface Hide {
   hide1: boolean;
@@ -61,8 +61,15 @@ const Service = () => {
     setformdata({ Email: "", Message: "" });
     setErrormessage("");
   };
+  const slidertop = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (slidertop.current) {
+      slidertop.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
+
   return (
-    <div className="MainMenu">
+    <div className="MainMenu" ref={slidertop}>
       <Siderbar />
       <div className="ServiceMain">
         <div className="ServiceMainItem">
