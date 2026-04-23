@@ -19,13 +19,16 @@ const SubCategories: React.FC<ButtonProps> = ({ setlikingEvent }) => {
   //si prix est indefini alors 0
   const first = useRef<HTMLDivElement | null>(null);
   const [open, setOpen] = useState<boolean>(false);
-  const minPrix = Math.min(...maisonsData.map((p) => p.prix ?? 0));
-  const maxPrix = Math.max(...maisonsData.map((p) => p.prix ?? 0));
-  const [like, setlike] = useState<{ [key: number]: boolean }>({});
   //gestion de la transmission des données
   const [annonces, setannonces] = useState<Produit[]>([]);
+  const [like, setlike] = useState<{ [key: number]: boolean }>({});
+
   const { type, subtype } = useParams();
   const [filteredData, setFilteredData] = useState([...annonces]);
+  //articles vus
+  const [articleConsulte, setarticleConsulte] = useState<{
+    [key: number]: boolean;
+  }>({});
   //elementref est un objet avec une clé number et une valeur HTMLDivElement ou null
   const elementref = useRef<{ [key: number]: HTMLDivElement | null }>({});
   //permet de scroller vers l'element selectionner
@@ -39,52 +42,6 @@ const SubCategories: React.FC<ButtonProps> = ({ setlikingEvent }) => {
       localStorage.removeItem("elt");
     }
   }, []);
-  /* const handleFiltreChange = (filtres:Produit) => {
-    let result = [...annonces];
-    //filtrage par prix
-    result = result.filter(
-      (p:Produit) =>
-        (p.prix ?? 0) >= filtres.prix[0] && (p.prix ?? 0) <= filtres.prix[1],
-    );
-
-    //filtrage par meuble
-    if (filtres.meubleProduit !== "all") {
-      result = result.filter(
-        (p) => p.meubleProduit?.toLowerCase() === filtres.meuble?.toLowerCase(),
-      );
-    }
-    //filtre par nombre de chambre
-
-    if (filtres.numberchambreProduit !== "all") {
-      if (filtres.rooms === "6") {
-        result = result.filter((p) => p.chambres ?? 0 > 5);
-      } else {
-        result = result.filter((p) => p.chambres === Number(filtres.rooms));
-      }
-    }
-    //filtrage par order
-    if (filtres.order !== "all") {
-      result.sort((a, b) => {
-        if (filtres.order === "croissant") return (a.prix ?? 0) - (b.prix ?? 0);
-        if (filtres.order === "decroissant")
-          return (b.prix ?? 0) - (a.prix ?? 0);
-        if (filtres.order === "Plusancien")
-          return (
-            new Date(a.date ?? 0).getTime() - new Date(b.date ?? 0).getTime()
-          );
-        if (filtres.order === "Plusrecent")
-          return (
-            new Date(b.date ?? 0).getTime() - new Date(a.date ?? 0).getTime()
-          );
-        return 0;
-      });
-    }
-    setFilteredData(result);
-  };*/
-  /* const meubleCounts = {
-    oui: filteredData.filter((p) => p.meuble?.toLowerCase() === "oui").length,
-    non: filteredData.filter((p) => p.meuble?.toLowerCase() === "non").length,
-  };*/
   useEffect(() => {
     const evenement = (e: MouseEvent) => {
       if (open && first.current && !first.current.contains(e.target as Node)) {
@@ -112,17 +69,18 @@ const SubCategories: React.FC<ButtonProps> = ({ setlikingEvent }) => {
       setlike(JSON.parse(saveliking));
     }
   }, []);
-  const handletraverse = (p: any) => {
+  const handletraverse = (p: Produit) => {
     const event = {
       id: p.id,
       nom: p.nom,
       photo: p.photo,
-      link: `/categories/immobilier/describe/${p.nom}`,
+      link: `/categories/${type}/${subtype}/${p.id}`,
+      categories: p.categories,
     };
     setlikingEvent((prev) => {
-      let newlist: (typeof event)[];
+      let newlist: (typeof event)[]; //newlist sera un tableau d'objet à la même structure que event
       if (!prev) {
-        newlist = [event]; //ajouter l'evenement
+        newlist = [event]; //si prev est vide, newlist sera un tableau contenant event
       }
       //eviter les doublons
       else if (prev.some((item) => item.id === event.id)) {
@@ -160,12 +118,73 @@ const SubCategories: React.FC<ButtonProps> = ({ setlikingEvent }) => {
       setannonces(order);
     }
   }, [type, subtype]);
+  //conserver l'article vu
+  const handleArticleConsulte = (p: number) => {
+    setarticleConsulte((prev) => {
+      const article = { ...prev, [p]: true };
+      localStorage.setItem("articleConsulte", JSON.stringify(article));
+      return article;
+    });
+  };
+  useEffect(() => {
+    const articleConsulte = localStorage.getItem("articleConsulte");
+    if (articleConsulte) {
+      setarticleConsulte(JSON.parse(articleConsulte));
+    }
+  }, []);
+  //filtre
+  const handleFiltreChange = (filtres: any) => {
+    let result = [...annonces];
+    //filtrage par prix
+    result = result.filter(
+      (p: Produit) =>
+        (p.prix ?? 0) >= filtres.prix[0] && (p.prix ?? 0) <= filtres.prix[1],
+    );
 
+    //filtrage par meuble
+    /*  if (filtres.meubleProduit !== "all") {
+      result = result.filter(
+        (p) => p.meubleProduit?.toLowerCase() === filtres.meuble?.toLowerCase(),
+      );
+    }
+    //filtre par nombre de chambre
+
+    if (filtres.numberchambreProduit !== "all") {
+      if (filtres.rooms === "6") {
+        result = result.filter((p) => p.chambres ?? 0 > 5);
+      } else {
+        result = result.filter((p) => p.chambres === Number(filtres.rooms));
+      }
+    }
+    //filtrage par order
+    if (filtres.order !== "all") {
+      result.sort((a, b) => {
+        if (filtres.order === "croissant") return (a.prix ?? 0) - (b.prix ?? 0);
+        if (filtres.order === "decroissant")
+          return (b.prix ?? 0) - (a.prix ?? 0);
+        if (filtres.order === "Plusancien")
+          return (
+            new Date(a.date ?? 0).getTime() - new Date(b.date ?? 0).getTime()
+          );
+        if (filtres.order === "Plusrecent")
+          return (
+            new Date(b.date ?? 0).getTime() - new Date(a.date ?? 0).getTime()
+          );
+        return 0;
+      });
+    }*/
+    setFilteredData(result);
+  };
+  const meubleCounts = {
+    oui: annonces.filter((p: Produit) => p.meubleProduit === true).length,
+    non: annonces.filter((p: Produit) => p.meubleProduit === false).length,
+  };
   return (
     <div className="MaisonMain">
       {/*  <Filter
         minPrix={minPrix}
         maxPrix={maxPrix}
+        prix={[minPrix, maxPrix]}
         onFiltreChange={handleFiltreChange}
         meubleCounts={meubleCounts}
         open={open}
@@ -209,7 +228,7 @@ const SubCategories: React.FC<ButtonProps> = ({ setlikingEvent }) => {
                       />
                     </div>
                     <div className="MaisonShow">
-                      <img src={img3} alt="" />
+                      {articleConsulte[p.id] && <img src={img3} alt="" />}
                     </div>
                   </div>
                 </div>
@@ -257,9 +276,10 @@ const SubCategories: React.FC<ButtonProps> = ({ setlikingEvent }) => {
                 <Button
                   className="accept"
                   style={{ zIndex: 150 }}
-                  onClick={() =>
-                    navigate(`/categories/${type}/${subtype}/${p.id}`)
-                  }
+                  onClick={() => {
+                    navigate(`/categories/${type}/${subtype}/${p.id}`);
+                    handleArticleConsulte(p.id);
+                  }}
                 >
                   Voir l'article
                 </Button>

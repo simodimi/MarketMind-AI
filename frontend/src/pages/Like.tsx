@@ -29,9 +29,9 @@ const Like: React.FC<ButtonProps> = ({ likingEvent, setlikingEvent }) => {
   return (
     <div className="MainMenu">
       <Siderbar />
-      {/*  <div className="btnretours">
+      <div className="btnretours">
         <Button onClick={() => navigate(-1)}>Retour</Button>
-      </div>*/}
+      </div>
 
       <div className="ServiceMain">
         {(likingEvent?.length ?? 0) > 0 ? (
@@ -59,11 +59,16 @@ const Like: React.FC<ButtonProps> = ({ likingEvent, setlikingEvent }) => {
                         <p>{p.nom}</p>
                       </td>
                     )}
+                    {p.categories && (
+                      <td>
+                        <p>{p.categories}</p>
+                      </td>
+                    )}
                     <td>
-                      <p>IMMOBILIER</p>
-                    </td>
-                    <td>
-                      <Button onClick={() => handleremove(p.id)}>
+                      <Button
+                        className="decline"
+                        onClick={() => handleremove(p.id)}
+                      >
                         Supprimer
                       </Button>
                     </td>
@@ -81,7 +86,7 @@ const Like: React.FC<ButtonProps> = ({ likingEvent, setlikingEvent }) => {
           <p
             style={{ textAlign: "center", marginTop: "10%", fontSize: "30px" }}
           >
-            Aucun évenement liker pour le moment 💖
+            Aucun évenement pour le moment 💖
           </p>
         )}
       </div>

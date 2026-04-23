@@ -7,10 +7,15 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import type { Produit } from "../pages/ProfilUser";
+import img from "../assets/avatar/A10.jpg";
 
-const DescribeCategories = () => {
+interface stepprops {
+  setsteppersms: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const DescribeCategories: React.FC<stepprops> = ({ setsteppersms }) => {
   const { describe } = useParams();
   const [annonces, setannonces] = useState<Produit[]>([]);
+  const [stepsms, setstepsms] = useState<boolean>(false);
   const start = useRef<HTMLDivElement>(null);
   const nomdecode = decodeURIComponent(describe || "");
   const [open10, setopen10] = useState<boolean>(false);
@@ -55,6 +60,11 @@ const DescribeCategories = () => {
     if (current > 0) {
       setphotopopup(allphoto[current - 1] || "");
     }
+  };
+  //envoyer sms
+  const handlesendsms = () => {
+    setsteppersms(true);
+    navigate("/profiluser");
   };
   return (
     <div className="Describe" ref={start}>
@@ -128,7 +138,7 @@ const DescribeCategories = () => {
             </p>
           )}
 
-          {produit?.quantite && (
+          {produit?.quantite.length > 0 && (
             <p>
               <span>Quantité : </span>
               {produit?.quantite}
@@ -293,21 +303,21 @@ const DescribeCategories = () => {
             </p>
           )}
 
-          {produit?.kilometrageProduit && (
+          {produit?.kilometrageProduit.length > 0 && (
             <p>
               <span>Kilométrage : </span>
               {produit?.kilometrageProduit} km
             </p>
           )}
 
-          {produit?.puissanceautoProduit && (
+          {produit?.puissanceautoProduit.length > 0 && (
             <p>
               <span>Puissance : </span>
               {produit?.puissanceautoProduit} ch
             </p>
           )}
 
-          {produit?.numberporteProduit && (
+          {produit?.numberporteProduit.length > 0 && (
             <p>
               <span>Nombre de portes : </span>
               {produit?.numberporteProduit}
@@ -385,13 +395,6 @@ const DescribeCategories = () => {
             </p>
           )}
 
-          {produit?.quantiteelectroProduit && (
-            <p>
-              <span>Quantité : </span>
-              {produit?.quantiteelectroProduit}
-            </p>
-          )}
-
           {/* Caractéristiques mode/habillement */}
           {produit?.genreProduit && (
             <p>
@@ -435,13 +438,6 @@ const DescribeCategories = () => {
             </p>
           )}
 
-          {produit?.quantitemodeProduit && (
-            <p>
-              <span>Quantité : </span>
-              {produit?.quantitemodeProduit}
-            </p>
-          )}
-
           {/* Informations complémentaires */}
           {produit?.complementinformation && (
             <p id="text">
@@ -450,32 +446,40 @@ const DescribeCategories = () => {
             </p>
           )}
 
-          {produit?.quantiteautreProduit && (
-            <p>
-              <span>Quantité : </span>
-              {produit?.quantiteautreProduit}
-            </p>
-          )}
-
           {/* Vidéo */}
           {produit?.videoProduit && (
-            <p>
+            <p id="mediavideo">
               <span>Vidéo : </span>
-              <a
-                href={produit?.videoProduit}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {produit?.videoProduit}
-              </a>
+              <video src={produit?.videoProduit} controls />
             </p>
           )}
         </div>
+        {produit?.CategoriesProduit !== "immobilier" && (
+          <div className="">
+            <Button className="accept">Ajouter l'article au panier</Button>
+          </div>
+        )}
         <div className="UserDescription">
-          <p>nom du propriétaire</p>
-          <p>photo du propriétaire</p>
-          <p>membre depuis le 05/05/2023</p>
-          <p>envoyer un message au propriétaire</p>
+          <p>Membre certifié ✨✨✨.</p>
+          {(produit?.nomvendeurProduit || produit?.prenomvendeurProduit) && (
+            <p>
+              <span>Nom du vendeur :</span>
+              {produit?.nomvendeurProduit}
+              {produit?.prenomvendeurProduit}
+            </p>
+          )}
+          <p id="mediavideo">
+            <span>Photo du propriétaire:</span>
+            <img src={img} alt="" />{" "}
+          </p>
+          <p>Membre depuis:12/15/2025</p>
+          <p>
+            Envoyer un message au propriétaire:{" "}
+            <span id="sms" onClick={() => handlesendsms()}>
+              {" "}
+              📩
+            </span>{" "}
+          </p>
         </div>
       </div>
       {open10 && (

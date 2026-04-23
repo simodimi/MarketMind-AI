@@ -1,4 +1,11 @@
-import React, { useEffect, useRef, useState, type ChangeEvent } from "react";
+import React, {
+  use,
+  useEffect,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type FC,
+} from "react";
 import logo from "../assets/icone/market.png";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
@@ -148,6 +155,10 @@ export interface stepperProduit {
   quantiteelectroProduit: number;
   quantitemodeProduit: number;
   quantiteautreProduit: number;
+  //vendeur
+  nomvendeurProduit: string;
+  prenomvendeurProduit: string;
+  photovendeurProduit: string | null;
 }
 interface restriction {
   id: number;
@@ -350,6 +361,10 @@ export interface Produit {
   quantiteelectroProduit: number;
   quantitemodeProduit: number;
   quantiteautreProduit: number;
+  //VENDEUR
+  nomvendeurProduit: string;
+  prenomvendeurProduit: string;
+  photovendeurProduit: string | null;
 }
 /*message */
 interface Profiluser {
@@ -418,8 +433,11 @@ const generateMockOrders = (): Order[] => {
     (a, b) => dayjs(a.order_date).valueOf() - dayjs(b.order_date).valueOf(),
   );
 };
-
-const ProfilUser: React.FC = () => {
+interface stepprops {
+  steppersms: boolean;
+  setsteppersms: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const ProfilUser: React.FC<stepprops> = ({ steppersms, setsteppersms }) => {
   const [selecttext, setSelecttext] = useState<string>("dashboard");
   const [step, setStep] = useState<stepper>({
     step1: true,
@@ -620,6 +638,10 @@ const ProfilUser: React.FC = () => {
     quantiteelectroProduit: 0,
     quantitemodeProduit: 0,
     quantiteautreProduit: 0,
+    //vendeur
+    nomvendeurProduit: "",
+    prenomvendeurProduit: "",
+    photovendeurProduit: null,
   });
   const handleAddProduit = () => {
     setaddproduit(true);
@@ -638,8 +660,12 @@ const ProfilUser: React.FC = () => {
     const file = e.target.files;
     if (name === "photoProduitPrincipal" && file) {
       const fichier = file[0];
+
       if (fichier) {
-        setdataproduit((prev) => ({ ...prev, photoProduitPrincipal: fichier }));
+        setdataproduit((prev) => ({
+          ...prev,
+          photoProduitPrincipal: fichier,
+        }));
         setpictureproduct({
           ...pictureproduct,
           pictureproductPrincipal: URL.createObjectURL(fichier),
@@ -866,6 +892,10 @@ const ProfilUser: React.FC = () => {
       quantiteelectroProduit: 0,
       quantitemodeProduit: 0,
       quantiteautreProduit: 0,
+      //vendeur
+      nomvendeurProduit: "",
+      prenomvendeurProduit: "",
+      photovendeurProduit: null,
     });
 
     setpictureproduct({
@@ -1070,6 +1100,10 @@ const ProfilUser: React.FC = () => {
         quantiteelectroProduit: dataproduit.quantiteelectroProduit,
         quantitemodeProduit: dataproduit.quantitemodeProduit,
         quantiteautreProduit: dataproduit.quantiteautreProduit,
+        //VENDEUR
+        nomvendeurProduit: dataproduit.nomvendeurProduit || "",
+        prenomvendeurProduit: dataproduit.prenomvendeurProduit || "",
+        photovendeurProduit: dataproduit.photovendeurProduit || null,
       };
       const newTable = [...addproduitTable, newstate];
       setaddproduitTable(newTable);
@@ -1141,6 +1175,10 @@ const ProfilUser: React.FC = () => {
         quantiteelectroProduit: 0,
         quantitemodeProduit: 0,
         quantiteautreProduit: 0,
+        //VENDEUR
+        nomvendeurProduit: "",
+        prenomvendeurProduit: "",
+        photovendeurProduit: null,
       });
     }
   };
@@ -1231,6 +1269,10 @@ const ProfilUser: React.FC = () => {
         product.CategoriesProduit === "mode" ? product.quantite : 0,
       quantiteautreProduit:
         product.CategoriesProduit === "autre" ? product.quantite : 0,
+      //vendeur
+      nomvendeurProduit: product.nomvendeurProduit || "",
+      prenomvendeurProduit: product.prenomvendeurProduit || "",
+      photovendeurProduit: product.photovendeurProduit ?? null,
     });
 
     // Utiliser les données du produit pour les médias
@@ -1605,6 +1647,25 @@ const ProfilUser: React.FC = () => {
       settimeWord("Bonsoir");
     }
   }, []);
+
+  useEffect(() => {
+    if (steppersms) {
+      setSelecttext("messages");
+      setStep({
+        step1: false,
+        step2: false,
+        step3: false,
+        step4: false,
+        step5: false,
+        step6: steppersms,
+        step7: false,
+        step8: false,
+        step9: false,
+      });
+      setsteppersms(false);
+    }
+  }, [steppersms]);
+
   // Fonction pour obtenir le revenu d'une commande
   const getRevenue = (item: Order): number => {
     const revenue =

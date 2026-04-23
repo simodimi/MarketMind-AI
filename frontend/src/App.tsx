@@ -18,11 +18,13 @@ import DescribeCategories from "./components/DescribeCategories";
 export interface LikingEvent {
   id: number;
   nom: string;
-  photo: string;
+  photo: string | null;
   link: string;
+  categories: string;
 }
 function App() {
   const [likingEvent, setlikingEvent] = useState<LikingEvent[] | null>(null);
+  const [steppersms, setsteppersms] = useState<boolean>(false);
   return (
     <BrowserRouter>
       <Routes>
@@ -40,7 +42,7 @@ function App() {
         </Route>
         <Route
           path="/categories/:type/:subtype/:describe"
-          element={<DescribeCategories />}
+          element={<DescribeCategories setsteppersms={setsteppersms} />}
         />
         <Route path="/service" element={<Service />} />
         <Route
@@ -50,7 +52,12 @@ function App() {
           }
         />
         <Route path="/paiement" element={<Paiement />} />
-        <Route path="/profiluser" element={<ProfilUser />} />
+        <Route
+          path="/profiluser"
+          element={
+            <ProfilUser steppersms={steppersms} setsteppersms={setsteppersms} />
+          }
+        />
       </Routes>
       <Notification />
     </BrowserRouter>

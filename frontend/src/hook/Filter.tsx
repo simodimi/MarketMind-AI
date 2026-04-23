@@ -2,24 +2,27 @@ import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import Button from "../ui/Button";
+import type { Produit } from "../pages/ProfilUser";
 
 interface FilterProps {
   minPrix: number;
   maxPrix: number;
-  onFiltreChange: (filtres: any) => void; //fonction qui ne retourne rien
+  prix: number[];
+  onFiltreChange: (filtres: Produit) => void; //fonction qui ne retourne rien
   meubleCounts?: {
     oui: number;
     non: number;
   };
+  category: string;
   first: React.RefObject<HTMLDivElement | null>;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  category: string;
 }
 
 const Filter: React.FC<FilterProps> = ({
   minPrix,
   maxPrix,
+  prix: initialPrix,
   onFiltreChange,
   meubleCounts = { oui: 0, non: 0 },
   first,
@@ -34,8 +37,8 @@ const Filter: React.FC<FilterProps> = ({
   const [rooms, setRooms] = useState<"1" | "2" | "3" | "4" | "5" | "6" | "all">(
     "all",
   );
+  const [prix, setPrix] = useState<number[]>(initialPrix);
 
-  const [prix, setPrix] = useState<number[]>([minPrix, maxPrix]);
   const handlePrixChange = (_event: Event, newValue: number[]) => {
     setPrix(newValue);
     onFiltreChange({
@@ -43,7 +46,7 @@ const Filter: React.FC<FilterProps> = ({
       order,
       rooms,
       prix: newValue,
-    });
+    } as any);
   };
   const handleMeubleChange = (value: "oui" | "non") => {
     setMeuble(value);
@@ -52,7 +55,7 @@ const Filter: React.FC<FilterProps> = ({
       order,
       rooms,
       prix,
-    });
+    } as any);
   };
 
   const handleRoomsChange = (
@@ -64,7 +67,7 @@ const Filter: React.FC<FilterProps> = ({
       order,
       rooms: value,
       prix,
-    });
+    } as any);
   };
 
   const handleOrderChange = (
@@ -76,7 +79,7 @@ const Filter: React.FC<FilterProps> = ({
       order: value,
       rooms,
       prix,
-    });
+    } as any);
   };
   //exceptions
   const showrooms = category === "Maison";
@@ -84,14 +87,14 @@ const Filter: React.FC<FilterProps> = ({
   const resetfilter = () => {
     setMeuble("all");
     setRooms("all");
-    setPrix([minPrix, maxPrix]);
+    setPrix(initialPrix);
     setOrder("all");
     onFiltreChange({
       meuble: "all",
       order: "all",
       rooms: "all",
-      prix: [minPrix, maxPrix],
-    });
+      prix: initialPrix,
+    } as any);
   };
 
   const valuetext = (value: number) => `${value}€`;
